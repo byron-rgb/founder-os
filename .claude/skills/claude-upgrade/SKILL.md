@@ -47,9 +47,18 @@ These come from Claude's own plugin store. Walk them through it one at a time. I
 - **security-guidance** (from claude-plugins-official): warns about risky code
 - **cloudflare** (from cloudflare/skills): needed in Level 3 to put things live
 
-## One house rule to add
-After installing grilling, add this line to `CLAUDE.md` in the Founder OS folder, under "How you talk":
-`- When grilling, ask one question at a time with clickable options and your recommended answer first.`
+## House rules (Byron's working habits)
+Skills are half of it. The other half is small habits that make Claude easier to work with. These are the ones Byron uses every day. Add each line below to `CLAUDE.md` in the Founder OS folder, under "How you talk", skipping any that are already there. Then tell the founder in one line what each does, and that they can say "add a house rule: ..." any time to add their own.
+
+- `- When grilling, ask one question at a time with clickable options and your recommended answer first.`
+  (A long list of questions at once is hard to answer. One at a time, with buttons, is fast.)
+- `- When mapping out an idea, a plan, a course, a script or a long draft, put it in a Claude Doc beside the chat (if Docs is available), so I can edit and comment on it there. If not, save it in brain/Work/ and open it.`
+  (A plan you can see and mark up beats a wall of text in the chat.)
+- `- Keep replies short: the result first, one point per line, then one question if you need me.`
+- `- If you're not sure what I want, ask before you act. If you are sure, just do it.`
+- `- Show me the result (a screenshot, the page, the file) instead of describing it.`
+
+When Byron adds a new habit to the Founder OS, it lands in this list and reaches founders with **pull the latest Founder OS**.
 
 ## Finish
 - Tick "Upgrade pack installed" in `Progress.md`.

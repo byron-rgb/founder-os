@@ -12,4 +12,5 @@ description: Brings new Founder OS templates, skills and agents into the founder
 3. Bring in the latest from `upstream`. Their files win: never overwrite anything in `brain/`, `Progress.md`, `site/` or `dashboard/` content they changed.
 4. If something clashes, keep their version and list what you skipped.
 5. Always take the latest `LICENSE.md` and licence notices from upstream.
-6. Tell them in two or three lines what's new and which level it belongs to.
+6. Check the House rules list in the `claude-upgrade` skill. If any rule isn't in their `CLAUDE.md` yet, show it and ask before adding it (it's their file).
+7. Tell them in two or three lines what's new and which level it belongs to.
