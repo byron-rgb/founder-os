@@ -33,7 +33,7 @@ Founder OS/
   Progress.md        your tick list, level by level
   levels/            the guide for each level
   brain/             your AI brain (open it in Obsidian)
-  library/           Quick wins, Security, Brand Studio: use at any level
+  library/           Before you start, Quick wins, Security, Brand Studio
   dashboard/         your founder dashboard (Level 3)
   site/              your website starter + templates (Level 3)
   agents/            your agents (Level 4)

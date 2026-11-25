@@ -1,0 +1,28 @@
+# Before you start: setup checklist
+
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md).
+
+About 30 minutes, before your first session. Use your work email, and save every password in your password manager as you go.
+
+## Accounts
+- [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
+- [ ] GitHub, free (github.com). Send your username to Driven Young so you get your private copy.
+- [ ] Cloudflare, free (cloudflare.com). Puts your website live.
+- [ ] A password manager: 1Password, or Apple Passwords on a Mac.
+
+## On your laptop (Mac easiest, Windows works)
+- [ ] Claude desktop app (claude.ai/download), signed in.
+- [ ] Obsidian, free (obsidian.md).
+- [ ] Updates done, charger packed.
+
+## Your business tools
+Check you can log in as owner or admin: email and calendar, accounting (Xero, QuickBooks, MYOB), CRM if you have one, and any app you use every week (bookings, jobs, shop, payroll).
+
+## Bring
+- [ ] Price list or menu of services
+- [ ] A proposal, quote or brochure you've sent
+- [ ] Logo and brand colours, if you have them
+- [ ] Your top three goals for the next 12 months
+- [ ] Your phone, for sign-in codes
+
+Never share passwords, bank or card numbers or your tax file number with anyone, Claude included.

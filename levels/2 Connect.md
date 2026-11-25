@@ -32,10 +32,6 @@ Many tools publish their own connector link. Some tools only connect through a b
 | Tasks + notes | Roma | Notion |
 | Selling online | Shopify | |
 
- CRM, forms, follow-ups | GoHighLevel | HubSpot, Attio |
-| Accounts | Xero | MYOB, QuickBooks |
-| Tasks + notes | Roma | Notion |
-| Selling online | Shopify | |
 
 ## 3. Make your own
 Ask: **who haven't I replied to this week, and when am I free to call them?**
