@@ -20,7 +20,7 @@ How `dashboard-template.html` is put together, so Claude can build any page a bu
 }
 ```
 
-- **sources**: one entry per tool call. `server` is the connector's display name exactly as it shows in the session. `adapter` names a function in `ADAPTERS` that turns the tool's answer into plain data. Inputs can use `{from}` and `{to}` (follow the period picked at the top of the page), `{today}`, `{monthStart}`, `{now}`, `{in7days}`, `{yearAgo}`. A source with an empty `server` shows "Not connected yet".
+- **sources**: one entry per tool call. `server` is the connector's display name exactly as it shows in the session. `adapter` names a function in `ADAPTERS` that turns the tool's answer into plain data. Inputs can use `{from}` and `{to}` (follow the period picked at the top of the page), `{today}`, `{monthStart}`, `{now}`, `{in7days}`, `{yearAgo}`, and `{prevFrom}`/`{prevTo}` (the same stretch of the period before, for "% on last period"). A source with an empty `server` shows "Not connected yet".
 - **pages**: one page per section. They show in the sidebar in this order. `group` puts a small heading above a run of pages (Business, Growth, Running, Team...). `icon` is a Phosphor icon name from the list below.
 - **blocks**: what's on the page, top to bottom. Every block takes `title`, an optional `note` (small grey text on the right of the title), `width` (12 full, 8, 6 or 4; stacks on phones) and `empty` (what to say when there's nothing).
 
@@ -43,21 +43,24 @@ Blocks read data by **path**: `"pnl.income"` means source `pnl`, then the `incom
 | `goals` | CONFIG `goals` | Goal cards. Each goal: `title`, `target` (one line), `status` (`on_track`, `behind`, `done`, `not_started`), optional `current` + `goal` numbers for a progress bar, `money: true` for dollars. |
 | `text` | `text` | A short note. |
 
-Formats: `money`, `number`, `percent`, `ratio` (6.7x). Text values show as they are.
+Formats: `money`, `number`, `percent` (give 0 to 100, not 0 to 1), `ratio` (6.7x). Text values show as they are.
 
 ## Adapters
 
 One function per tool, in `ADAPTERS`. It gets the tool's answer (`payload`) and returns an object with the fields the blocks read. Rules:
 
 - Write it from ONE real, read-only call made in the founder's session with a small limit. Learn the shape only; never copy their names or numbers into the page.
+- **Throw** if the answer isn't the shape you expect (the list or field is missing). The block then says "answered in a way this block doesn't understand" instead of showing zeros.
+- Lists from tools usually stop at 100. For a count, ask for 1 result and read the tool's total.
+- Big areas (jobs, bookings, orders): write one shared helper like `shapeDeals` that turns a list into everything the page reads, and point every adapter for that area at it.
 - Return numbers as numbers. Do the maths in the adapter (totals, % change, grouping by month), not in the blocks.
 - CRMs: build a list of deals `{name, stage, value, updated, late}` and pass it to `shapeDeals(deals, wonValue)`; it returns everything the Sales page reads.
 - Mark each adapter in a comment: "Checked <date>" or "NOT yet checked".
-- Already checked: `xeroCash`, `xeroPnl` (totals only), `googleCalendar`. Not yet checked: `xeroReceivables`, `xeroPayables`, `ghlOpportunities`, the monthly and category parts of `xeroPnl`.
+- Already checked: `xeroCash`, `xeroPnl` (totals, last period, categories, marketing), `googleCalendar`, `ghlOpportunities`/`ghlWon`/`ghlCount` (answer shape). Not yet checked: `xeroReceivables`, `xeroPayables`, GHL date filters. Money in and out by month needs one P&L call per month (six sources, or a worked-out source over them).
 
 ## Worked-out numbers
 
-`DERIVE.unitEconomics` gives `ltv`, `cac`, `ratio`, `newCustomers` and the small text under each. Same maths as the Driven Young dashboard: LTV = 12 months' income ÷ customers who paid, CAC = marketing spend ÷ new customers. The `customers` source must return `{active, newThisPeriod}`; `spend` must return `total` for the period.
+`DERIVE.unitEconomics` gives `ltv`, `cac`, `ratio`, `newCustomers` and the small text under each. Same maths as the Driven Young dashboard: LTV = 12 months' income ÷ customers who paid, CAC = marketing spend ÷ new customers. `from` points at `pnl12.income`, `customers.count`, `won.count` and `pnl.marketing` by default.
 
 ## Demo data
 

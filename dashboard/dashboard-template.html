@@ -93,6 +93,7 @@
   td.r,th.r{padding-right:0;padding-left:10px}
   tr.total td{font-weight:650;border-top:1.5px solid color-mix(in srgb,var(--text) 25%,transparent)}
   .scroll{overflow-x:auto;margin:0 -2px;padding:0 2px}
+  .scroll td:first-child{white-space:nowrap}.warnbox.top{margin-bottom:16px}
   .dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:8px;vertical-align:0}
 
   .bars{display:flex;flex-direction:column;gap:13px}
@@ -181,13 +182,14 @@
   "periods": ["month", "quarter", "year"],
   "sources": {
     "cash":     { "server": "Xero", "tool": "get_cash_position", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroCash" },
-    "pnl":      { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{from}", "end_date": "{to}" }, "adapter": "xeroPnl" },
+    "pnl":      { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{from}", "end_date": "{to}", "comparison_start_date": "{prevFrom}", "comparison_end_date": "{prevTo}" }, "adapter": "xeroPnl" },
     "owed":     { "server": "Xero", "tool": "get_aged_receivables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroReceivables" },
     "bills":    { "server": "Xero", "tool": "get_aged_payables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroPayables" },
-    "deals":    { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "locationId": "LOCATION_ID", "query_status": "open", "query_limit": 100 }, "adapter": "ghlOpportunities" },
+    "deals":    { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "query_status": "open", "query_limit": 100 }, "adapter": "ghlOpportunities" },
+    "won":      { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "query_status": "won", "query_limit": 100, "query_date": "{from}", "query_endDate": "{to}" }, "adapter": "ghlWon" },
     "pnl12":    { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{yearAgo}", "end_date": "{today}" }, "adapter": "xeroPnl" },
-    "customers": { "server": "", "tool": "", "input": {}, "adapter": "" },
-    "unit":     { "derive": "unitEconomics", "from": { "revenue": "pnl12.income", "customers": "customers.active", "newCustomers": "customers.newThisPeriod", "marketing": "spend.total" } },
+    "customers": { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "query_status": "won", "query_limit": 1, "query_date": "{yearAgo}", "query_endDate": "{today}" }, "adapter": "ghlCount" },
+    "unit":     { "derive": "unitEconomics", "from": { "revenue": "pnl12.income", "customers": "customers.count", "newCustomers": "won.count", "marketing": "pnl.marketing" } },
     "funnel":   { "server": "", "tool": "", "input": {}, "adapter": "" },
     "spend":    { "server": "", "tool": "", "input": {}, "adapter": "" },
     "calendar": { "server": "Google Calendar", "tool": "list_events", "input": { "pageSize": 50, "orderBy": "startTime", "startTime": "{now}", "endTime": "{in7days}" }, "adapter": "googleCalendar" }
@@ -226,7 +228,7 @@
           { "label": "Open deals", "value": "deals.open", "format": "number" },
           { "label": "In the pipeline", "value": "deals.value", "format": "money" },
           { "label": "Need a follow-up", "value": "deals.followUpCount", "format": "number", "tone": "accent" },
-          { "label": "Won this period", "value": "deals.won", "format": "money" } ] },
+          { "label": "Won this period", "value": "won.value", "format": "money", "sub": "won.countText" } ] },
         { "type": "bars", "title": "Pipeline by stage", "data": "deals.byStage", "format": "money", "width": 6 },
         { "type": "list", "title": "Follow up", "data": "deals.followUps", "width": 6, "empty": "Everyone is up to date." },
         { "type": "table", "title": "All open deals", "data": "deals.table", "width": 12 } ] },
@@ -267,33 +269,43 @@
 const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
 const ADAPTERS = {
   // Xero get_cash_position. Checked 25 Nov 2026: amount_owed = owed to you, amount_due = you owe.
-  xeroCash(p) { const b = num(p?.cash_balance), o = num(p?.amount_owed), d = num(p?.amount_due); return { balance: b, owedToYou: o, youOwe: d, real: b + o - d }; },
-  // Xero get_profit_and_loss for the chosen period. Checked 25 Nov 2026 (current_pnl totals). Monthly and category parts: check on first build.
+  xeroCash(p) { if (p?.cash_balance === undefined) throw new Error('shape'); const b = num(p?.cash_balance), o = num(p?.amount_owed), d = num(p?.amount_due); return { balance: b, owedToYou: o, youOwe: d, real: b + o - d }; },
+  // Xero get_profit_and_loss for the chosen period. Checked 26 Nov 2026: current_pnl, comparison_pnl, expense_accounts.all_accounts[{account_name, current_balance}]. Money in and out by month needs one call per month: not filled here.
   xeroPnl(p) {
-    const c = p?.current_pnl || {}, prev = p?.previous_pnl || p?.comparison_pnl || null;
+    if (!p?.current_pnl) throw new Error('shape');
+    const c = p.current_pnl, prev = p?.previous_pnl || p?.comparison_pnl || null;
     const income = num(c.total_income) + num(c.total_other_income), spend = num(c.total_expenses) + num(c.total_cost_of_sales);
     const pIncome = prev ? num(prev.total_income) + num(prev.total_other_income) : null, pSpend = prev ? num(prev.total_expenses) + num(prev.total_cost_of_sales) : null;
     const pct = (a, b) => (b ? Math.round((a - b) / Math.abs(b) * 100) : null);
+    const cats = (p.expense_accounts?.all_accounts || []).map((a) => ({ label: a.account_name || 'Other', value: num(a.current_balance) })).filter((a) => a.value > 0).sort((a, b) => b.value - a.value);
     return { income, spend, profit: income - spend, marginText: income ? `${Math.round((income - spend) / income * 100)}% margin` : '',
-      incomeChange: pIncome == null ? null : pct(income, pIncome), spendChange: pSpend == null ? null : pct(spend, pSpend), byMonth: null, byCategory: null };
+      incomeChange: pIncome == null ? null : pct(income, pIncome), spendChange: pSpend == null ? null : pct(spend, pSpend), byMonth: null,
+      byCategory: cats, marketing: cats.filter((a) => /advertis|marketing|promotion/i.test(a.label)).reduce((s, a) => s + a.value, 0) };
   },
   // Xero aged receivables / payables. NOT yet checked: check field names on first build.
   xeroReceivables(p) { const rows = p?.contacts || p?.items || []; const items = rows.map((r) => ({ title: r.contact_name || r.name || 'Unnamed', sub: r.due_date ? `due ${r.due_date}` : '', value: num(r.total ?? r.amount_due ?? r.amount) })); return { items, total: items.reduce((s, i) => s + i.value, 0) }; },
   xeroPayables(p) { return ADAPTERS.xeroReceivables(p); },
-  // GoHighLevel opportunities search. NOT yet checked against a live answer: check it on first build.
+  // GoHighLevel opportunities search. Checked 26 Nov 2026: the answer is {data: {opportunities, meta: {total}}}. Date filters (query_date, query_endDate): check on first build.
   ghlOpportunities(p) {
-    const list = Array.isArray(p?.opportunities) ? p.opportunities : [];
+    const list = ghlList(p);
     const week = Date.now() - 7 * 864e5;
     const deals = list.map((o) => { const updated = Date.parse(o.lastStatusChangeAt || o.updatedAt || o.createdAt || '') || null;
       return { name: o.contact?.name || o.name || 'Unnamed', stage: o.pipelineStageName || o.stageName || 'No stage', value: num(o.monetaryValue), updated, late: !!updated && updated < week }; });
     return shapeDeals(deals);
   },
+  // Won deals this period: how many and how much.
+  ghlWon(p) { const list = ghlList(p), count = num(p?.data?.meta?.total ?? p?.meta?.total ?? list.length);
+    return { count, value: list.reduce((s, o) => s + num(o.monetaryValue), 0), countText: `${count} deal${count === 1 ? '' : 's'} won` }; },
+  // Just the count (ask for 1 result and read meta.total). Used for customers in the last 12 months.
+  ghlCount(p) { ghlList(p); return { count: num(p?.data?.meta?.total ?? p?.meta?.total) }; },
   // Google Calendar list_events. Checked 25 Nov 2026.
   googleCalendar(p) {
-    const ev = Array.isArray(p?.events) ? p.events : [];
+    const ev = Array.isArray(p?.events) ? p.events : Array.isArray(p?.items) ? p.items : null; if (!ev) throw new Error('shape');
     return { events: ev.filter((e) => e.status !== 'cancelled').map((e) => ({ title: e.summary || 'Busy', start: e.start?.dateTime || e.start?.date, end: e.end?.dateTime || e.end?.date, allDay: !e.start?.dateTime })), tasks: [] };
   },
 };
+// GHL answers come as {data: {opportunities}} (or without data). Anything else is a shape this page doesn't know.
+function ghlList(p) { const l = p?.data?.opportunities ?? p?.opportunities; if (!Array.isArray(l)) throw new Error('shape'); return l; }
 // Shared by CRM adapters: one list of deals in, everything the Sales page reads out.
 function shapeDeals(deals, won = 0) {
   const ago = (ms) => { const d = Math.round((Date.now() - ms) / 864e5); return d <= 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`; };
@@ -312,8 +324,10 @@ function shapeDeals(deals, won = 0) {
 /* DERIVE: numbers worked out from other sources (see BLOCKS.md). Each gets {name: value} from the paths in its "from". */
 const DERIVE = {
   // Same maths as the Driven Young dashboard: LTV = revenue per customer, CAC = marketing spend per new customer, healthy LTV:CAC is 3 or more.
-  unitEconomics({ revenue, customers, newCustomers, marketing }) {
-    const ltv = customers > 0 ? revenue / customers : null, cac = newCustomers > 0 && marketing > 0 ? marketing / newCustomers : null;
+  unitEconomics(raw) {
+    const n = (x) => { if (x == null || x === '') return null; const v = Number(String(x).replace(/[$,\s]/g, '')); return Number.isFinite(v) ? v : null; };
+    const revenue = n(raw.revenue), customers = n(raw.customers), newCustomers = n(raw.newCustomers), marketing = n(raw.marketing);
+    const ltv = customers > 0 && revenue != null ? revenue / customers : null, cac = newCustomers > 0 && marketing > 0 ? marketing / newCustomers : null;
     const ratio = ltv != null && cac ? ltv / cac : null;
     return { ltv, cac, ratio, newCustomers: newCustomers ?? null,
       cacText: cac == null ? (marketing > 0 ? 'No new customers this period' : 'Needs marketing spend') : 'Spend per new customer',
@@ -328,7 +342,7 @@ const DEMO = () => {
   const D = 864e5, now = Date.now();
   return {
     cash: { balance: 31450, owedToYou: 6400, youOwe: 2150, real: 35700 },
-    pnl: { income: 18720, spend: 9310, profit: 9410, marginText: '50% margin', incomeChange: 12, spendChange: 4,
+    pnl: { income: 18720, spend: 9310, profit: 9410, marginText: '50% margin', incomeChange: 12, spendChange: 4, marketing: 1890,
       byMonth: { labels: months, series: [{ name: 'Money in', values: [14200, 16900, 13100, 19800, 21400, 18720] }, { name: 'Money out', values: [9800, 10400, 8900, 11200, 12100, 9310] }] },
       byCategory: [{ label: 'Wages', value: 4200 }, { label: 'Materials', value: 2350 }, { label: 'Marketing', value: 1480 }, { label: 'Software', value: 690 }, { label: 'Rent', value: 590 }] },
     owed: { total: 6400, items: [{ title: 'Northside Physio', sub: 'Invoice 1042 · due 2 Dec', value: 3200 }, { title: 'Harbour Dental', sub: 'Invoice 1039 · 6 days late', value: 2400, tag: 'Late', tone: 'bad' }, { title: 'Mia Tran', sub: 'Invoice 1045 · due 9 Dec', value: 800 }] },
@@ -341,7 +355,8 @@ const DEMO = () => {
       { name: 'Mia Tran', stage: 'Call booked', value: 3800, updated: now - 2 * D, late: false },
       { name: 'Sam and Lou Becker', stage: 'New enquiry', value: 0, updated: now - D, late: false }], 14500),
     pnl12: { income: 226400, spend: 131900, profit: 94500 },
-    customers: { active: 71, newThisPeriod: 4 },
+    customers: { count: 71 },
+    won: { count: 4, value: 14500, countText: '4 deals won' },
     funnel: { steps: [{ label: 'Leads', value: 412, cost: 18 }, { label: 'Calls booked', value: 96, cost: 77 }, { label: 'Showed', value: 71, cost: 104 }, { label: 'Proposals', value: 38, cost: 195 }, { label: 'Won', value: 14, cost: 529 }],
       summary: [{ label: 'Ad spend', value: 7400, format: 'money' }, { label: 'Cost per lead', value: 18, format: 'money' }, { label: 'Cost per client', value: 529, format: 'money' }, { label: 'Return on ad spend', value: '4.1x' }, { label: 'Show rate', value: '74%' }] },
     spend: { total: 1890, byMonth: { labels: months, series: [{ name: 'Meta ads', values: [980, 1150, 860, 1320, 1610, 1210] }, { name: 'Google ads', values: [420, 460, 380, 510, 590, 450] }, { name: 'Tools', values: [190, 190, 210, 210, 230, 230] }] } },
@@ -385,7 +400,8 @@ $('demoTag').hidden = !CFG.demo;
 
 // Periods: {from} and {to} in a source's input follow the period picked at the top
 const PERIODS = { month: 'This month', quarter: 'This quarter', year: 'This year', '30d': '30 days', '90d': '90 days' };
-let period = localStorage.getItem('dash-period') || (CFG.periods || ['month'])[0];
+const saved = (() => { try { return localStorage.getItem('dash-period'); } catch { return null; } })();
+let period = (CFG.periods || []).includes(saved) ? saved : (CFG.periods || ['month'])[0];
 const range = () => {
   const n = new Date(); let from;
   if (period === 'quarter') from = new Date(n.getFullYear(), Math.floor(n.getMonth() / 3) * 3, 1);
@@ -393,14 +409,20 @@ const range = () => {
   else if (period === '30d') from = new Date(n.getTime() - 30 * 864e5);
   else if (period === '90d') from = new Date(n.getTime() - 90 * 864e5);
   else from = new Date(n.getFullYear(), n.getMonth(), 1);
-  return { '{from}': ymd(from), '{to}': ymd(n), '{today}': ymd(n), '{monthStart}': ymd(new Date(n.getFullYear(), n.getMonth(), 1)), '{now}': local(n), '{in7days}': local(new Date(n.getTime() + 7 * 864e5)), '{yearAgo}': ymd(new Date(n.getFullYear() - 1, n.getMonth(), n.getDate() + 1)) };
+  return { '{from}': ymd(from), '{to}': ymd(n), '{today}': ymd(n), '{monthStart}': ymd(new Date(n.getFullYear(), n.getMonth(), 1)), '{now}': local(n), '{in7days}': local(new Date(n.getTime() + 7 * 864e5)), '{yearAgo}': ymd(new Date(n.getFullYear() - 1, n.getMonth(), n.getDate() + 1)), ...prev(from, n) };
 };
+// The same stretch of the period before, for "% on last period": {prevFrom} to {prevTo}
+function prev(from, n) {
+  const back = (d) => { const x = new Date(d); if (period === 'quarter') x.setMonth(x.getMonth() - 3); else if (period === 'year') x.setFullYear(x.getFullYear() - 1); else if (period === '30d') x.setDate(x.getDate() - 30); else if (period === '90d') x.setDate(x.getDate() - 90); else x.setMonth(x.getMonth() - 1); return x; };
+  const end = back(n), dayBefore = new Date(from.getFullYear(), from.getMonth(), from.getDate() - 1);
+  return { '{prevFrom}': ymd(back(from)), '{prevTo}': ymd(end < dayBefore ? end : dayBefore) };
+}
 const fill = (v, F) => typeof v === 'string' ? (F[v] ?? v) : Array.isArray(v) ? v.map((x) => fill(x, F)) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x, F)])) : v;
 function drawPeriods() {
   const seg = $('periods'); seg.replaceChildren(); const list = CFG.periods || [];
   seg.hidden = list.length < 2;
   for (const p of list) { const b = el('button', p === period ? 'on' : null, PERIODS[p] || p); b.type = 'button';
-    b.addEventListener('click', () => { period = p; localStorage.setItem('dash-period', p); drawPeriods(); show(); }); seg.append(b); }
+    b.addEventListener('click', () => { period = p; try { localStorage.setItem('dash-period', p); } catch { /* private mode */ } drawPeriods(); show(); }); seg.append(b); }
 }
 
 // Navigation: one page per section, grouped like a sidebar
@@ -487,7 +509,7 @@ const BLOCKS = {
     const wrap = el('div', 'stats');
     for (const it of b.items || []) {
       const v = get(it.value), s = el('div', 'stat'), l = el('div', 'l'); if (it.icon) l.append(icon(it.icon)); l.append(el('span', null, it.label));
-      const val = el('div', `v ${tone(it, v)}`, v === undefined ? '…' : fmt(v, it.format));
+      const val = el('div', `v ${tone(it, v)}`, v === undefined ? (store[keyOf(it.value)]?.err ? '–' : '…') : fmt(v, it.format));
       let sub = '';
       const ch = get(it.change);
       if (Number.isFinite(ch)) { const good = it.invert ? ch <= 0 : ch >= 0; sub = el('div', `s ${good ? 'up' : 'down'}`, `${ch >= 0 ? '+' : ''}${ch}% on last period`); }
@@ -567,7 +589,7 @@ const BLOCKS = {
       const total = series.length > 1 ? ['Total', ...d.labels.map((_, i) => series.reduce((a, s) => a + num(s.values[i]), 0))] : null;
       const tb = { columns: cols, rows, total, colors: series.map((_, i) => PALETTE[i % PALETTE.length]) };
       const holder = el('div'); holder.style.marginTop = '18px'; const fake = '__chart'; store[fake] = { data: tb };
-      BLOCKS.table({ data: fake }, holder); const inner = holder.querySelector('.scroll'); if (inner) c.append(inner); delete store[fake];
+      BLOCKS.table({ data: fake }, holder); const inner = holder.querySelector('.scroll'); if (inner) { inner.style.marginTop = '18px'; c.append(inner); } delete store[fake];
     }
     box.append(c);
   },
@@ -604,6 +626,8 @@ const PATHS = { stats: (b) => (b.items || []).flatMap((i) => [i.value, i.change,
 const blockKeys = (b) => [...new Set((PATHS[b.type] ? PATHS[b.type](b) : [b.data]).filter((p) => typeof p === 'string' && keyOf(p) in (CFG.sources || {})).map(keyOf))];
 
 // Show a page
+// One note at the top when the page is opened outside Claude, instead of one per block
+function banner() { const host = $('page'); if (host.querySelector('.warnbox.top')) return; const b = el('div', 'warnbox top', 'Open this dashboard in Claude to see your live numbers.'); host.prepend(b); }
 function show() {
   const id = (location.hash.replace(/^#\/?/, '') || PAGES[0]?.id || '').split('?')[0];
   const page = PAGES.find((p) => p.id === id) || PAGES[0]; if (!page) return;
@@ -620,8 +644,11 @@ function show() {
       slot.replaceChildren();
       const pending = ks.filter((k) => !store[k]);
       if (pending.length && b.type !== 'stats') { const c = card(b); for (const w of [60, 90, 72]) { const s = el('div', 'skel'); s.style.width = w + '%'; c.append(s); } slot.append(c); return; }
-      BLOCKS[b.type](b, slot);
-      const target = slot.querySelector('.card') || slot; for (const k of ks) { const p = problem(k); if (p) target.append(p); }
+      const broken = ks.filter((k) => store[k]?.err);
+      if (broken.length && b.type !== 'stats') { const c = card(b); slot.append(c); if (broken.every((k) => store[k].err.code === 'no_claude')) c.append(el('p', 'empty', '–')); }
+      else BLOCKS[b.type](b, slot);
+      const target = slot.querySelector('.card') || slot, said = new Set();
+      for (const k of broken) { if (store[k].err.code === 'no_claude') { banner(); continue; } const p = problem(k); if (p && !said.has(p.textContent)) { said.add(p.textContent); target.append(p); } }
     };
     need(ks, draw); draw();
   }

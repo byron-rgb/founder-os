@@ -13,22 +13,25 @@ Files:
 - `dashboard/dashboard-template.html`: the white-label template (open it in a browser to see it with example data).
 - `dashboard/BLOCKS.md`: how pages, blocks, sources and adapters work. Read it before building.
 - `dashboard/PAGES.md`: the page library to offer.
-- Their copy: `dashboard/my-dashboard.html`. Their map: `brain/Work/Dashboard/Dashboard map.md`.
+- Their copy: `dashboard/my-dashboard.html`. Their map: `brain/Work/Dashboard/Dashboard map.md` (always; a Claude Doc is optional on top, see step 2).
+- From the brain: `brain/CLAUDE.md`, `brain/4 Operations/Tools.md` (which tools they use), `brain/6 Finance/Key Numbers.md`, `brain/7 Goals/Goals.md`.
 
 **Say this first (one line):** "Your dashboard is a private page in your own Claude account. It only reads your tools, it can't change or send anything, and you can switch any tool off in the page's permissions."
 
 ## 1. Ask what they want to track
 
-Read `brain/CLAUDE.md` first so the questions fit their business. Find out yourself which tools are connected in this session (and which tools the brain says they use); never ask the founder for a fact you can check.
+Read `brain/CLAUDE.md` and `brain/4 Operations/Tools.md` first so the questions fit their business. Find out yourself which tools are connected in this session; never ask the founder for a fact you can check.
 
 Ask **one question at a time**, with clickable options (use the question tool where there is one; otherwise short numbered options they can reply to with a number). Put your recommendation first. Wait for each answer.
+
+Overview and Goals are always in; don't ask about them.
 
 1. **Which areas?** Multi-select from `PAGES.md`, with the ones that fit their business ticked first (a trade: Finance, Sales, Jobs, Operations; a clinic: Finance, Bookings, Marketing, Team; a shop: Finance, Shop, Marketing).
 2. **Per area, which tool?** One question per area, single choice, skipping any the brain already answers. Put the most likely first:
    - Accounting: Xero (first), QuickBooks, MYOB, something else, none.
    - Sales and customers: GoHighLevel, HubSpot, Pipedrive, a spreadsheet, none.
    - Ads: Meta, Google, both, none. Bookings, shop, calendar: same idea, from `PAGES.md`.
-3. **Per area, what matters?** One question per area, multi-select from that page's list in `PAGES.md`, plus "something else". Keep it to what they would act on. For Finance, offer **LTV, CAC and LTV:CAC** (ticked by default, see below).
+3. **Per area, what matters?** One question per area, multi-select from that page's list in `PAGES.md`, plus "something else". Keep it to what they would act on. For Finance, offer **LTV, CAC and LTV:CAC** (ticked by default, see below). If they keep it and it isn't obvious from the brain, ask one more: **where do you count customers?** (CRM won deals first, accounting invoices, job app.)
 4. **The four numbers on the front page.** Pick from what they chose above.
 5. **Look.** Their brand from `brain/3 Marketing/Brand/design-system.json` (offer light or dark), or the clean default.
 
@@ -39,7 +42,10 @@ Built into the Finance page, worked out the same way as the Driven Young dashboa
 - **CAC** = marketing spend this period ÷ new customers this period.
 - **LTV:CAC** = LTV ÷ CAC. Green at 3 or more.
 
-It needs four numbers: 12 months of income (accounting), customers who paid and new customers (CRM won deals, or accounting invoices: count each customer once), and marketing spend (ads, or the accounting marketing category). Ask which tool holds their customer count if it isn't obvious. Xero's top customers report only lists the top few, so don't count customers from it.
+It needs four numbers, set in the `unit` source's `from`:
+- 12 months of income: `pnl12.income` (accounting).
+- Customers who paid in 12 months, and new customers this period: a **count** from the tool, not a list (lists stop at 100). The template asks GHL for 1 won deal and reads its total (`ghlCount`, `ghlWon`). For other tools, find the call that returns a total; if none does, say so and leave it "Not connected yet". Don't count from Xero's top customers report (top few only).
+- Marketing spend this period: `pnl.marketing` (accounting accounts named advertising or marketing) by default. If their ads tools are connected and their accounting lags, use the ads spend total instead, covering every channel.
 
 ### Connect what's missing (one tap each)
 
@@ -54,7 +60,7 @@ If a connector stops working later, the dashboard says so on the block. Show the
 
 ## 2. Map it with them
 
-Write the map before building. Put it in a Claude Doc if that tool is available in this session (they can comment beside the chat); otherwise in `brain/Work/Dashboard/Dashboard map.md` and open it for them. One section per page:
+Write the map before building, always to `brain/Work/Dashboard/Dashboard map.md`, and open it for them. If Claude Docs is available in this session, also put it in a Doc so they can comment beside the chat, and copy their changes back to the file. The file is the one you update later. One section per page:
 
 ```
 ## Finance (Business)
@@ -69,6 +75,8 @@ Then: "Anything to add, move or drop?" Change it until they say it's right. Keep
 ## 3. Build it
 
 1. Copy `dashboard/dashboard-template.html` to `dashboard/my-dashboard.html` (or open their existing copy when updating).
+   - IDs: Xero's `organisation_id` comes from `get_connected_organisations` (if there's more than one, ask which). GHL needs none (the connector knows the location). Other tools: look for a "list accounts" or "who am I" call.
+   - `server` is the connector's name as it shows in their Claude Connectors list (for example "Xero", "Google Calendar"), not the code name in a tool's id. If a block later says the tool isn't connected though it is, the name is wrong.
 2. For every tool the map uses:
    - read its input schema in this session;
    - make ONE read-only call with a small limit to learn the shape of the answer (never a tool that creates, sends or changes anything);
@@ -80,8 +88,8 @@ Then: "Anything to add, move or drop?" Change it until they say it's right. Keep
    - `pages`: from the map, in its order, built from the blocks in `BLOCKS.md`. Start each page from the matching built-in page where there is one.
    - `unit` (LTV, CAC): point its `from` paths at their sources (see `BLOCKS.md`, worked-out sources). Drop the LTV row only if they said no to it.
    - `goals` from the brain's goals note (ask if there are none).
-   - `demo`: `false`.
-4. Open it in a browser first and check every page at desktop and phone width.
+4. Check the layout in a browser at desktop and phone width with `demo` still `true` (and DEMO data shaped like their pages, made-up names only). Outside Claude, live mode only shows "Open this dashboard in Claude".
+5. Then set `demo` to `false`. Live numbers are checked in step 4 below, inside Claude.
 
 ## 4. Put it in their Claude
 
@@ -89,14 +97,14 @@ Publish `dashboard/my-dashboard.html` with the Artifact tool. Declare only the t
 
 On first open Claude asks them to allow each tool once. Then go through every page with them: numbers look right, nothing says it couldn't load. Fix an adapter if a block is empty or wrong, publish again with the same file.
 
-Tick "Dashboard live, at least one page on real data" in `Progress.md`. Log it in `brain/AI Log.md`. Tell them: "Open it from your Claude artifacts any time. Say **add a page to my dashboard** whenever you want to track something new."
+Tick "Dashboard live, at least one module on real data" in `Progress.md`. Log it in `brain/AI Log.md`. Tell them: "Open it from your Claude artifacts any time. Say **add a page to my dashboard** whenever you want to track something new."
 
 If the page says "Open this dashboard in Claude" or shows no live numbers inside Claude, their Claude app may be out of date: ask them to update it and open the page again.
 
 ## Change it later
 
 - **"Add a page" / "track X":** steps 1 to 3 for just that page (ask what it should show, one question at a time; add it to the map), then publish again with the same file. Add any new tool to `capabilities`.
-- **Move, rename or drop a page or block:** change `pages`, update the map, publish again.
+- **Move, rename or drop a page or block:** change `pages`, update `brain/Work/Dashboard/Dashboard map.md`, publish again.
 - **New tool** (they moved CRM, added a booking app): show its Connect button first, then a new source and adapter, point the blocks at it, publish with the tool added to `capabilities`.
 - **Goals:** update `goals` from the brain, publish again.
 

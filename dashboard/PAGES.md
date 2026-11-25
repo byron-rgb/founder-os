@@ -50,7 +50,7 @@ Usually from: Shopify, Square.
 
 ## Running
 
-**Operations** (built in). The week ahead from the calendar, tasks due.
+**Operations** (built in). The week ahead from the calendar. Tasks due only when their task app is connected (add a source for it; the calendar has none).
 Usually from: Google Calendar or Outlook, the task app.
 
 **Team.** Hours this week, wages against revenue, who's on, leave coming up.
