@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dashboard</title>
+<!--
+  Founder OS: business dashboard template (Level 3). Driven Young Founder OS, licensed to one business (see LICENSE.md).
+  White label: the founder's name, colours and pages all come from CONFIG. A page saved in the founder's own Claude
+  account; it reads their connected tools with THEIR permissions each time it opens. No keys, no hosting.
+
+  How it is built (for Claude, see dashboard/BLOCKS.md):
+    CONFIG.pages   one page per section (Finance, Sales, Marketing...), each a list of blocks.
+    CONFIG.sources one entry per tool call. An ADAPTER turns the tool's answer into plain data.
+    A block reads that data by path, e.g. "cash.balance" or "pnl.byMonth".
+  Only the sources the open page needs are read, so a dashboard can have as many pages as the business needs.
+-->
+<style>
+  :root{--bg:#F7F7F5;--panel:#FFFFFF;--text:#17191E;--muted:#6B6F76;--accent:#2F5BEA;--line:#E6E6E2;
+    --good:#1F9D55;--bad:#D64545;--warn:#B7791F;--r:10px;
+    --head:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--body:var(--head)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14.5px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+  svg.i{width:16px;height:16px;flex:none}
+  .shell{display:flex;min-height:100vh}
+  .soft{background:color-mix(in srgb,var(--accent) 9%,transparent)}
+
+  aside{width:228px;flex:none;border-right:1px solid var(--line);position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:var(--panel)}
+  .brand{display:flex;align-items:center;gap:11px;padding:18px 18px 20px;color:inherit;text-decoration:none}
+  .mark{width:30px;height:30px;border-radius:8px;background:var(--text);color:var(--panel);display:grid;place-items:center;font:700 14px var(--head);overflow:hidden}
+  .mark img{width:100%;height:100%;object-fit:cover}
+  .brand b{display:block;font:650 14.5px/1.2 var(--head)}
+  .brand small{font-size:12px;color:var(--muted)}
+  nav{padding:0 10px 20px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+  .grp{font-size:11px;font-weight:600;color:var(--muted);padding:16px 10px 6px;letter-spacing:.02em}
+  nav a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;color:var(--muted);text-decoration:none;font-size:14px}
+  nav a:hover{background:color-mix(in srgb,var(--text) 5%,transparent);color:var(--text)}
+  nav a.on{background:color-mix(in srgb,var(--text) 7%,transparent);color:var(--text);font-weight:600}
+  nav a.on svg{color:var(--accent)}
+  .side-foot{margin-top:auto;padding:14px 18px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+
+  .main{flex:1;min-width:0;display:flex;flex-direction:column}
+  .top{position:sticky;top:0;z-index:5;min-height:60px;display:flex;align-items:center;gap:10px;padding:10px 32px;border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);flex-wrap:wrap}
+  .top h1{font:650 18px var(--head);margin:0;flex:1;min-width:140px}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;padding:2px;background:var(--panel)}
+  .seg button{border:0;padding:5px 11px;font-size:13px;font-weight:500;color:var(--muted);border-radius:6px}
+  .seg button.on{background:var(--text);color:var(--panel)}
+  button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:7px 12px;font-weight:550;font-size:13.5px;display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+  button:hover{border-color:color-mix(in srgb,var(--text) 22%,transparent)}
+  button:active{transform:translateY(1px)}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .demo{font-size:12px;font-weight:600;color:var(--warn);background:color-mix(in srgb,var(--warn) 10%,transparent);border-radius:99px;padding:3px 10px}
+  .tabs{display:none}
+  .content{padding:28px 32px 64px;max-width:1240px;width:100%;margin:0 auto}
+  .intro{color:var(--muted);margin:-6px 0 22px;font-size:14px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(12,minmax(0,1fr))}
+  .w-12{grid-column:span 12}.w-8{grid-column:span 8}.w-6{grid-column:span 6}.w-4{grid-column:span 4}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;min-width:0}
+  .card-h{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+  .card-h h2{font:600 14px var(--head);margin:0}
+  .card-h .note{margin-left:auto;font-size:12px;color:var(--muted)}
+  .stats{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;min-width:0}
+  .stat .l{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+  .stat .v{font:650 25px/1.2 var(--head);margin-top:6px;letter-spacing:-.015em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-variant-numeric:tabular-nums}
+  .stat .s{font-size:12.5px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .up{color:var(--good)!important}.down{color:var(--bad)!important}.acc{color:var(--accent)!important}
+
+  .kv{display:flex;flex-direction:column}
+  .kv div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+  .kv div:first-child{border-top:0;padding-top:0}
+  .kv b{font-weight:600;font-variant-numeric:tabular-nums}
+
+  .list{display:flex;flex-direction:column}
+  .li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line);min-width:0}
+  .li:first-child{border-top:0;padding-top:0}
+  .li .t{font-weight:550;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .li .sub{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .li .grow{flex:1;min-width:0}
+  .li .amt{font-weight:600;font-variant-numeric:tabular-nums}
+  .tag{font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:6px;background:color-mix(in srgb,var(--text) 6%,transparent);color:var(--muted);white-space:nowrap}
+  .tag.good{background:color-mix(in srgb,var(--good) 12%,transparent);color:var(--good)}
+  .tag.bad{background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--bad)}
+  .tag.warn{background:color-mix(in srgb,var(--warn) 14%,transparent);color:var(--warn)}
+  .tag.acc{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{font-size:12px;font-weight:550;color:var(--muted);text-align:left;padding:0 10px 10px 0;white-space:nowrap}
+  td{padding:10px 10px 10px 0;border-top:1px solid var(--line);white-space:nowrap}
+  td:first-child{white-space:normal}
+  th.r,td.r{text-align:right}
+  td.r,th.r{padding-right:0;padding-left:10px}
+  tr.total td{font-weight:650;border-top:1.5px solid color-mix(in srgb,var(--text) 25%,transparent)}
+  .scroll{overflow-x:auto;margin:0 -2px;padding:0 2px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:8px;vertical-align:0}
+
+  .bars{display:flex;flex-direction:column;gap:13px}
+  .bars .lbl{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;margin-bottom:5px}
+  .bars .lbl b{font-weight:600;font-variant-numeric:tabular-nums}
+  .bar{height:7px;border-radius:99px;background:color-mix(in srgb,var(--text) 7%,transparent);overflow:hidden}
+  .bar>i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+
+  .funnel{display:flex;flex-direction:column;gap:6px}
+  .fr{display:grid;grid-template-columns:120px 1fr 90px;gap:14px;align-items:center}
+  .fr .fl{font-size:12.5px;color:var(--muted)}
+  .fr .fb{display:flex;justify-content:center}
+  .fr .fb i{display:grid;place-items:center;height:34px;border-radius:6px;background:var(--accent);color:#fff;font:650 14px var(--head);font-style:normal;min-width:44px;font-variant-numeric:tabular-nums}
+  .fr .fc{text-align:right;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+  .fr .fc small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+  .fconv{font-size:11.5px;color:var(--muted);text-align:center;margin-left:134px;margin-right:104px}
+
+  .chart svg{width:100%;height:auto;display:block;overflow:visible}
+  .chart text{font:11px var(--body);fill:var(--muted)}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+
+  .goal h3{font:600 15px/1.35 var(--head);margin:0}
+  .goal-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px}
+  .goal .lbl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:var(--muted)}
+  .goal .lbl b{color:var(--text);font-variant-numeric:tabular-nums}
+
+  .day{display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line)}
+  .day:first-child{border-top:0;padding-top:0}
+  .date{width:48px;flex:none;text-align:center;border-radius:8px;padding:5px 0;background:color-mix(in srgb,var(--text) 5%,transparent)}
+  .date.today{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent)}
+  .date b{display:block;font:650 18px/1.1 var(--head)}
+  .date span{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+  .evs{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;justify-content:center}
+  .ev{display:flex;gap:12px;font-size:14px}
+  .ev .tm{width:62px;flex:none;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+  .ev .tt{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .text{font-size:14px;color:var(--muted);margin:0}
+  .warnbox{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:8px;padding:12px 14px;margin-top:10px}
+  .warnbox button{margin-top:8px}
+  .skel{height:13px;border-radius:6px;background:linear-gradient(90deg,var(--line),color-mix(in srgb,var(--line) 40%,var(--panel)),var(--line));background-size:200% 100%;animation:sh 1.4s infinite;margin:8px 0}
+  @keyframes sh{to{background-position:-200% 0}}
+  .empty{font-size:13.5px;color:var(--muted)}
+  [hidden]{display:none!important}
+
+  @media(max-width:1000px){.w-8,.w-6,.w-4{grid-column:span 12}}
+  @media(max-width:860px){aside{display:none}.top{padding:10px 16px}.content{padding:16px 16px 48px}
+    .tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 16px;border-bottom:1px solid var(--line);background:var(--panel);scrollbar-width:none}
+    .tabs a{flex:none;font-size:13.5px;padding:6px 12px;border-radius:99px;color:var(--muted);text-decoration:none;border:1px solid var(--line)}
+    .tabs a.on{background:var(--text);color:var(--panel);border-color:var(--text)}
+    .fr{grid-template-columns:86px 1fr 70px;gap:8px}.fconv{margin-left:94px;margin-right:78px}}
+  @media(max-width:520px){.stats{grid-template-columns:1fr 1fr;gap:10px}.stat{padding:13px 14px}.stat .v{font-size:20px}.top .seg button{padding:5px 8px}}
+  @media(prefers-reduced-motion:reduce){.skel{animation:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside>
+    <a class="brand" href="#/">
+      <span class="mark" id="mark"></span>
+      <span><b id="bizName"></b><small>Dashboard</small></span>
+    </a>
+    <nav id="nav"></nav>
+    <div class="side-foot">Reads your tools only. Nothing is sent or changed.</div>
+  </aside>
+  <div class="main">
+    <header class="top">
+      <h1 id="title"></h1>
+      <span class="demo" id="demoTag" hidden>Example data</span>
+      <div class="seg" id="periods" role="group" aria-label="Period"></div>
+      <button id="refresh" type="button"><svg class="i" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor"><path d="M224,48V96a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h28.69L182.06,73.37a79.56,79.56,0,0,0-56.13-23.43h-.45A79.52,79.52,0,0,0,69.59,72.71,8,8,0,0,1,58.41,61.27a96,96,0,0,1,135,.79L208,76.69V48a8,8,0,0,1,16,0ZM186.41,183.29a80,80,0,0,1-112.47-.66L59.31,168H88a8,8,0,0,0,0-16H40a8,8,0,0,0-8,8v48a8,8,0,0,0,16,0V179.31l14.63,14.63A95.43,95.43,0,0,0,130,222.06h.53a95.36,95.36,0,0,0,67.07-27.33,8,8,0,0,0-11.18-11.44Z"/></svg>Refresh</button>
+    </header>
+    <div class="tabs" id="tabs"></div>
+    <main class="content" id="page"></main>
+  </div>
+</div>
+
+<!-- CONFIG: Claude fills this from the founder's dashboard map. JSON only. See dashboard/BLOCKS.md. -->
+<script type="application/json" id="config">
+{
+  "business": "EXAMPLE Studio",
+  "logo": null,
+  "demo": true,
+  "currency": "AUD",
+  "brand": { "bg": "#F7F7F5", "panel": "#FFFFFF", "text": "#17191E", "muted": "#6B6F76", "accent": "#2F5BEA", "line": "#E6E6E2" },
+  "periods": ["month", "quarter", "year"],
+  "sources": {
+    "cash":     { "server": "Xero", "tool": "get_cash_position", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroCash" },
+    "pnl":      { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{from}", "end_date": "{to}" }, "adapter": "xeroPnl" },
+    "owed":     { "server": "Xero", "tool": "get_aged_receivables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroReceivables" },
+    "bills":    { "server": "Xero", "tool": "get_aged_payables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroPayables" },
+    "deals":    { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "locationId": "LOCATION_ID", "query_status": "open", "query_limit": 100 }, "adapter": "ghlOpportunities" },
+    "funnel":   { "server": "", "tool": "", "input": {}, "adapter": "" },
+    "spend":    { "server": "", "tool": "", "input": {}, "adapter": "" },
+    "calendar": { "server": "Google Calendar", "tool": "list_events", "input": { "pageSize": 50, "orderBy": "startTime", "startTime": "{now}", "endTime": "{in7days}" }, "adapter": "googleCalendar" }
+  },
+  "pages": [
+    { "id": "overview", "title": "Overview", "icon": "house",
+      "blocks": [
+        { "type": "stats", "items": [
+          { "label": "Cash in the bank", "value": "cash.balance", "format": "money", "sub": "Across all accounts" },
+          { "label": "Money in", "value": "pnl.income", "format": "money", "change": "pnl.incomeChange" },
+          { "label": "Profit", "value": "pnl.profit", "format": "money", "tone": "sign", "sub": "pnl.marginText" },
+          { "label": "In the pipeline", "value": "deals.value", "format": "money", "sub": "deals.openText" } ] },
+        { "type": "list", "title": "Needs you", "data": "deals.followUps", "width": 6, "empty": "Nobody waiting on you." },
+        { "type": "week", "title": "Next 7 days", "data": "calendar", "width": 6 } ] },
+
+    { "id": "finance", "title": "Finance", "icon": "wallet", "group": "Business",
+      "blocks": [
+        { "type": "stats", "items": [
+          { "label": "Money in", "value": "pnl.income", "format": "money", "change": "pnl.incomeChange" },
+          { "label": "Money out", "value": "pnl.spend", "format": "money", "change": "pnl.spendChange", "invert": true },
+          { "label": "Profit", "value": "pnl.profit", "format": "money", "tone": "sign", "sub": "pnl.marginText" },
+          { "label": "Real cash", "value": "cash.real", "format": "money", "sub": "Bank + owed to you − bills" } ] },
+        { "type": "chart", "title": "Money in and out by month", "data": "pnl.byMonth", "format": "money", "width": 12 },
+        { "type": "list", "title": "Owed to you", "data": "owed.items", "total": "owed.total", "format": "money", "width": 6, "empty": "Nobody owes you anything." },
+        { "type": "list", "title": "You owe", "data": "bills.items", "total": "bills.total", "format": "money", "width": 6, "empty": "You don't owe anything right now." },
+        { "type": "bars", "title": "Spend by category", "data": "pnl.byCategory", "format": "money", "width": 12 } ] },
+
+    { "id": "sales", "title": "Sales", "icon": "handshake", "group": "Growth",
+      "blocks": [
+        { "type": "stats", "items": [
+          { "label": "Open deals", "value": "deals.open", "format": "number" },
+          { "label": "In the pipeline", "value": "deals.value", "format": "money" },
+          { "label": "Need a follow-up", "value": "deals.followUpCount", "format": "number", "tone": "accent" },
+          { "label": "Won this period", "value": "deals.won", "format": "money" } ] },
+        { "type": "bars", "title": "Pipeline by stage", "data": "deals.byStage", "format": "money", "width": 6 },
+        { "type": "list", "title": "Follow up", "data": "deals.followUps", "width": 6, "empty": "Everyone is up to date." },
+        { "type": "table", "title": "All open deals", "data": "deals.table", "width": 12 } ] },
+
+    { "id": "marketing", "title": "Marketing", "icon": "megaphone", "group": "Growth",
+      "blocks": [
+        { "type": "funnel", "title": "Funnel", "data": "funnel.steps", "width": 8, "format": "money", "costLabel": "per result" },
+        { "type": "kv", "title": "Spend and return", "data": "funnel.summary", "width": 4 },
+        { "type": "chart", "title": "Marketing spend", "data": "spend.byMonth", "format": "money", "stacked": true, "width": 12, "table": true } ] },
+
+    { "id": "operations", "title": "Operations", "icon": "calendar-blank", "group": "Running",
+      "blocks": [
+        { "type": "week", "title": "This week", "data": "calendar", "width": 8 },
+        { "type": "list", "title": "Tasks due", "data": "calendar.tasks", "width": 4, "empty": "No tasks due." } ] },
+
+    { "id": "goals", "title": "Goals", "icon": "target", "group": "Running",
+      "blocks": [ { "type": "goals" } ] }
+  ],
+  "goals": [
+    { "title": "EXAMPLE: 20 new clients this quarter", "current": 11, "goal": 20, "target": "9 more by 31 March", "status": "on_track" },
+    { "title": "EXAMPLE: $60k revenue this quarter", "current": 28400, "goal": 60000, "money": true, "target": "Need $3.2k a week", "status": "behind" },
+    { "title": "EXAMPLE: hire a second designer", "target": "Ad goes live in December", "status": "not_started" }
+  ]
+}
+</script>
+
+<script>
+/* ADAPTERS: turn a tool's answer into plain data that blocks read by path. Claude writes one per tool, after
+   looking at one real answer from that tool in the founder's own session (shape only, never their data).
+   Block shapes (see dashboard/BLOCKS.md):
+     stats/kv value  -> a number or text
+     list            -> [{title, sub, value, tag, tone}]
+     bars            -> [{label, value}]
+     chart           -> {labels:[...], series:[{name, values:[...]}]}
+     table           -> {columns:[{label, align, format}], rows:[[...]], total:[...]}
+     funnel          -> [{label, value, cost}]
+     week            -> {events:[{title, start, end, allDay}], tasks:[...list items]}           */
+const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+const ADAPTERS = {
+  // Xero get_cash_position. Checked 25 Nov 2026: amount_owed = owed to you, amount_due = you owe.
+  xeroCash(p) { const b = num(p?.cash_balance), o = num(p?.amount_owed), d = num(p?.amount_due); return { balance: b, owedToYou: o, youOwe: d, real: b + o - d }; },
+  // Xero get_profit_and_loss for the chosen period. Checked 25 Nov 2026 (current_pnl totals). Monthly and category parts: check on first build.
+  xeroPnl(p) {
+    const c = p?.current_pnl || {}, prev = p?.previous_pnl || p?.comparison_pnl || null;
+    const income = num(c.total_income) + num(c.total_other_income), spend = num(c.total_expenses) + num(c.total_cost_of_sales);
+    const pIncome = prev ? num(prev.total_income) + num(prev.total_other_income) : null, pSpend = prev ? num(prev.total_expenses) + num(prev.total_cost_of_sales) : null;
+    const pct = (a, b) => (b ? Math.round((a - b) / Math.abs(b) * 100) : null);
+    return { income, spend, profit: income - spend, marginText: income ? `${Math.round((income - spend) / income * 100)}% margin` : '',
+      incomeChange: pIncome == null ? null : pct(income, pIncome), spendChange: pSpend == null ? null : pct(spend, pSpend), byMonth: null, byCategory: null };
+  },
+  // Xero aged receivables / payables. NOT yet checked: check field names on first build.
+  xeroReceivables(p) { const rows = p?.contacts || p?.items || []; const items = rows.map((r) => ({ title: r.contact_name || r.name || 'Unnamed', sub: r.due_date ? `due ${r.due_date}` : '', value: num(r.total ?? r.amount_due ?? r.amount) })); return { items, total: items.reduce((s, i) => s + i.value, 0) }; },
+  xeroPayables(p) { return ADAPTERS.xeroReceivables(p); },
+  // GoHighLevel opportunities search. NOT yet checked against a live answer: check it on first build.
+  ghlOpportunities(p) {
+    const list = Array.isArray(p?.opportunities) ? p.opportunities : [];
+    const week = Date.now() - 7 * 864e5;
+    const deals = list.map((o) => { const updated = Date.parse(o.lastStatusChangeAt || o.updatedAt || o.createdAt || '') || null;
+      return { name: o.contact?.name || o.name || 'Unnamed', stage: o.pipelineStageName || o.stageName || 'No stage', value: num(o.monetaryValue), updated, late: !!updated && updated < week }; });
+    return shapeDeals(deals);
+  },
+  // Google Calendar list_events. Checked 25 Nov 2026.
+  googleCalendar(p) {
+    const ev = Array.isArray(p?.events) ? p.events : [];
+    return { events: ev.filter((e) => e.status !== 'cancelled').map((e) => ({ title: e.summary || 'Busy', start: e.start?.dateTime || e.start?.date, end: e.end?.dateTime || e.end?.date, allDay: !e.start?.dateTime })), tasks: [] };
+  },
+};
+// Shared by CRM adapters: one list of deals in, everything the Sales page reads out.
+function shapeDeals(deals, won = 0) {
+  const ago = (ms) => { const d = Math.round((Date.now() - ms) / 864e5); return d <= 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`; };
+  const late = deals.filter((d) => d.late).sort((a, b) => b.value - a.value);
+  const stages = new Map(); for (const d of deals) stages.set(d.stage, (stages.get(d.stage) || 0) + d.value);
+  return {
+    open: deals.length, value: deals.reduce((s, d) => s + d.value, 0), won, openText: `${deals.length} open deal${deals.length === 1 ? '' : 's'}`,
+    followUpCount: late.length,
+    followUps: late.map((d) => ({ title: d.name, sub: `${d.stage} · moved ${ago(d.updated)}`, value: d.value, tag: 'Follow up', tone: 'warn' })),
+    byStage: [...stages].map(([label, value]) => ({ label, value })),
+    table: { columns: [{ label: 'Who' }, { label: 'Stage' }, { label: 'Value', align: 'r', format: 'money' }, { label: 'Last moved', align: 'r' }],
+      rows: deals.slice().sort((a, b) => b.value - a.value).map((d) => [d.name, d.stage, d.value, d.updated ? ago(d.updated) : '']) },
+  };
+}
+
+/* DEMO: made-up data so the page can be seen before any tool is connected, one entry per source. */
+const DEMO = () => {
+  const d = (days, h, m = 0) => { const t = new Date(); t.setDate(t.getDate() + days); t.setHours(h, m, 0, 0); return t.toISOString(); };
+  const months = [...Array(6)].map((_, i) => { const t = new Date(); t.setDate(1); t.setMonth(t.getMonth() - 5 + i); return t.toLocaleDateString('en-AU', { month: 'short' }); });
+  const D = 864e5, now = Date.now();
+  return {
+    cash: { balance: 31450, owedToYou: 6400, youOwe: 2150, real: 35700 },
+    pnl: { income: 18720, spend: 9310, profit: 9410, marginText: '50% margin', incomeChange: 12, spendChange: 4,
+      byMonth: { labels: months, series: [{ name: 'Money in', values: [14200, 16900, 13100, 19800, 21400, 18720] }, { name: 'Money out', values: [9800, 10400, 8900, 11200, 12100, 9310] }] },
+      byCategory: [{ label: 'Wages', value: 4200 }, { label: 'Materials', value: 2350 }, { label: 'Marketing', value: 1480 }, { label: 'Software', value: 690 }, { label: 'Rent', value: 590 }] },
+    owed: { total: 6400, items: [{ title: 'Northside Physio', sub: 'Invoice 1042 · due 2 Dec', value: 3200 }, { title: 'Harbour Dental', sub: 'Invoice 1039 · 6 days late', value: 2400, tag: 'Late', tone: 'bad' }, { title: 'Mia Tran', sub: 'Invoice 1045 · due 9 Dec', value: 800 }] },
+    bills: { total: 2150, items: [{ title: 'Studio rent', sub: 'Due 1 Dec', value: 1600 }, { title: 'Adobe', sub: 'Due 4 Dec', value: 330 }, { title: 'Accountant', sub: 'Due 12 Dec', value: 220 }] },
+    deals: shapeDeals([
+      { name: 'Northside Physio', stage: 'Proposal sent', value: 12000, updated: now - 11 * D, late: true },
+      { name: 'Jordan Pike', stage: 'Quote sent', value: 6200, updated: now - 9 * D, late: true },
+      { name: 'Harbour Dental', stage: 'Quote sent', value: 7000, updated: now - 8 * D, late: true },
+      { name: 'Ella Hartigan', stage: 'Quote sent', value: 2400, updated: now - 3 * D, late: false },
+      { name: 'Mia Tran', stage: 'Call booked', value: 3800, updated: now - 2 * D, late: false },
+      { name: 'Sam and Lou Becker', stage: 'New enquiry', value: 0, updated: now - D, late: false }], 14500),
+    funnel: { steps: [{ label: 'Leads', value: 412, cost: 18 }, { label: 'Calls booked', value: 96, cost: 77 }, { label: 'Showed', value: 71, cost: 104 }, { label: 'Proposals', value: 38, cost: 195 }, { label: 'Won', value: 14, cost: 529 }],
+      summary: [{ label: 'Ad spend', value: 7400, format: 'money' }, { label: 'Cost per lead', value: 18, format: 'money' }, { label: 'Cost per client', value: 529, format: 'money' }, { label: 'Return on ad spend', value: '4.1x' }, { label: 'Show rate', value: '74%' }] },
+    spend: { byMonth: { labels: months, series: [{ name: 'Meta ads', values: [980, 1150, 860, 1320, 1610, 1210] }, { name: 'Google ads', values: [420, 460, 380, 510, 590, 450] }, { name: 'Tools', values: [190, 190, 210, 210, 230, 230] }] } },
+    calendar: { events: [
+      { title: 'Client call: Mia Tran', start: d(0, 9), end: d(0, 10) }, { title: 'Team check-in', start: d(0, 13), end: d(0, 13, 30) },
+      { title: 'Proposal walkthrough: Northside Physio', start: d(1, 10), end: d(1, 11) }, { title: 'Supplier call', start: d(2, 11), end: d(2, 11, 30) },
+      { title: 'Content shoot', start: d(3, 8), end: d(3, 12) }, { title: 'Day off', start: d(5, 0), end: d(6, 0), allDay: true }],
+      tasks: [{ title: 'Send Jordan the revised quote', sub: 'Today' }, { title: 'Chase Harbour Dental invoice', sub: 'Tomorrow', tag: 'Money', tone: 'acc' }, { title: 'Approve December ads', sub: 'Friday' }] },
+  };
+};
+
+/* ---------------------------------------------------------------- engine (leave as is) */
+const ICONS = {"house": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z\"/>\u003c/svg>", "wallet": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M216,64H56a8,8,0,0,1,0-16H192a8,8,0,0,0,0-16H56A24,24,0,0,0,32,56V184a24,24,0,0,0,24,24H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64Zm0,128H56a8,8,0,0,1-8-8V78.63A23.84,23.84,0,0,0,56,80H216Zm-48-60a12,12,0,1,1,12,12A12,12,0,0,1,168,132Z\"/>\u003c/svg>", "handshake": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l55.07-55.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41ZM41.53,64,62,74.22,36.43,125.27,16,115.06Zm116,119.13L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm62-57.87-25.52-51L214.47,64,240,115.06Zm-87.75,92.67a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z\"/>\u003c/svg>", "megaphone": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z\"/>\u003c/svg>", "calendar-blank": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z\"/>\u003c/svg>", "target": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z\"/>\u003c/svg>", "users-three": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z\"/>\u003c/svg>", "chart-line-up": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M232,208a8,8,0,0,1-8,8H32a8,8,0,0,1-8-8V48a8,8,0,0,1,16,0V156.69l50.34-50.35a8,8,0,0,1,11.32,0L128,132.69,180.69,80H160a8,8,0,0,1,0-16h40a8,8,0,0,1,8,8v40a8,8,0,0,1-16,0V91.31l-58.34,58.35a8,8,0,0,1-11.32,0L96,123.31l-56,56V200H224A8,8,0,0,1,232,208Z\"/>\u003c/svg>", "briefcase": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,72v41.61A184,184,0,0,1,128,136a184.07,184.07,0,0,1-88-22.38V72Zm0,128H40V131.64A200.19,200.19,0,0,0,128,152a200.25,200.25,0,0,0,88-20.37V200ZM104,112a8,8,0,0,1,8-8h32a8,8,0,0,1,0,16H112A8,8,0,0,1,104,112Z\"/>\u003c/svg>", "gear": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z\"/>\u003c/svg>", "square": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32Zm0,176H48V48H208V208Z\"/>\u003c/svg>", "currency-circle-dollar": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z\"/>\u003c/svg>", "storefront": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M232,96a7.89,7.89,0,0,0-.3-2.2L217.35,43.6A16.07,16.07,0,0,0,202,32H54A16.07,16.07,0,0,0,38.65,43.6L24.31,93.8A7.89,7.89,0,0,0,24,96h0v16a40,40,0,0,0,16,32v72a8,8,0,0,0,8,8H208a8,8,0,0,0,8-8V144a40,40,0,0,0,16-32V96ZM54,48H202l11.42,40H42.61Zm50,56h48v8a24,24,0,0,1-48,0Zm-16,0v8a24,24,0,0,1-35.12,21.26,7.88,7.88,0,0,0-1.82-1.06A24,24,0,0,1,40,112v-8ZM200,208H56V151.2a40.57,40.57,0,0,0,8,.8,40,40,0,0,0,32-16,40,40,0,0,0,64,0,40,40,0,0,0,32,16,40.57,40.57,0,0,0,8-.8Zm4.93-75.8a8.08,8.08,0,0,0-1.8,1.05A24,24,0,0,1,168,112v-8h48v8A24,24,0,0,1,204.93,132.2Z\"/>\u003c/svg>", "star": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M239.18,97.26A16.38,16.38,0,0,0,224.92,86l-59-4.76L143.14,26.15a16.36,16.36,0,0,0-30.27,0L90.11,81.23,31.08,86a16.46,16.46,0,0,0-9.37,28.86l45,38.83L53,211.75a16.38,16.38,0,0,0,24.5,17.82L128,198.49l50.53,31.08A16.4,16.4,0,0,0,203,211.75l-13.76-58.07,45-38.83A16.43,16.43,0,0,0,239.18,97.26Zm-15.34,5.47-48.7,42a8,8,0,0,0-2.56,7.91l14.88,62.8a.37.37,0,0,1-.17.48c-.18.14-.23.11-.38,0l-54.72-33.65a8,8,0,0,0-8.38,0L69.09,215.94c-.15.09-.19.12-.38,0a.37.37,0,0,1-.17-.48l14.88-62.8a8,8,0,0,0-2.56-7.91l-48.7-42c-.12-.1-.23-.19-.13-.5s.18-.27.33-.29l63.92-5.16A8,8,0,0,0,103,91.86l24.62-59.61c.08-.17.11-.25.35-.25s.27.08.35.25L153,91.86a8,8,0,0,0,6.75,4.92l63.92,5.16c.15,0,.24,0,.33.29S224,102.63,223.84,102.73Z\"/>\u003c/svg>", "clipboard-text": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M168,152a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,152Zm-8-40H96a8,8,0,0,0,0,16h64a8,8,0,0,0,0-16Zm56-64V216a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V48A16,16,0,0,1,56,32H92.26a47.92,47.92,0,0,1,71.48,0H200A16,16,0,0,1,216,48ZM96,64h64a32,32,0,0,0-64,0ZM200,48H173.25A47.93,47.93,0,0,1,176,64v8a8,8,0,0,1-8,8H88a8,8,0,0,1-8-8V64a47.93,47.93,0,0,1,2.75-16H56V216H200Z\"/>\u003c/svg>", "truck": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M255.42,117l-14-35A15.93,15.93,0,0,0,226.58,72H192V64a8,8,0,0,0-8-8H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,255.42,117ZM192,88h34.58l9.6,24H192ZM32,72H176v64H32ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm81-24H111a32,32,0,0,0-62,0H32V152H176v12.31A32.11,32.11,0,0,0,161,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,192,208Zm48-24H223a32.06,32.06,0,0,0-31-24V128h48Z\"/>\u003c/svg>", "heart": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M178,40c-20.65,0-38.73,8.88-50,23.89C116.73,48.88,98.65,40,78,40a62.07,62.07,0,0,0-62,62c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,228.66,240,172,240,102A62.07,62.07,0,0,0,178,40ZM128,214.8C109.74,204.16,32,155.69,32,102A46.06,46.06,0,0,1,78,56c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,155.61,146.24,204.15,128,214.8Z\"/>\u003c/svg>", "graduation-cap": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z\"/>\u003c/svg>", "package": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z\"/>\u003c/svg>", "user-circle": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM74.08,197.5a64,64,0,0,1,107.84,0,87.83,87.83,0,0,1-107.84,0ZM96,120a32,32,0,1,1,32,32A32,32,0,0,1,96,120Zm97.76,66.41a79.66,79.66,0,0,0-36.06-28.75,48,48,0,1,0-59.4,0,79.66,79.66,0,0,0-36.06,28.75,88,88,0,1,1,131.52,0Z\"/>\u003c/svg>", "buildings": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M240,208H224V96a16,16,0,0,0-16-16H144V32a16,16,0,0,0-24.88-13.32L39.12,72A16,16,0,0,0,32,85.34V208H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM208,96V208H144V96ZM48,85.34,128,32V208H48ZM112,112v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm-32,0v16a8,8,0,0,1-16,0V112a8,8,0,1,1,16,0Zm0,56v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Zm32,0v16a8,8,0,0,1-16,0V168a8,8,0,0,1,16,0Z\"/>\u003c/svg>", "receipt": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M72,104a8,8,0,0,1,8-8h96a8,8,0,0,1,0,16H80A8,8,0,0,1,72,104Zm8,40h96a8,8,0,0,0,0-16H80a8,8,0,0,0,0,16ZM232,56V208a8,8,0,0,1-11.58,7.15L192,200.94l-28.42,14.21a8,8,0,0,1-7.16,0L128,200.94,99.58,215.15a8,8,0,0,1-7.16,0L64,200.94,35.58,215.15A8,8,0,0,1,24,208V56A16,16,0,0,1,40,40H216A16,16,0,0,1,232,56Zm-16,0H40V195.06l20.42-10.22a8,8,0,0,1,7.16,0L96,199.06l28.42-14.22a8,8,0,0,1,7.16,0L160,199.06l28.42-14.22a8,8,0,0,1,7.16,0L216,195.06Z\"/>\u003c/svg>", "envelope-simple": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z\"/>\u003c/svg>", "instagram-logo": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z\"/>\u003c/svg>", "globe": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,24h0A104,104,0,1,0,232,128,104.12,104.12,0,0,0,128,24Zm88,104a87.61,87.61,0,0,1-3.33,24H174.16a157.44,157.44,0,0,0,0-48h38.51A87.61,87.61,0,0,1,216,128ZM102,168H154a115.11,115.11,0,0,1-26,45A115.27,115.27,0,0,1,102,168Zm-3.9-16a140.84,140.84,0,0,1,0-48h59.88a140.84,140.84,0,0,1,0,48ZM40,128a87.61,87.61,0,0,1,3.33-24H81.84a157.44,157.44,0,0,0,0,48H43.33A87.61,87.61,0,0,1,40,128ZM154,88H102a115.11,115.11,0,0,1,26-45A115.27,115.27,0,0,1,154,88Zm52.33,0H170.71a135.28,135.28,0,0,0-22.3-45.6A88.29,88.29,0,0,1,206.37,88ZM107.59,42.4A135.28,135.28,0,0,0,85.29,88H49.63A88.29,88.29,0,0,1,107.59,42.4ZM49.63,168H85.29a135.28,135.28,0,0,0,22.3,45.6A88.29,88.29,0,0,1,49.63,168Zm98.78,45.6a135.28,135.28,0,0,0,22.3-45.6h35.66A88.29,88.29,0,0,1,148.41,213.6Z\"/>\u003c/svg>", "phone": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z\"/>\u003c/svg>", "wrench": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z\"/>\u003c/svg>", "calendar-check": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-38.34-85.66a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L116,164.69l42.34-42.35A8,8,0,0,1,169.66,122.34Z\"/>\u003c/svg>", "chart-bar": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M224,200h-8V40a8,8,0,0,0-8-8H152a8,8,0,0,0-8,8V80H96a8,8,0,0,0-8,8v40H48a8,8,0,0,0-8,8v64H32a8,8,0,0,0,0,16H224a8,8,0,0,0,0-16ZM160,48h40V200H160ZM104,96h40V200H104ZM56,144H88v56H56Z\"/>\u003c/svg>", "shopping-cart": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Zm4-74.57A8,8,0,0,1,196.1,136H77.22L65.59,72H214.41Z\"/>\u003c/svg>"};
+const CFG = JSON.parse(document.getElementById('config').textContent);
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = String(text); return n; };
+const icon = (name) => { const t = document.createElement('template'); t.innerHTML = ICONS[name] || ICONS.square || ''; const s = t.content.firstElementChild; if (s) { s.setAttribute('class', 'i'); s.setAttribute('aria-hidden', 'true'); } return s || el('span'); };
+const fmt = (v, f) => {
+  if (v == null || v === '') return '–';
+  if (typeof v === 'string' && f !== 'money' && f !== 'number') return v;
+  if (f === 'money') return new Intl.NumberFormat('en-AU', { style: 'currency', currency: CFG.currency || 'AUD', maximumFractionDigits: 0 }).format(num(v));
+  if (f === 'percent') return `${Math.round(num(v))}%`;
+  if (f === 'number' || typeof v === 'number') return new Intl.NumberFormat('en-AU', { maximumFractionDigits: 1 }).format(num(v));
+  return String(v);
+};
+const short = (v, f) => { const n = num(v); const a = Math.abs(n); const t = (x) => String(Math.round(x * 10) / 10); const s = a >= 1e6 ? `${t(n / 1e6)}m` : a >= 1e3 ? `${t(n / 1e3)}k` : String(Math.round(n)); return f === 'money' ? `$${s}` : s; };
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const local = (d) => `${ymd(d)}T${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:00`;
+const when = (s) => new Date(/^\d{4}-\d{2}-\d{2}$/.test(s || '') ? `${s}T00:00:00` : s);
+const time = (d) => d.toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' });
+const PALETTE = ['var(--accent)', 'color-mix(in srgb,var(--accent) 55%,var(--panel))', 'color-mix(in srgb,var(--accent) 28%,var(--panel))', 'color-mix(in srgb,var(--text) 35%,var(--panel))', 'color-mix(in srgb,var(--text) 18%,var(--panel))'];
+
+// Brand (white label)
+for (const [k, v] of Object.entries(CFG.brand || {})) if (/^#[0-9a-f]{3,8}$/i.test(v)) document.documentElement.style.setProperty(`--${k}`, v);
+const biz = CFG.business || 'My business';
+$('bizName').textContent = biz;
+if (typeof CFG.logo === 'string' && /^(https:\/\/|data:image\/(png|jpeg|webp);)/.test(CFG.logo)) { const img = el('img'); img.src = CFG.logo; img.alt = ''; $('mark').append(img); }
+else $('mark').textContent = biz.replace(/^EXAMPLE\s+/i, '').trim().charAt(0).toUpperCase() || 'D';
+$('demoTag').hidden = !CFG.demo;
+
+// Periods: {from} and {to} in a source's input follow the period picked at the top
+const PERIODS = { month: 'This month', quarter: 'This quarter', year: 'This year', '30d': '30 days', '90d': '90 days' };
+let period = localStorage.getItem('dash-period') || (CFG.periods || ['month'])[0];
+const range = () => {
+  const n = new Date(); let from;
+  if (period === 'quarter') from = new Date(n.getFullYear(), Math.floor(n.getMonth() / 3) * 3, 1);
+  else if (period === 'year') from = new Date(n.getFullYear(), 0, 1);
+  else if (period === '30d') from = new Date(n.getTime() - 30 * 864e5);
+  else if (period === '90d') from = new Date(n.getTime() - 90 * 864e5);
+  else from = new Date(n.getFullYear(), n.getMonth(), 1);
+  return { '{from}': ymd(from), '{to}': ymd(n), '{today}': ymd(n), '{monthStart}': ymd(new Date(n.getFullYear(), n.getMonth(), 1)), '{now}': local(n), '{in7days}': local(new Date(n.getTime() + 7 * 864e5)) };
+};
+const fill = (v, F) => typeof v === 'string' ? (F[v] ?? v) : Array.isArray(v) ? v.map((x) => fill(x, F)) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x, F)])) : v;
+function drawPeriods() {
+  const seg = $('periods'); seg.replaceChildren(); const list = CFG.periods || [];
+  seg.hidden = list.length < 2;
+  for (const p of list) { const b = el('button', p === period ? 'on' : null, PERIODS[p] || p); b.type = 'button';
+    b.addEventListener('click', () => { period = p; localStorage.setItem('dash-period', p); drawPeriods(); show(); }); seg.append(b); }
+}
+
+// Navigation: one page per section, grouped like a sidebar
+const PAGES = (CFG.pages || []).filter((p) => p && p.id);
+function drawNav(current) {
+  const nav = $('nav'), tabs = $('tabs'); nav.replaceChildren(); tabs.replaceChildren(); let grp = null;
+  for (const p of PAGES) {
+    if ((p.group || null) !== grp) { grp = p.group || null; if (grp) nav.append(el('div', 'grp', grp)); }
+    const a = el('a', p.id === current ? 'on' : null); a.href = `#/${p.id}`; a.append(icon(p.icon), el('span', null, p.title)); nav.append(a);
+    const t = el('a', p.id === current ? 'on' : null, p.title); t.href = `#/${p.id}`; tabs.append(t);
+  }
+  tabs.querySelector('.on')?.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+// Data: each source is read once per page view and shared by every block that uses it
+const store = {};      // key -> {data, err, at}
+const waiting = {};    // key -> [redraw fns]
+let mcp = null, stops = [];
+const get = (path) => { if (!path) return undefined; const [key, ...rest] = String(path).split('.'); let v = store[key]?.data; for (const k of rest) v = v?.[k]; return v; };
+const keyOf = (path) => String(path || '').split('.')[0];
+function need(keys, redraw) { for (const k of keys) (waiting[k] ||= []).push(redraw); }
+function arrive(key, data, err, at) {
+  store[key] = { data, err, at };
+  for (const f of waiting[key] || []) f();
+}
+async function connect(keys) {
+  stops.splice(0).forEach((s) => { try { s(); } catch { /* already stopped */ } });
+  const F = range();
+  if (CFG.demo) { const demo = DEMO(); for (const k of keys) arrive(k, demo[k], null, Date.now()); return; }
+  if (!mcp) mcp = await window.claude?.use?.('mcp');
+  for (const k of keys) {
+    const src = CFG.sources?.[k];
+    if (!src || !src.server || !src.tool) { arrive(k, undefined, { code: 'not_set_up' }); continue; }
+    if (!mcp) { arrive(k, undefined, { code: 'no_claude' }); continue; }
+    const take = (ev) => {
+      if (ev.type !== 'data') return arrive(k, undefined, ev.error || { code: 'failed' });
+      try { arrive(k, ADAPTERS[src.adapter](ev.result.payload), null, ev.result.cache?.storedAt || Date.now()); }
+      catch { arrive(k, undefined, { code: 'adapter' }); }
+    };
+    stops.push(mcp.watchTool(src.server, src.tool, fill(src.input, F), take, { refetchInterval: 10 * 60 * 1000 }));
+  }
+}
+function problem(key) {
+  const s = store[key]; if (!s?.err) return null; const src = CFG.sources?.[key] || {}; const name = src.server || 'this tool';
+  const say = {
+    not_set_up: 'Not connected yet. Ask Claude: "connect this to my dashboard".',
+    no_claude: 'Open this dashboard in Claude to see your live numbers.',
+    needs_reauth: `${name} needs reconnecting. In Claude: Settings, then Connectors, then ${name}.`,
+    server_not_connected: `Connect ${name} in Claude (Settings, then Connectors) to see this.`,
+    selection_required: `You have more than one ${name} connected. Choose one when Claude asks.`,
+    not_in_manifest: `${name} is switched off for this dashboard. Turn it on in this page's permissions menu.`,
+    blocked_by_policy: `${name} is blocked by your organisation's settings.`,
+    approval_required: `This needs your OK to read ${name}.`,
+    adapter: `${name} answered in a way this block doesn't understand yet. Ask Claude to fix it.`,
+  }[s.err.code] || `Couldn't load from ${name} just now. Press Refresh to try again.`;
+  const box = el('div', 'warnbox', say);
+  if (s.err.code === 'approval_required' && mcp) {
+    const b = el('button', null, `Allow ${name}`); b.type = 'button';
+    b.addEventListener('click', async () => { try { const r = await mcp.callTool(src.server, src.tool, fill(src.input, range())); arrive(key, ADAPTERS[src.adapter](r.payload), null, Date.now()); } catch (e) { arrive(key, undefined, e); } });
+    box.append(el('br'), b);
+  }
+  return box;
+}
+
+/* BLOCKS: each draws into its own card. Add a new kind by adding a function here (see BLOCKS.md). */
+const card = (b) => { const c = el('section', 'card'); if (b.title) { const h = el('div', 'card-h'); h.append(el('h2', null, b.title)); if (b.note) h.append(el('span', 'note', b.note)); c.append(h); } return c; };
+const tone = (it, v) => it.tone === 'sign' ? (num(v) >= 0 ? 'up' : 'down') : it.tone === 'accent' ? 'acc' : '';
+const BLOCKS = {
+  stats(b, box) {
+    const wrap = el('div', 'stats');
+    for (const it of b.items || []) {
+      const v = get(it.value), s = el('div', 'stat'), l = el('div', 'l'); if (it.icon) l.append(icon(it.icon)); l.append(el('span', null, it.label));
+      const val = el('div', `v ${tone(it, v)}`, v === undefined ? '…' : fmt(v, it.format));
+      let sub = '';
+      const ch = get(it.change);
+      if (Number.isFinite(ch)) { const good = it.invert ? ch <= 0 : ch >= 0; sub = el('div', `s ${good ? 'up' : 'down'}`, `${ch >= 0 ? '+' : ''}${ch}% on last period`); }
+      else { const t = it.sub && (it.sub.includes('.') && keyOf(it.sub) in (CFG.sources || {}) ? get(it.sub) : it.sub); sub = el('div', 's', t || ' '); }
+      s.append(l, val, sub); wrap.append(s);
+    }
+    box.append(wrap);
+  },
+  kv(b, box) { const c = card(b), list = el('div', 'kv'); for (const it of get(b.data) || b.items || []) { const r = el('div'); r.append(el('span', null, it.label), el('b', null, fmt(it.value?.toString().includes?.('.') && keyOf(it.value) in (CFG.sources || {}) ? get(it.value) : it.value, it.format))); list.append(r); } c.append(list.children.length ? list : el('p', 'empty', b.empty || 'Nothing yet.')); box.append(c); },
+  list(b, box) {
+    const c = card(b); const items = get(b.data) || [];
+    if (b.total) { const h = c.querySelector('.card-h') || c; const t = el('span', 'note', fmt(get(b.total), b.format || 'money')); t.style.cssText = 'font-size:15px;font-weight:650;color:var(--text)'; h.append(t); }
+    const list = el('div', 'list');
+    for (const it of items.slice(0, b.limit || 8)) {
+      const r = el('div', 'li'), g = el('div', 'grow'); g.append(el('div', 't', it.title)); if (it.sub) g.append(el('div', 'sub', it.sub)); r.append(g);
+      if (it.value != null && it.value !== '') r.append(el('span', 'amt', fmt(it.value, b.format || 'money')));
+      if (it.tag) r.append(el('span', `tag ${it.tone || ''}`, it.tag));
+      list.append(r);
+    }
+    c.append(items.length ? list : el('p', 'empty', b.empty || 'Nothing here.'));
+    if (items.length > (b.limit || 8)) c.append(el('p', 'empty', `+ ${items.length - (b.limit || 8)} more`));
+    box.append(c);
+  },
+  bars(b, box) {
+    const c = card(b), rows = (get(b.data) || []).slice().sort((x, y) => num(y.value) - num(x.value)).slice(0, b.limit || 8);
+    const max = Math.max(...rows.map((r) => num(r.value)), 1), wrap = el('div', 'bars');
+    for (const r of rows) { const w = el('div'), l = el('div', 'lbl'); l.append(el('span', null, r.label), el('b', null, fmt(r.value, b.format))); const bar = el('div', 'bar'), i = el('i'); i.style.width = `${num(r.value) / max * 100}%`; bar.append(i); w.append(l, bar); wrap.append(w); }
+    c.append(rows.length ? wrap : el('p', 'empty', b.empty || 'Nothing yet.')); box.append(c);
+  },
+  table(b, box) {
+    const c = card(b), t = get(b.data); if (!t?.rows?.length) { c.append(el('p', 'empty', b.empty || 'Nothing yet.')); box.append(c); return; }
+    const tbl = el('table'), hr = el('tr');
+    for (const col of t.columns) hr.append(el('th', col.align === 'r' ? 'r' : null, col.label));
+    tbl.append(hr);
+    const row = (cells, cls) => { const tr = el('tr', cls); cells.forEach((v, i) => { const col = t.columns[i] || {}; const td = el('td', col.align === 'r' ? 'r' : null); if (i === 0 && t.colors?.[cells.__i]) { const d = el('span', 'dot'); d.style.background = t.colors[cells.__i]; td.append(d); } td.append(document.createTextNode(fmt(v, col.format))); tr.append(td); }); tbl.append(tr); };
+    t.rows.slice(0, b.limit || 50).forEach((r, i) => { r.__i = i; row(r); });
+    if (t.total) row(t.total, 'total');
+    const s = el('div', 'scroll'); s.append(tbl); c.append(s); box.append(c);
+  },
+  funnel(b, box) {
+    const c = card(b), steps = get(b.data) || []; if (!steps.length) { c.append(el('p', 'empty', 'Nothing yet.')); box.append(c); return; }
+    const max = Math.max(...steps.map((s) => num(s.value)), 1), f = el('div', 'funnel');
+    steps.forEach((s, i) => {
+      if (i) { const prev = num(steps[i - 1].value); f.append(el('div', 'fconv', prev ? `${Math.round(num(s.value) / prev * 100)}% of ${steps[i - 1].label.toLowerCase()}` : '')); }
+      const r = el('div', 'fr'), fb = el('div', 'fb'), bar = el('i', null, fmt(s.value, 'number'));
+      bar.style.width = `${Math.max(8, num(s.value) / max * 100)}%`; bar.style.opacity = String(1 - i * 0.12); fb.append(bar);
+      const cost = el('div', 'fc'); if (s.cost != null) { cost.append(document.createTextNode(fmt(s.cost, b.format || 'money'))); cost.append(el('small', null, b.costLabel || 'each')); }
+      r.append(el('div', 'fl', s.label), fb, cost); f.append(r);
+    });
+    c.append(f); box.append(c);
+  },
+  chart(b, box) {
+    const c = card(b), d = get(b.data); if (!d?.labels?.length) { c.append(el('p', 'empty', b.empty || 'Nothing yet.')); box.append(c); return; }
+    const NS = 'http://www.w3.org/2000/svg', W = Math.max(300, (box.clientWidth || 760) - 42), H = W < 500 ? 180 : 230, L = 46, B = 22, T = 8;
+    const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', b.title || 'Chart');
+    const n = d.labels.length, series = d.series || [];
+    const totals = d.labels.map((_, i) => b.stacked ? series.reduce((s, x) => s + num(x.values[i]), 0) : Math.max(...series.map((x) => num(x.values[i]))));
+    const raw = Math.max(...totals, 1) / 3, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((m) => m >= raw), max = step * 3;
+    const y = (v) => T + (H - B - T) * (1 - v / max);
+    const mk = (tag, a) => { const e = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(a)) e.setAttribute(k, v); return e; };
+    for (let g = 0; g <= 3; g++) { const v = step * g, yy = y(v); svg.append(mk('line', { x1: L, x2: W, y1: yy, y2: yy, stroke: 'var(--line)' })); const t = mk('text', { x: L - 8, y: yy + 4, 'text-anchor': 'end' }); t.textContent = short(v, b.format); svg.append(t); }
+    const slot = (W - L) / n, groupW = slot * 0.64, barW = b.stacked ? groupW : groupW / series.length;
+    d.labels.forEach((lab, i) => {
+      let base = 0; const x0 = L + slot * i + (slot - groupW) / 2;
+      series.forEach((s, si) => { const v = num(s.values[i]); const x = b.stacked ? x0 : x0 + si * barW;
+        const top = b.stacked ? y(base + v) : y(v), bottom = b.stacked ? y(base) : y(0);
+        const r = mk('rect', { x, y: top, width: Math.max(1, barW - (b.stacked ? 0 : 3)), height: Math.max(0, bottom - top), rx: 3, fill: PALETTE[si % PALETTE.length] });
+        const tt = document.createElementNS(NS, 'title'); tt.textContent = `${s.name}, ${lab}: ${fmt(v, b.format)}`; r.append(tt); svg.append(r); if (b.stacked) base += v; });
+      if (slot >= 34 || i % 2 === 0) { const t = mk('text', { x: L + slot * i + slot / 2, y: H - 5, 'text-anchor': 'middle' }); t.textContent = lab; svg.append(t); }
+    });
+    const wrap = el('div', 'chart'); wrap.append(svg);
+    const lg = el('div', 'legend'); series.forEach((s, i) => { const k = el('span'), dot = el('span', 'dot'); dot.style.background = PALETTE[i % PALETTE.length]; k.append(dot, document.createTextNode(s.name)); lg.append(k); });
+    c.append(wrap, lg);
+    if (b.table) {
+      const cols = [{ label: b.tableLabel || '' }, ...d.labels.map((l) => ({ label: l, align: 'r', format: b.format }))];
+      const rows = series.map((s) => [s.name, ...s.values]);
+      const total = series.length > 1 ? ['Total', ...d.labels.map((_, i) => series.reduce((a, s) => a + num(s.values[i]), 0))] : null;
+      const tb = { columns: cols, rows, total, colors: series.map((_, i) => PALETTE[i % PALETTE.length]) };
+      const holder = el('div'); holder.style.marginTop = '18px'; const fake = '__chart'; store[fake] = { data: tb };
+      BLOCKS.table({ data: fake }, holder); const inner = holder.querySelector('.scroll'); if (inner) c.append(inner); delete store[fake];
+    }
+    box.append(c);
+  },
+  week(b, box) {
+    const c = card(b), d = get(b.data) || {}; const evs = (d.events || []).slice().sort((a, x) => when(a.start) - when(x.start)), byDay = new Map();
+    for (const e of evs) { const day = when(e.start), k = ymd(day); if (!byDay.has(k)) byDay.set(k, { day, items: [] }); byDay.get(k).items.push(e); }
+    const today = ymd(new Date()), wrap = el('div');
+    for (const { day, items } of [...byDay.values()].slice(0, b.limit || 7)) {
+      const row = el('div', 'day'), dt = el('div', ymd(day) === today ? 'date today' : 'date');
+      dt.append(el('span', null, ymd(day) === today ? 'Today' : day.toLocaleDateString('en-AU', { weekday: 'short' })), el('b', null, day.getDate()));
+      const list = el('div', 'evs'); for (const e of items) { const r = el('div', 'ev'); r.append(el('span', 'tm', e.allDay ? 'All day' : time(when(e.start))), el('span', 'tt', e.title)); list.append(r); }
+      row.append(dt, list); wrap.append(row);
+    }
+    c.append(wrap.children.length ? wrap : el('p', 'empty', b.empty || 'Nothing booked.')); box.append(c);
+  },
+  goals(_b, box) {
+    const goals = CFG.goals || [], grid = el('div', 'grid');
+    const label = { on_track: ['On track', 'good'], behind: ['Behind', 'bad'], done: ['Done', 'good'], not_started: ['Not started', ''] };
+    if (!goals.length) { const c = card({}); c.append(el('p', 'empty', 'No goals yet. Ask Claude: "add my goals to my dashboard".')); box.append(c); return; }
+    for (const g of goals) {
+      const c = el('section', 'card goal w-4'), top = el('div', 'goal-top'); const [t, cls] = label[g.status] || label.not_started;
+      top.append(el('h3', null, g.title), el('span', `tag ${cls}`, t)); c.append(top);
+      const has = num(g.goal) > 0, pct = g.status === 'done' ? 100 : has ? num(g.current) / num(g.goal) * 100 : 0;
+      if (has || g.status === 'done') { const l = el('div', 'lbl'); l.append(el('span', null, 'Progress'), el('b', null, has ? `${fmt(g.current, g.money ? 'money' : 'number')} / ${fmt(g.goal, g.money ? 'money' : 'number')}` : 'Complete'));
+        const bar = el('div', 'bar'), i = el('i'); i.style.width = `${Math.min(100, pct)}%`; if (g.status === 'behind') i.style.background = 'var(--bad)'; bar.append(i); c.append(l, bar); }
+      if (g.target) { const p = el('p', 'empty', g.target); p.style.margin = '10px 0 0'; c.append(p); }
+      grid.append(c);
+    }
+    box.append(grid);
+  },
+  text(b, box) { const c = card(b); c.append(el('p', 'text', b.text || '')); box.append(c); },
+};
+const PATHS = { stats: (b) => (b.items || []).flatMap((i) => [i.value, i.change, i.sub]), kv: (b) => [b.data, ...(b.items || []).map((i) => i.value)], list: (b) => [b.data, b.total] };
+const blockKeys = (b) => [...new Set((PATHS[b.type] ? PATHS[b.type](b) : [b.data]).filter((p) => typeof p === 'string' && keyOf(p) in (CFG.sources || {})).map(keyOf))];
+
+// Show a page
+function show() {
+  const id = (location.hash.replace(/^#\/?/, '') || PAGES[0]?.id || '').split('?')[0];
+  const page = PAGES.find((p) => p.id === id) || PAGES[0]; if (!page) return;
+  drawNav(page.id); $('title').textContent = page.title; document.title = `${page.title} · ${biz}`;
+  for (const k of Object.keys(waiting)) delete waiting[k];
+  const host = $('page'); host.replaceChildren();
+  if (page.intro) host.append(el('p', 'intro', page.intro));
+  const grid = el('div', 'grid'); host.append(grid); const keys = new Set();
+  for (const b of page.blocks || []) {
+    if (!BLOCKS[b.type]) continue;
+    const slot = el('div', `w-${[4, 6, 8, 12].includes(b.width) ? b.width : 12}`); grid.append(slot);
+    const ks = blockKeys(b); ks.forEach((k) => keys.add(k));
+    const draw = () => {
+      slot.replaceChildren();
+      const pending = ks.filter((k) => !store[k]);
+      if (pending.length && b.type !== 'stats') { const c = card(b); for (const w of [60, 90, 72]) { const s = el('div', 'skel'); s.style.width = w + '%'; c.append(s); } slot.append(c); return; }
+      BLOCKS[b.type](b, slot);
+      const target = slot.querySelector('.card') || slot; for (const k of ks) { const p = problem(k); if (p) target.append(p); }
+    };
+    need(ks, draw); draw();
+  }
+  for (const k of keys) delete store[k];
+  for (const k of keys) for (const f of waiting[k] || []) f();
+  connect([...keys]);
+  window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', show);
+let rz = null, lastW = innerWidth;
+window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (Math.abs(innerWidth - lastW) < 40) return; lastW = innerWidth; for (const fs of Object.values(waiting)) fs.forEach((f) => f()); }, 200); });
+$('refresh').addEventListener('click', async () => { if (mcp) { try { await mcp.invalidate(); } catch { /* nothing cached */ } } else show(); });
+drawPeriods(); show();
+</script>
+</body>
+</html>
