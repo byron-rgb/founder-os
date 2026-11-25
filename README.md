@@ -47,6 +47,7 @@ Founder OS/
 - **build my AI brain** / **continue my brain** / **brain check-up**: Level 1
 - **give me a quick win**: a small useful job, done now
 - **build my website** / **rebuild my website from <address>**: Level 3
+- **build my dashboard** / **update my dashboard**: Level 3
 - **help me with a key**: store an API key safely, without it touching the chat
 - **security check**: your plain-English security check and fix list
 - **brand studio**: your design system, a brand refresh, and real slides, posts, posters and flyers

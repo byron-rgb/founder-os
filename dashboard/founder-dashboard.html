@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Founder dashboard</title>
+<!--
+  Founder OS: founder dashboard (Level 3). Driven Young Founder OS, licensed to one business (see LICENSE.md).
+  A page saved in the founder's own Claude account. Each time they open it, it reads their connected tools
+  (CRM, calendar, accounting) with THEIR permissions: no keys, no hosting, private to them.
+  Claude fills the CONFIG block below (business, brand, modules, sources, goals) and, where a founder's tool
+  answers in a different shape, the ADAPTERS. Everything else stays as it is.
+  Modules: leads (CRM), week (calendar + tasks), money (accounting), goals (from the AI brain).
+-->
+<style>
+  :root{--bg:#0F0F12;--panel:#18181D;--line:rgba(255,255,255,.08);--text:#F4F4F5;--muted:#A1A1AA;--accent:#7C6CFF;--good:#34D399;--warn:#FBBF24;--bad:#F87171;--r:14px;
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 48px}
+  header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+  h1{font-size:26px;line-height:1.15;margin:0;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:14px;margin-top:4px}
+  .actions{display:flex;gap:8px;align-items:center}
+  button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 14px;font-weight:600;font-size:14px}
+  button:hover{border-color:color-mix(in srgb,var(--text) 25%,transparent)}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;min-width:0;display:flex;flex-direction:column;gap:14px}
+  .span-7{grid-column:span 7}.span-5{grid-column:span 5}.span-12{grid-column:span 12}
+  @media(max-width:900px){.span-7,.span-5{grid-column:span 12}}
+  .card-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .card-head h2{font-size:15px;margin:0;font-weight:650}
+  .fresh{font-size:12px;color:var(--muted)}
+  .big{font-size:34px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+  .stat{border:1px solid var(--line);border-radius:12px;padding:14px}
+  .stat .label{font-size:12px;color:var(--muted)}
+  .stat .value{font-size:22px;font-weight:700;margin-top:4px;letter-spacing:-.01em}
+  .list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+  .list li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+  .list li:first-child{border-top:0}
+  .grow{flex:1;min-width:0}
+  .title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .meta{font-size:13px;color:var(--muted)}
+  .chip{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+  .chip.good{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,transparent)}
+  .chip.warn{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,transparent)}
+  .chip.bad{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+  .day{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-top:6px}
+  .time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:13px;width:64px;flex:none}
+  .note{font-size:13px;color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:14px}
+  .note button{margin-top:10px}
+  .skel{height:14px;border-radius:6px;background:linear-gradient(90deg,var(--line),color-mix(in srgb,var(--text) 10%,transparent),var(--line));background-size:200% 100%;animation:sh 1.4s infinite}
+  @keyframes sh{to{background-position:-200% 0}}
+  .bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}.bar>i{display:block;height:100%;background:var(--accent);border-radius:99px}
+  .demo{font-size:12px;color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);border-radius:999px;padding:3px 10px}
+  dialog{background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:var(--r);padding:20px;max-width:360px;width:calc(100% - 40px)}
+  dialog::backdrop{background:rgba(0,0,0,.5)}
+  dialog label{display:flex;align-items:center;gap:10px;padding:8px 0}
+  @media(prefers-reduced-motion:reduce){.skel{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="biz">Founder dashboard</h1>
+      <div class="sub" id="today"></div>
+    </div>
+    <div class="actions">
+      <span class="demo" id="demoTag" hidden>Example data</span>
+      <button id="customise" type="button">Modules</button>
+      <button id="refresh" class="primary" type="button">Refresh</button>
+    </div>
+  </header>
+  <main class="grid" id="grid"></main>
+</div>
+<dialog id="mods">
+  <strong>Show on my dashboard</strong>
+  <div id="modList"></div>
+  <p class="meta">Only changes this device. To add a new module, ask Claude.</p>
+  <button id="modsClose" type="button">Done</button>
+</dialog>
+
+<!-- CONFIG: Claude fills this from the founder's brain and connected tools. JSON only. -->
+<script type="application/json" id="config">
+{
+  "business": "EXAMPLE Business",
+  "demo": true,
+  "currency": "AUD",
+  "brand": { "bg": "#0F0F12", "panel": "#18181D", "text": "#F4F4F5", "muted": "#A1A1AA", "accent": "#7C6CFF" },
+  "modules": { "leads": true, "week": true, "money": true, "goals": true },
+  "sources": {
+    "leads": [
+      { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "locationId": "LOCATION_ID", "query_status": "open", "query_limit": 50 }, "adapter": "ghlOpportunities" }
+    ],
+    "week": [
+      { "server": "Google Calendar", "tool": "list_events", "input": { "pageSize": 50, "orderBy": "startTime", "startTime": "{now}", "endTime": "{in7days}" }, "adapter": "googleCalendar" }
+    ],
+    "money": [
+      { "server": "Xero", "tool": "get_cash_position", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroCash" },
+      { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{monthStart}", "end_date": "{today}" }, "adapter": "xeroMonth" }
+    ]
+  },
+  "goals": [
+    { "title": "EXAMPLE: 20 new clients this quarter", "target": "11 so far", "status": "on_track" },
+    { "title": "EXAMPLE: hire a second team member", "target": "Ad goes live in December", "status": "behind" },
+    { "title": "EXAMPLE: new website live", "target": "Built in Level 3", "status": "done" }
+  ]
+}
+</script>
+
+<script>
+/* ADAPTERS: turn each tool's answer into the shape a module draws. Claude adds one when a founder uses a
+   different tool, after looking at one real answer from that tool in the founder's own session.
+   Shapes:  leads -> {open, value, items:[{name, stage, value, updated, followUp}]}
+            week  -> {events:[{title, start, end, allDay}], tasks:[{title, due}]}
+            money -> any of {cash, income, spend, owedToYou, youOwe}  (numbers)            */
+const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+const ADAPTERS = {
+  // GoHighLevel, opportunities search. NOT yet checked against a live answer: check it on first build.
+  ghlOpportunities(p) {
+    const list = Array.isArray(p?.opportunities) ? p.opportunities : [];
+    const week = Date.now() - 7 * 864e5;
+    const items = list.map((o) => {
+      const updated = Date.parse(o.lastStatusChangeAt || o.updatedAt || o.createdAt || '') || null;
+      return { name: o.contact?.name || o.name || 'Unnamed', stage: o.pipelineStageName || o.stageName || '', value: num(o.monetaryValue),
+               updated, followUp: !!updated && updated < week };
+    }).sort((a, b) => (b.followUp - a.followUp) || ((a.updated || 0) - (b.updated || 0)));
+    return { open: items.length, value: items.reduce((s, i) => s + i.value, 0), items };
+  },
+  // Google Calendar list_events. Checked 25 Nov 2026.
+  googleCalendar(p) {
+    const ev = Array.isArray(p?.events) ? p.events : [];
+    return { events: ev.filter((e) => e.status !== 'cancelled').map((e) => ({
+      title: e.summary || 'Busy', start: e.start?.dateTime || e.start?.date, end: e.end?.dateTime || e.end?.date, allDay: !e.start?.dateTime,
+    })) };
+  },
+  // Xero get_cash_position. Checked 25 Nov 2026: amount_owed = owed to you, amount_due = you owe.
+  xeroCash(p) { return { cash: num(p?.cash_balance), owedToYou: num(p?.amount_owed), youOwe: num(p?.amount_due) }; },
+  // Xero get_profit_and_loss for this month. Checked 25 Nov 2026.
+  xeroMonth(p) { const c = p?.current_pnl || {}; return { income: num(c.total_income) + num(c.total_other_income), spend: num(c.total_expenses) + num(c.total_cost_of_sales) }; },
+};
+
+/* DEMO: made-up numbers so the page can be seen before any tool is connected. */
+const DEMO = {
+  leads: () => ({ open: 5, value: 24400, items: [
+    { name: 'Jordan Pike', stage: 'Quote sent', value: 6200, updated: Date.now() - 9 * 864e5, followUp: true },
+    { name: 'Mia Tran', stage: 'Site visit booked', value: 3800, updated: Date.now() - 2 * 864e5, followUp: false },
+    { name: 'Sam & Lou Becker', stage: 'New enquiry', value: 0, updated: Date.now() - 864e5, followUp: false },
+    { name: 'Northside Physio', stage: 'Proposal', value: 12000, updated: Date.now() - 11 * 864e5, followUp: true },
+    { name: 'Ella Hartigan', stage: 'Quote sent', value: 2400, updated: Date.now() - 3 * 864e5, followUp: false } ] }),
+  week: () => { const d = (days, h, m = 0) => { const t = new Date(); t.setDate(t.getDate() + days); t.setHours(h, m, 0, 0); return t.toISOString(); };
+    return { events: [
+      { title: 'Site visit: Mia Tran', start: d(0, 9), end: d(0, 10) }, { title: 'Team check-in', start: d(0, 13), end: d(0, 13, 30) },
+      { title: 'Quote follow-ups', start: d(1, 8), end: d(1, 9) }, { title: 'Supplier call', start: d(2, 11), end: d(2, 11, 30) },
+      { title: 'Day off', start: d(4, 0), end: d(5, 0), allDay: true } ],
+      tasks: [{ title: 'Send Jordan the revised quote', due: d(0, 17) }, { title: 'Pay the ute rego', due: d(2, 17) }] }; },
+  money: () => ({ cash: 31450, income: 18720, spend: 9310, owedToYou: 6400, youOwe: 2150 }),
+};
+
+/* ---------------------------------------------------------------- page (leave as is) */
+const CFG = JSON.parse(document.getElementById('config').textContent);
+const $ = (id) => document.getElementById(id);
+const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = String(text); return n; };
+const money = (v) => new Intl.NumberFormat('en-AU', { style: 'currency', currency: CFG.currency || 'AUD', maximumFractionDigits: 0 }).format(v || 0);
+const ago = (ms) => { if (!ms) return ''; const d = Math.round((Date.now() - ms) / 864e5); return d <= 0 ? 'today' : d === 1 ? 'yesterday' : `${d} days ago`; };
+const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const local = (d) => `${ymd(d)}T${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}:00`;
+const now = new Date();
+const FILL = { '{today}': ymd(now), '{monthStart}': ymd(new Date(now.getFullYear(), now.getMonth(), 1)), '{now}': local(now), '{in7days}': local(new Date(now.getTime() + 7 * 864e5)) };
+const fill = (v) => typeof v === 'string' ? (FILL[v] ?? v) : Array.isArray(v) ? v.map(fill) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x)])) : v;
+
+// Brand
+for (const [k, v] of Object.entries(CFG.brand || {})) if (/^#[0-9a-f]{3,8}$/i.test(v)) document.documentElement.style.setProperty(`--${k}`, v);
+$('biz').textContent = CFG.business || 'Founder dashboard';
+$('today').textContent = now.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'long' });
+$('demoTag').hidden = !CFG.demo;
+
+// Modules on/off: CONFIG decides what exists; this device can hide any of them.
+const MODULES = [
+  { id: 'leads', name: 'Leads and sales', span: 'span-7' },
+  { id: 'week', name: 'This week', span: 'span-5' },
+  { id: 'money', name: 'Money', span: 'span-7' },
+  { id: 'goals', name: 'Goals', span: 'span-5' },
+];
+const hidden = new Set(JSON.parse(localStorage.getItem('fd-hidden') || '[]'));
+const active = () => MODULES.filter((m) => CFG.modules?.[m.id] && !hidden.has(m.id));
+
+// One card per module
+const cards = {};
+function build() {
+  const grid = $('grid'); grid.replaceChildren();
+  for (const m of active()) {
+    const card = el('section', `card ${m.span}`); card.setAttribute('aria-label', m.name);
+    const head = el('div', 'card-head'); head.append(el('h2', null, m.name), el('span', 'fresh'));
+    const body = el('div'); body.append(skeleton());
+    card.append(head, body); grid.append(card);
+    cards[m.id] = { card, body, fresh: head.lastChild, parts: {}, errors: {} };
+  }
+}
+const skeleton = () => { const s = el('div'); s.style.display = 'grid'; s.style.gap = '10px'; for (const w of [60, 90, 75]) { const b = el('div', 'skel'); b.style.width = w + '%'; s.append(b); } return s; };
+
+// Draw each module from its merged data
+const DRAW = {
+  leads(d, body) {
+    const stats = el('div', 'stats');
+    stats.append(stat('Open deals', d.open ?? 0), stat('In the pipeline', money(d.value)), stat('Need a follow-up', (d.items || []).filter((i) => i.followUp).length));
+    const list = el('ul', 'list');
+    for (const i of (d.items || []).slice(0, 6)) {
+      const li = el('li'); const g = el('div', 'grow');
+      g.append(el('div', 'title', i.name), el('div', 'meta', [i.stage, i.value ? money(i.value) : '', i.updated ? `moved ${ago(i.updated)}` : ''].filter(Boolean).join(' · ')));
+      li.append(g); if (i.followUp) li.append(el('span', 'chip warn', 'Follow up'));
+      list.append(li);
+    }
+    body.replaceChildren(stats, list.children.length ? list : el('p', 'meta', 'No open deals.'));
+  },
+  week(d, body) {
+    const out = el('div'); const byDay = new Map();
+    for (const e of (d.events || []).slice().sort((a, b) => Date.parse(a.start) - Date.parse(b.start))) {
+      const day = new Date(e.allDay && /^\d{4}-\d{2}-\d{2}$/.test(e.start) ? `${e.start}T00:00:00` : e.start); const key = ymd(day);
+      if (!byDay.has(key)) byDay.set(key, { day, items: [] }); byDay.get(key).items.push(e);
+    }
+    for (const { day, items } of [...byDay.values()].slice(0, 5)) {
+      const isToday = ymd(day) === ymd(now);
+      out.append(el('div', 'day', isToday ? 'Today' : day.toLocaleDateString('en-AU', { weekday: 'long', day: 'numeric', month: 'short' })));
+      const list = el('ul', 'list');
+      for (const e of items) { const li = el('li'); li.append(el('span', 'time', e.allDay ? 'All day' : new Date(e.start).toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' })), el('span', 'grow title', e.title)); list.append(li); }
+      out.append(list);
+    }
+    if ((d.tasks || []).length) {
+      out.append(el('div', 'day', 'Tasks due'));
+      const list = el('ul', 'list');
+      for (const t of d.tasks.slice(0, 5)) { const li = el('li'); li.append(el('span', 'grow title', t.title), el('span', 'meta', t.due ? new Date(t.due).toLocaleDateString('en-AU', { weekday: 'short' }) : '')); list.append(li); }
+      out.append(list);
+    }
+    body.replaceChildren(out.children.length ? out : el('p', 'meta', 'Nothing on this week.'));
+  },
+  money(d, body) {
+    const stats = el('div', 'stats');
+    const top = el('div'); top.style.cssText = 'display:grid;gap:8px;margin-bottom:16px';
+    if ('cash' in d) top.append(el('div', 'meta', 'Cash in the bank'), el('div', 'big', money(d.cash)));
+    if ('income' in d) stats.append(stat('In this month', money(d.income)));
+    if ('spend' in d) stats.append(stat('Spent this month', money(d.spend)));
+    if ('owedToYou' in d) stats.append(stat('Owed to you', money(d.owedToYou)));
+    if ('youOwe' in d) stats.append(stat('You owe', money(d.youOwe)));
+    const parts = top.children.length ? [top, stats] : [stats];
+    if ('income' in d && 'spend' in d) { const net = d.income - d.spend; parts.push(el('p', 'meta', `${net >= 0 ? 'Ahead' : 'Behind'} ${money(Math.abs(net))} this month so far.`)); }
+    body.replaceChildren(...parts);
+  },
+  goals(_d, body) {
+    const goals = CFG.goals || []; const list = el('ul', 'list');
+    const label = { on_track: ['On track', 'good'], behind: ['Behind', 'warn'], done: ['Done', 'good'], not_started: ['Not started', ''] };
+    for (const g of goals.slice(0, 5)) {
+      const li = el('li'); const gr = el('div', 'grow'); gr.append(el('div', 'title', g.title), el('div', 'meta', g.target || ''));
+      const [t, c] = label[g.status] || label.not_started; li.append(gr, el('span', `chip ${c}`, t)); list.append(li);
+    }
+    const done = goals.filter((g) => g.status === 'done').length;
+    const bar = el('div', 'bar'); const fillBar = el('i'); fillBar.style.width = goals.length ? `${(done / goals.length) * 100}%` : '0'; bar.append(fillBar);
+    body.replaceChildren(goals.length ? list : el('p', 'meta', 'No goals yet. Ask Claude: "add my goals to my dashboard".'), bar);
+  },
+};
+const stat = (label, value) => { const s = el('div', 'stat'); s.append(el('div', 'label', label), el('div', 'value', value)); return s; };
+
+// Errors: each code has its own fix, shown in the module it affects
+function problem(c, server, err, src) {
+  const note = el('div', 'note');
+  const say = {
+    needs_reauth: `${server} needs reconnecting. In Claude: Settings, then Connectors, then ${server}.`,
+    server_not_connected: `Connect ${server} in Claude (Settings, then Connectors) to see this.`,
+    selection_required: `You have more than one ${server} connected. Choose one when Claude asks.`,
+    not_in_manifest: `${server} is switched off for this dashboard. Turn it on in this page's permissions menu.`,
+    blocked_by_policy: `${server} is blocked by your organisation's settings.`,
+    approval_required: `This needs your OK to read ${server}.`,
+  }[err.code] || `Couldn't load from ${server} just now. Press Refresh to try again.`;
+  note.append(el('div', null, say));
+  if (err.code === 'approval_required' && src) {
+    const b = el('button', null, `Allow ${server}`);
+    b.addEventListener('click', async () => { try { const r = await mcp.callTool(src.server, src.tool, fill(src.input)); take(c, src, r); } catch (e) { take(c, src, null, e); } });
+    note.append(b);
+  }
+  return note;
+}
+const RETRACT = new Set(['needs_reauth', 'server_not_connected', 'blocked_by_policy', 'approval_required', 'not_in_manifest', 'selection_required']);
+
+function take(id, src, result, err) {
+  const c = cards[id]; if (!c) return;
+  const key = `${src.server}:${src.tool}`;
+  if (err) { c.errors[key] = { err, src }; if (RETRACT.has(err.code)) delete c.parts[key]; }
+  else {
+    delete c.errors[key];
+    try { c.parts[key] = ADAPTERS[src.adapter](result.payload); }
+    catch { c.errors[key] = { err: { code: 'adapter' }, src }; }
+    if (result.cache?.storedAt) c.fresh.textContent = `Updated ${new Date(result.cache.storedAt).toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit' })}`;
+    else c.fresh.textContent = 'Live';
+  }
+  render(id);
+}
+function render(id) {
+  const c = cards[id]; const parts = Object.values(c.parts);
+  const merged = Object.assign({}, ...parts);
+  if (id === 'week') { merged.events = parts.flatMap((p) => p.events || []); merged.tasks = parts.flatMap((p) => p.tasks || []); }
+  const box = el('div'); box.style.display = 'grid'; box.style.gap = '12px';
+  if (parts.length) { const inner = el('div'); DRAW[id](merged, inner); box.append(inner); }
+  for (const { err, src } of Object.values(c.errors)) box.append(problem(id, src.server, err, src));
+  c.body.replaceChildren(box.children.length ? box : skeleton());
+}
+
+// Data: demo, or the founder's own connectors
+let mcp = null; const stops = [];
+async function start() {
+  build();
+  if (cards.goals) { DRAW.goals(null, cards.goals.body); cards.goals.fresh.textContent = 'From your brain'; }
+  if (CFG.demo) { for (const id of Object.keys(DEMO)) if (cards[id]) { DRAW[id](DEMO[id](), cards[id].body); cards[id].fresh.textContent = 'Example'; } return; }
+  mcp = await window.claude?.use?.('mcp');
+  if (!mcp) { for (const id of ['leads', 'week', 'money']) if (cards[id]) { const n = el('div', 'note', 'Open this dashboard in Claude to see your live numbers.'); cards[id].body.replaceChildren(n); } return; }
+  for (const id of ['leads', 'week', 'money']) {
+    if (!cards[id]) continue;
+    for (const src of CFG.sources?.[id] || []) {
+      stops.push(mcp.watchTool(src.server, src.tool, fill(src.input), (ev) => ev.type === 'data' ? take(id, src, ev.result) : take(id, src, null, ev.error), { refetchInterval: 10 * 60 * 1000 }));
+    }
+  }
+}
+$('refresh').addEventListener('click', async () => { if (mcp) { try { await mcp.invalidate(); } catch { /* nothing cached */ } } else start(); });
+$('customise').addEventListener('click', () => {
+  const list = $('modList'); list.replaceChildren();
+  for (const m of MODULES.filter((x) => CFG.modules?.[x.id])) {
+    const lab = el('label'); const box = el('input'); box.type = 'checkbox'; box.checked = !hidden.has(m.id);
+    box.addEventListener('change', () => { box.checked ? hidden.delete(m.id) : hidden.add(m.id); localStorage.setItem('fd-hidden', JSON.stringify([...hidden])); stops.splice(0).forEach((s) => s()); start(); });
+    lab.append(box, el('span', null, m.name)); list.append(lab);
+  }
+  $('mods').showModal();
+});
+$('modsClose').addEventListener('click', () => $('mods').close());
+start();
+</script>
+</body>
+</html>
