@@ -1,0 +1,6 @@
+.DS_Store
+.env
+.env.*
+brain/.obsidian/workspace*.json
+brain/.obsidian/cache
+node_modules/
