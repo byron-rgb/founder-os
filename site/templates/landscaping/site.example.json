@@ -1,5 +1,5 @@
 {
-  "_note": "EXAMPLE content for the landscaping template. Claude replaces every value from the brain (Offers and Prices, Customers, Brand Voice, Profile). Never ship example reviews or numbers.",
+  "_note": "EXAMPLE content for the landscaping template. Claude replaces every value from the brain (Offers and Prices, Customers, Brand Voice, Profile). Never ship example reviews or numbers. Photos: the founder's own, saved in public/images/ (e.g. /images/hero.jpg). Any photo left null hides that part or shows a plain block.",
   "url": "https://example.com.au",
   "schemaType": "LandscapingBusiness",
   "logo": null,
@@ -13,46 +13,139 @@
     "abn": "",
     "licence": "",
     "address": null,
-    "serviceAreas": ["Suburb One", "Suburb Two", "Suburb Three"]
+    "serviceAreas": [
+      "Suburb One",
+      "Suburb Two",
+      "Suburb Three"
+    ]
   },
   "hero": {
     "eyebrow": "Landscaping in your area",
     "title": "A yard you'll actually use. Without losing your weekends.",
     "text": "Garden makeovers, retaining walls and weekly maintenance, done by a small local team that turns up when we say we will.",
     "image": null,
-    "imageLabel": "Your best finished garden here"
+    "imageAlt": "Describe the hero photo for screen readers"
   },
-  "proof": ["Local and insured", "Fixed-price quotes", "Clean site, every day"],
+  "proof": [
+    "Local and insured",
+    "Fixed-price quotes",
+    "Clean site, every day"
+  ],
   "services": [
-    { "name": "Garden makeovers", "text": "Full redesigns: planting, paving, lawn and lighting, planned with you.", "from": "From $X,XXX" },
-    { "name": "Retaining walls", "text": "Timber, sleeper and block walls that hold up, quoted per metre.", "from": "Quoted per metre" },
-    { "name": "Weekly maintenance", "text": "Mowing, edging, pruning and weeding on a schedule that suits you.", "from": "From $XX a visit" },
-    { "name": "Turf and lawns", "text": "New turf laid, tired lawns brought back, irrigation fixed.", "from": "" },
-    { "name": "Planting and garden beds", "text": "Hardy plants that suit your soil, sun and how much time you have.", "from": "" },
-    { "name": "Clean-ups", "text": "Overgrown block, end of lease or before a sale: cleared and tidy.", "from": "" }
+    {
+      "name": "Garden makeovers",
+      "text": "Full redesigns: planting, paving, lawn and lighting, planned with you.",
+      "from": "From $X,XXX",
+      "image": null
+    },
+    {
+      "name": "Retaining walls",
+      "text": "Timber, sleeper and block walls that hold up, quoted per metre.",
+      "from": "Quoted per metre",
+      "image": null
+    },
+    {
+      "name": "Weekly maintenance",
+      "text": "Mowing, edging, pruning and weeding on a schedule that suits you.",
+      "from": "From $XX a visit"
+    },
+    {
+      "name": "Turf and lawns",
+      "text": "New turf laid, tired lawns brought back, irrigation fixed.",
+      "from": ""
+    },
+    {
+      "name": "Planting and garden beds",
+      "text": "Hardy plants that suit your soil, sun and how much time you have.",
+      "from": ""
+    },
+    {
+      "name": "Clean-ups",
+      "text": "Overgrown block, end of lease or before a sale: cleared and tidy.",
+      "from": ""
+    }
   ],
   "steps": [
-    { "title": "Tell us about the job", "text": "Send the form or call. Photos help." },
-    { "title": "Free on-site quote", "text": "We walk it with you and send a fixed price." },
-    { "title": "We build it", "text": "On the day we said, with a clean site at the end of each day." }
+    {
+      "title": "Tell us about the job",
+      "text": "Send the form or call. Photos help."
+    },
+    {
+      "title": "Free on-site quote",
+      "text": "We walk it with you and send a fixed price."
+    },
+    {
+      "title": "We build it",
+      "text": "On the day we said, with a clean site at the end of each day."
+    }
   ],
   "gallery": [
-    { "src": null, "label": "Before and after: garden makeover" },
-    { "src": null, "label": "Sleeper retaining wall" },
-    { "src": null, "label": "New turf and garden beds" }
+    {
+      "src": null,
+      "label": "Job and suburb"
+    },
+    {
+      "src": null,
+      "label": "Job and suburb"
+    },
+    {
+      "src": null,
+      "label": "Job and suburb"
+    },
+    {
+      "src": null,
+      "label": "Job and suburb"
+    }
   ],
   "why": [
-    { "title": "We turn up", "text": "On time, every time, and we tell you if anything changes." },
-    { "title": "Fixed prices", "text": "The quote is the price. No surprise extras." },
-    { "title": "Small team", "text": "You deal with the owner, not a call centre." }
+    {
+      "title": "We turn up",
+      "text": "On time, every time, and we tell you if anything changes."
+    },
+    {
+      "title": "Fixed prices",
+      "text": "The quote is the price. No surprise extras."
+    },
+    {
+      "title": "Small team",
+      "text": "You deal with the owner, not a call centre."
+    }
   ],
   "reviews": [],
   "faqs": [
-    { "q": "How much does a garden makeover cost?", "a": "It depends on size and materials. Most of our makeovers start from $X,XXX. We give you a fixed price after a free on-site quote." },
-    { "q": "Which areas do you cover?", "a": "Suburb One, Suburb Two, Suburb Three and nearby. Not sure? Ask us." },
-    { "q": "Are you insured?", "a": "Yes, fully insured. We're happy to send a copy." },
-    { "q": "How soon can you start?", "a": "Usually within X weeks of saying yes. Maintenance can often start the next week." }
+    {
+      "q": "How much does a garden makeover cost?",
+      "a": "It depends on size and materials. Most of our makeovers start from $X,XXX. We give you a fixed price after a free on-site quote."
+    },
+    {
+      "q": "Which areas do you cover?",
+      "a": "Suburb One, Suburb Two, Suburb Three and nearby. Not sure? Ask us."
+    },
+    {
+      "q": "Are you insured?",
+      "a": "Yes, fully insured. We're happy to send a copy."
+    },
+    {
+      "q": "How soon can you start?",
+      "a": "Usually within X weeks of saying yes. Maintenance can often start the next week."
+    }
   ],
-  "jobTypes": ["Garden makeover", "Retaining wall", "Weekly maintenance", "Turf or lawn", "Clean-up", "Something else"],
-  "thanks": "We reply to every quote request within one business day. If it's urgent, give us a call."
+  "jobTypes": [
+    "Garden makeover",
+    "Retaining wall",
+    "Weekly maintenance",
+    "Turf or lawn",
+    "Clean-up",
+    "Something else"
+  ],
+  "thanks": "We reply to every quote request within one business day. If it's urgent, give us a call.",
+  "beforeAfter": {
+    "before": null,
+    "after": null,
+    "caption": "Suburb: what changed and how long it took"
+  },
+  "team": {
+    "image": null,
+    "alt": "The owner on site"
+  }
 }

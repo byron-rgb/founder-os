@@ -6,14 +6,13 @@ const { title = 'Get a free quote', text = 'Tell us about the job. We reply with
 const jobs = site.jobTypes || [];
 ---
 <section id="quote" class="section panel">
-  <div class="wrap grid g2" style="align-items:start">
-    <div class="stack">
-      <span class="eyebrow">Free quote</span>
+  <div class="wrap grid g2" style="align-items:start;gap:clamp(32px,6vw,80px)">
+    <div class="stack" style="gap:20px">
       <h2>{title}</h2>
       <p class="lead">{text}</p>
       {site.business.phone && <p>Rather talk? Call <a href={`tel:${site.business.phone.replace(/\s/g, '')}`}><strong>{site.business.phone}</strong></a></p>}
     </div>
-    <form id="lead-form" class="card stack" novalidate>
+    <form id="lead-form" class="card stack" style="padding:clamp(24px,4vw,40px);box-shadow:0 30px 60px -36px color-mix(in srgb,var(--c-text) 60%,transparent)" novalidate>
       <div class="grid g2" style="gap:var(--s2)">
         <div class="stack" style="gap:6px"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
         <div class="stack" style="gap:6px"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required /></div>

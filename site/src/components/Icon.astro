@@ -1,0 +1,11 @@
+---
+// One icon from Phosphor (MIT, phosphoricons.com), inlined at build time so the page loads nothing extra.
+// Usage: <Icon name="phone" /> . Names: see node_modules/@phosphor-icons/core/assets/bold
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+const { name, size = 20, weight = 'bold', label } = Astro.props;
+const file = join(process.cwd(), 'node_modules/@phosphor-icons/core/assets', weight, `${name}${weight === 'regular' ? '' : '-' + weight}.svg`);
+let svg = existsSync(file) ? readFileSync(file, 'utf8') : '';
+svg = svg.replace('<svg ', `<svg width="${size}" height="${size}" fill="currentColor" ${label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"'} focusable="false" `);
+---
+<Fragment set:html={svg} />

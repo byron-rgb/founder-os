@@ -33,6 +33,8 @@ Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
 1. Read their current site (every main page). List what's on it: pages, offers, wording that works, photos, contact details.
 2. Ask what to keep, drop and fix. Keep their best wording.
 3. Build as above, using their real content and photos (download only images they own).
+
+Photos make or break a trade site. Ask for: one wide hero photo of their best finished job, one before and one after of the same job, a photo of the owner on site, and 4 or more recent jobs. Save them in `site/public/images/` and point to them in `site.json` (`hero.image`, `services[].image` for the two main services, `beforeAfter`, `team.image`, `gallery`). No photo yet: leave it `null`, the page still works, and add it to their to-do list.
 4. Same page addresses where possible, so Google links still work. List any changed addresses and set up redirects in `site/public/_redirects`.
 
 ## Add a page

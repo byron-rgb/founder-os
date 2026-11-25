@@ -1,13 +1,16 @@
 ---
-// Site layout: head, brand fonts, local business details for Google, header and footer.
+// Site layout: head, brand fonts, local business details for Google, header with nav + mobile menu, footer.
+// Props: title, description, overlay (true = header sits see-through over a full-photo hero, home page only).
 import '../styles/brand.css';
 import '../styles/base.css';
+import Icon from '../components/Icon.astro';
 import site from '../content/site.json';
 import fonts from '../content/fonts.json';
-const { title, description } = Astro.props;
+const { title, description, overlay = false } = Astro.props;
 const b = site.business;
 const pageTitle = title ? `${title} | ${b.name}` : `${b.name} | ${b.tagline}`;
 const desc = description || site.hero?.text || b.tagline;
+const tel = b.phone ? `tel:${b.phone.replace(/\s/g, '')}` : null;
 const schema = {
   '@context': 'https://schema.org', '@type': site.schemaType || 'LocalBusiness',
   name: b.name, description: desc, url: site.url, telephone: b.phone || undefined, email: b.email || undefined,
@@ -15,6 +18,14 @@ const schema = {
   address: b.address ? { '@type': 'PostalAddress', streetAddress: b.address.street, addressLocality: b.address.suburb, addressRegion: b.address.state, postalCode: b.address.postcode, addressCountry: 'AU' } : undefined,
 };
 const logo = site.logo || null;
+// Menu: site.nav if set, otherwise built from the sections that have content.
+const nav = site.nav || [
+  site.services?.length && { label: 'Services', href: '/#services' },
+  (site.gallery?.length || site.beforeAfter) && { label: 'Our work', href: '/#work' },
+  site.steps?.length && { label: 'How it works', href: '/#process' },
+  site.reviews?.length && { label: 'Reviews', href: '/#reviews' },
+  site.faqs?.length && { label: 'FAQs', href: '/#faqs' },
+].filter(Boolean);
 ---
 <!doctype html>
 <html lang="en-AU">
@@ -26,37 +37,73 @@ const logo = site.logo || null;
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
   <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={desc} />
+  {site.hero?.image && <meta property="og:image" content={new URL(site.hero.image, Astro.site)} />}
   {fonts.href && <><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href={fonts.href} /></>}
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body>
-  <header class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px">
-    <a href="/" style="text-decoration:none;display:flex;align-items:center;gap:10px">
-      {logo ? <img src={logo} alt={b.name} style="height:40px;width:auto" /> : <strong style="font-family:var(--f-head);font-size:20px">{b.name}</strong>}
-    </a>
-    <nav style="display:flex;align-items:center;gap:16px">
-      {b.phone && <a href={`tel:${b.phone.replace(/\s/g, '')}`} class="hide-sm" style="font-weight:600;text-decoration:none">{b.phone}</a>}
-      <a class="btn btn-sm" href="#quote">{site.cta || 'Get a quote'}</a>
-    </nav>
-  </header>
-  <main><slot /></main>
-  <footer class="panel">
-    <div class="wrap section" style="padding-block:48px;display:grid;gap:24px" >
-      <div class="grid g3">
-        <div class="stack"><strong style="font-family:var(--f-head);font-size:20px">{b.name}</strong><p class="muted">{b.tagline}</p></div>
-        <div class="stack">
-          {b.phone && <a href={`tel:${b.phone.replace(/\s/g, '')}`}>{b.phone}</a>}
-          {b.email && <a href={`mailto:${b.email}`}>{b.email}</a>}
-          {b.hours && <p class="muted">{b.hours}</p>}
-        </div>
-        <div class="stack">
-          {b.serviceAreas?.length > 0 && <p class="muted">Servicing {b.serviceAreas.join(', ')}</p>}
-          {b.abn && <p class="muted">ABN {b.abn}</p>}
-          {b.licence && <p class="muted">{b.licence}</p>}
-        </div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class:list={['head', { overlay }]} id="head">
+    <div class="wrap head-row">
+      <a href="/" class="brand" aria-label={`${b.name} home`}>
+        {logo ? <img src={logo} alt={b.name} /> : <span>{b.name}</span>}
+      </a>
+      <nav class="nav" aria-label="Main">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+      </nav>
+      <div class="head-cta">
+        {tel && <a class="head-phone" href={tel}><Icon name="phone" size={18} />{b.phone}</a>}
+        {tel && <a class="head-call" href={tel} aria-label={`Call ${b.phone}`}><Icon name="phone" size={22} /></a>}
+        <a class="btn btn-sm head-quote" href="/#quote">{site.cta || 'Get a quote'}</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+          <span class="i-open"><Icon name="list" size={24} /></span><span class="i-close"><Icon name="x" size={24} /></span>
+        </button>
       </div>
-      <p class="muted" style="font-size:var(--t-small)">© {new Date().getFullYear()} {b.name} · <a href="/privacy">Privacy</a></p>
     </div>
+    <div class="menu" id="menu" hidden>
+      <div class="wrap stack">
+        {nav.map((n) => <a href={n.href}>{n.label}</a>)}
+        <a class="btn" href="/#quote">{site.cta || 'Get a quote'}</a>
+        {tel && <a href={tel} class="btn ghost"><Icon name="phone" size={18} />Call {b.phone}</a>}
+      </div>
+    </div>
+  </header>
+  <main id="main"><slot /></main>
+  <footer class="foot">
+    <div class="wrap foot-grid">
+      <div class="stack">
+        <strong class="foot-name">{b.name}</strong>
+        <p>{b.tagline}</p>
+        <a class="btn" href="/#quote">{site.cta || 'Get a quote'}</a>
+      </div>
+      <div class="stack">
+        <strong>Contact</strong>
+        {tel && <a href={tel}>{b.phone}</a>}
+        {b.email && <a href={`mailto:${b.email}`}>{b.email}</a>}
+        {b.hours && <p>{b.hours}</p>}
+      </div>
+      <div class="stack">
+        <strong>Where we work</strong>
+        {b.serviceAreas?.length > 0 && <p>{b.serviceAreas.join(', ')}</p>}
+        {b.abn && <p>ABN {b.abn}</p>}
+        {b.licence && <p>{b.licence}</p>}
+      </div>
+    </div>
+    <div class="wrap foot-base">© {new Date().getFullYear()} {b.name}<a href="/privacy">Privacy</a></div>
   </footer>
+  <script>
+    // Header: solid once you scroll off the top. Menu: open/close on small screens.
+    const head = document.getElementById('head')!;
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;height:24px;width:1px';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([e]) => head.classList.toggle('solid', !e.isIntersecting)).observe(sentinel);
+    const btn = head.querySelector('.menu-btn') as HTMLButtonElement;
+    const menu = document.getElementById('menu')!;
+    const set = (open: boolean) => { btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); menu.hidden = !open; head.classList.toggle('open', open); };
+    btn.addEventListener('click', () => set(menu.hidden));
+    menu.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { set(false); btn.focus(); } });
+  </script>
 </body>
 </html>
