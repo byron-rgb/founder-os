@@ -1,8 +1,8 @@
 // Reads the founder's design system from the brain and writes src/styles/brand.css.
 // Source: ../brain/3 Marketing/Brand/design-system.json (made by Brand Studio).
 // No design system yet? Keeps a neutral starter brand so the site still builds.
-import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync, lstatSync } from 'node:fs';
+import { dirname, join, resolve, sep, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -45,7 +45,7 @@ const byUse = (words, fallback) => {
   }
   return (ds.colours[fallback] || ds.colours[0]).hex;
 };
-const resolve = (v) => (!v ? null : String(v).startsWith('#') ? v : (ds.colours.find((c) => c.name === v) || {}).hex || null);
+const colourOf = (v) => (!v ? null : String(v).startsWith('#') ? v : (ds.colours.find((c) => c.name === v) || {}).hex || null);
 const fontOf = (prefix, fb) => (ds.fonts.find((f) => (f.role || '').toLowerCase().startsWith(prefix)) || {}).family || fb;
 const px = (v, fb) => (v == null ? fb : typeof v === 'number' ? `${v}px` : v);
 const sizes = ds.type || ds.typeSizes || {};
@@ -53,8 +53,8 @@ const radius = px(ds.button?.radius ?? ds.button?.corners ?? (typeof ds.corners 
 
 const text = byUse(['body text', 'text', 'ink'], 0);
 const bg = byUse(['page background', 'background', 'page'], 1);
-const accent = resolve(ds.button?.background) || byUse(['accent', 'button'], 2);
-const onAccent = resolve(ds.button?.text) || bg;
+const accent = colourOf(ds.button?.background) || byUse(['accent', 'button'], 2);
+const onAccent = colourOf(ds.button?.text) || bg;
 const panel = byUse(['card', 'form', 'section', 'panel'], 3);
 // Readability: accent-coloured small text must reach 4.5:1 on the page, else use the text colour.
 const lum = (hex) => { const h = hex.replace('#', ''); const f = h.length === 3 ? h.split('').map((x) => x + x).join('') : h.slice(0, 6);
@@ -91,13 +91,19 @@ const gf = ds.fonts.filter((f) => /google/i.test(f.source || '')).map((f) => {
 });
 writeFileSync(join(root, 'src', 'content', 'fonts.json'), JSON.stringify({ href: gf.length ? `https://fonts.googleapis.com/css2?${gf.join('&')}&display=swap` : null }, null, 2));
 
-// Copy logos into public/ so pages can use them
+// Copy logos into public/ so pages can use them. Only image files that sit inside the
+// Brand folder (no ../ paths, no shortcuts/symlinks pointing elsewhere).
 mkdirSync(join(root, 'public', 'brand'), { recursive: true });
+const IMG = new Set(['.png', '.jpg', '.jpeg', '.svg', '.webp']);
 for (const key of ['main', 'dark']) {
   const rel = ds.logo?.[key];
-  if (rel && typeof rel === 'string' && !rel.includes(' or ')) {
-    const p = join(brandDir, rel);
-    if (existsSync(p)) copyFileSync(p, join(root, 'public', 'brand', `logo-${key}${p.slice(p.lastIndexOf('.'))}`));
+  if (!rel || typeof rel !== 'string') continue;
+  const p = resolve(brandDir, rel);
+  const ext = extname(p).toLowerCase();
+  if (!p.startsWith(resolve(brandDir) + sep) || !IMG.has(ext) || !existsSync(p) || lstatSync(p).isSymbolicLink()) {
+    console.warn(`brand: skipped logo "${rel}" (must be an image inside the Brand folder)`);
+    continue;
   }
+  copyFileSync(p, join(root, 'public', 'brand', `logo-${key}${ext}`));
 }
 console.log(`brand: styles written from ${from === src ? 'your design system' : from}`);

@@ -43,28 +43,43 @@ export async function onRequestPost({ request, env }) {
   }
 }
 
+// Never overwrites an existing contact: the form isn't signed in, so anyone could type a
+// customer's email. Existing contact -> add tags + an "unverified" note only.
+// New contact -> create it.
 async function toGhl(lead, tags, env) {
   if (!env.GHL_API_KEY || !env.GHL_LOCATION_ID) throw new Error('GHL settings missing');
+  const api = 'https://services.leadconnectorhq.com';
+  const headers = { Authorization: `Bearer ${env.GHL_API_KEY}`, Version: '2021-07-28', 'Content-Type': 'application/json', Accept: 'application/json' };
+  const details = [lead.job && `Job: ${lead.job}`, lead.suburb && `Suburb: ${lead.suburb}`, lead.details && `Details: ${lead.details}`].filter(Boolean);
+
+  let id = null;
+  if (lead.email) {
+    const r = await fetch(`${api}/contacts/search/duplicate?locationId=${encodeURIComponent(env.GHL_LOCATION_ID)}&email=${encodeURIComponent(lead.email)}`, { headers });
+    if (r.ok) id = (await r.json().catch(() => ({})))?.contact?.id || null;
+  }
+
+  if (id) {
+    await fetch(`${api}/contacts/${id}/tags`, { method: 'POST', headers, body: JSON.stringify({ tags }) });
+    const note = ['Website quote request (unverified: sent from the public form, contact details not changed)',
+      `Name given: ${lead.name}`, lead.phone && `Phone given: ${lead.phone}`, ...details].filter(Boolean).join('\n');
+    const r = await fetch(`${api}/contacts/${id}/notes`, { method: 'POST', headers, body: JSON.stringify({ body: note }) });
+    if (!r.ok) throw new Error(`GHL note ${r.status}`);
+    return;
+  }
+
   const [firstName, ...rest] = lead.name.split(' ');
-  const res = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.GHL_API_KEY}`, Version: '2021-07-28', 'Content-Type': 'application/json', Accept: 'application/json' },
+  const res = await fetch(`${api}/contacts/`, {
+    method: 'POST', headers,
     body: JSON.stringify({
       locationId: env.GHL_LOCATION_ID, firstName, lastName: rest.join(' ') || undefined,
       email: lead.email || undefined, phone: lead.phone || undefined, city: lead.suburb || undefined,
       tags, source: 'Website quote form',
     }),
   });
-  if (!res.ok) throw new Error(`GHL ${res.status}`);
-  const data = await res.json().catch(() => ({}));
-  const id = data?.contact?.id;
-  const note = [lead.job && `Job: ${lead.job}`, lead.suburb && `Suburb: ${lead.suburb}`, lead.details && `Details: ${lead.details}`].filter(Boolean).join('\n');
-  if (id && note) {
-    await fetch(`https://services.leadconnectorhq.com/contacts/${id}/notes`, {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${env.GHL_API_KEY}`, Version: '2021-07-28', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ body: `Website quote request\n${note}` }),
-    }).catch(() => {});
+  if (!res.ok) throw new Error(`GHL create ${res.status}`);
+  const newId = (await res.json().catch(() => ({})))?.contact?.id;
+  if (newId && details.length) {
+    await fetch(`${api}/contacts/${newId}/notes`, { method: 'POST', headers, body: JSON.stringify({ body: `Website quote request\n${details.join('\n')}` }) }).catch(() => {});
   }
 }
 
