@@ -133,6 +133,8 @@ def check(host):
                 add("low", f"{name} missing or weak. {why}", fix)
         except Exception as e:
             r["details_error"] = str(e)[:200]
+            add("low", "Couldn't load the reasons behind the grade (the grading site didn't answer in time).",
+                "Run the check again later, or open the Observatory page for this site to see the reasons.")
     except Exception as e:
         r["observatory_error"] = str(e)[:200]
 

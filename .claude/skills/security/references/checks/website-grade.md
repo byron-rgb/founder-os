@@ -17,7 +17,7 @@ The certificate is the padlock. If it runs out, browsers show a full-page warnin
 1. Get the website address(es) from `Stack.md`. Include the booking or shop site if it's separate, and any customer login portal.
 2. Run:
    ```
-   python3 -I scripts/website_grade.py theirsite.com.au www.theirsite.com.au --json "Security/runs/TODAY/website.json"
+   python3 -I scripts/website_grade.py theirsite.com.au www.theirsite.com.au --json "brain/Security/runs/TODAY/website.json"
    ```
    The script asks the Observatory to grade each site (one request to `observatory-api.mdn.mozilla.net`, API v2), reads which tests failed, then opens one normal secure connection to read the certificate's expiry. That's all. No logins, no forms, nothing a normal visitor wouldn't do.
 3. Without Python: open `https://developer.mozilla.org/en-US/observatory/analyze?host=theirsite.com.au` in a browser for the grade, and click the padlock in the address bar, then "Connection is secure", then the certificate, to see the expiry date.

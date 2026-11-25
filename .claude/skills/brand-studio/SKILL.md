@@ -18,7 +18,7 @@ Follow `CLAUDE.md` in the Founder OS. One step at a time. Plain words: say "your
 - "Brand studio" or "show me what my brand can do" → Parts 1 to 4 in order.
 
 ## Part 1. Check the brand folder
-Read `Brand/Brand Guidelines.md`. If it's missing or thin (no colours, no fonts, no logo file), run `build-your-ai-brain/references/brand-file.md` first, then come back.
+Read `Brand/Brand Guidelines.md`. An old `3 Marketing/Brand Look.md` instead? Run step 0 of `brand-file.md` to move it. If it's missing or thin (no colours, no fonts, no logo file), run `build-your-ai-brain/references/brand-file.md` first, then come back.
 
 ## Part 2. Refresh (optional, about 15 minutes)
 Ask: "Want a quick brand refresh while we're here? I'll keep your logo and suggest small upgrades. You pick, or keep what you have."
@@ -30,8 +30,19 @@ If yes:
 
 ## Part 3. Design system
 Turn the guidelines into a design system every page follows:
-1. Write `Brand/design-system.json`: colours (name, hex, use), fonts (role, family, weight, where to get it), type sizes (headline, subhead, body, small), spacing (4 steps), corners (square or a radius), button style.
-2. Write `Brand/Design System.html`: one page showing colours with hex codes and readable pairs, the type scale, buttons, a card, a form field, and the logo on light and dark. Fonts load from Google Fonts where they're free; otherwise a close free match, noted in the guidelines.
+1. Write `Brand/design-system.json` in exactly this shape (same keys every time, values from the guidelines):
+   ```json
+   {"name": "Ridgeback Landscapes", "version": 1, "updated": "2026-11-25",
+    "colours": [{"name": "Forest", "hex": "#2F4A3A", "use": "Headlines, buttons"}],
+    "fonts": [{"role": "headline", "family": "Fraunces", "weight": 600, "source": "Google Fonts"},
+              {"role": "body", "family": "Inter", "weight": 400, "source": "Google Fonts"}],
+    "type": {"headline": "40px", "subhead": "24px", "body": "17px", "small": "13px"},
+    "spacing": ["8px", "16px", "24px", "48px"],
+    "corners": "4px",
+    "button": {"background": "Forest", "text": "Sand", "corners": "4px"},
+    "logo": {"main": "Logos/logo-main.png", "dark": "Logos/logo-white.png or null"}}
+   ```
+2. Write `Brand/Design System.html`: one page showing colours with hex codes and readable pairs, the type scale, buttons, a card, a form field, and the logo on light and dark. No dark-background version of the logo? Show it on a light panel inside the dark section, note "Dark version: ask your designer" in the guidelines, and never recolour or redraw it. Fonts load from Google Fonts where they're free; otherwise a close free match, noted in the guidelines.
 3. Add to `brain/CLAUDE.md` under hard rules: "Anything visual: read `3 Marketing/Brand/Brand Guidelines.md` and `design-system.json` first."
 4. If their Claude can make artifacts with a **Design System** type, offer: "Want this as a design system inside Claude too, so every artifact you make uses it?" On yes, create it from these files. If not available, skip it without fuss: the files do the job.
 
@@ -41,6 +52,10 @@ Say: "Let's see it work. I'll make four real things for your business, all on br
 2. **Poster** (A3 portrait) or **flyer** (A5), whichever suits the business (a flyer for letterboxes, a poster for a studio wall).
 3. **Five-slide deck** (16:9): who we are, the problem, the offer, how it works, next step. If their Claude has a **Slides** type, offer to make it there instead so they can present it.
 4. One extra they pick: a quote cover page, an email header, a business card, a price list.
+
+Sizes for the extras: quote cover and price list A4 portrait, email header 600 x 200, business card 90 x 55 mm. Every print file sets its page size with CSS `@page { size: A3 portrait; margin: 0 }` (or A5, A4, `90mm 55mm`, `1920px 1080px` for the deck, one slide per page), so Save as PDF comes out the right size.
+
+No photos in `Brand/Photos/` yet? Use clearly labelled photo boxes ("Your photo here: a finished garden") in brand colours, and ask them to drop real photos in for the final version. Never fill the gap with stock or AI people.
 
 Then show them how to save each:
 - Images: open the file, take a screenshot of the page (Cmd + Shift + 4, then Space, click the window), or ask Claude to save it as a PNG.

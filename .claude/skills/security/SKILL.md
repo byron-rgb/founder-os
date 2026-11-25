@@ -37,6 +37,8 @@ brain/
     Issues.md                 (every finding, open and fixed)
 ```
 
+**Paths:** every `Security/...` path in this skill, its references and templates means `brain/Security/...` in a Founder OS. Run scripts from the Founder OS folder and write their output there, never to a `Security/` folder at the top level.
+
 Outside a Founder OS, ask where to keep the security notes (default `AI Brain/Security/` in their iCloud Drive or Documents) and carry on. Security doesn't need the full brain to work. Suggest "build my AI brain" at the end if they haven't done it.
 
 ## The flow

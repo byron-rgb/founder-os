@@ -15,8 +15,8 @@ What it touches
   Never reads or prints secrets (the helper scripts never save them).
 
 Usage
-  python3 -I diff_runs.py "Security/runs/2026-10-09" "Security/runs/2026-10-16"
-  python3 -I diff_runs.py --latest "Security/runs"          (compares the two newest folders)
+  python3 -I diff_runs.py "brain/Security/runs/2026-10-09" "brain/Security/runs/2026-10-16"
+  python3 -I diff_runs.py --latest "brain/Security/runs"          (compares the two newest folders)
 
 Part of the Founder OS security module (Driven Young). Read-only. Standard library only.
 """
@@ -62,6 +62,8 @@ def load_run(folder):
                     if isinstance(x, dict):
                         desc = x.get("type") or x.get("package")
                         where = x.get("file") or x.get("version")
+                        if not desc or not where:
+                            continue  # e.g. the skill list in ai.json: not a finding
                         key = (label, norm(f"{desc} {where}"))
                         findings[key] = {"check": label, "severity": x.get("worst", "high"), "issue": f"{desc} in {where}"}
     return findings, ratings

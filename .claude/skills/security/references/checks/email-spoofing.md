@@ -21,7 +21,7 @@
 1. Get the domain from `Stack.md` (the part after the @ in their email). Skip this check if they only use a Gmail, Outlook.com or Hotmail address, and log a low fix: "Get email on your own business name."
 2. Run the helper (in this skill's `scripts/` folder):
    ```
-   python3 -I scripts/email_spoofing.py THEIRDOMAIN.com.au --json "Security/runs/TODAY/email.json"
+   python3 -I scripts/email_spoofing.py THEIRDOMAIN.com.au --json "brain/Security/runs/TODAY/email.json"
    ```
    - If the owner can tell you the DKIM selector (see "Finding the DKIM selector" below), add `--selectors thatname`.
    - If `checkdmarc` (Apache-2.0, by Sean Whalen) is installed, the script uses it for deeper sender-list checks: add `--checkdmarc /path/to/checkdmarc`. Optional. See `references/install.md` for setting it up in a private folder.

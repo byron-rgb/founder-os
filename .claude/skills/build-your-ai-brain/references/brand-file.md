@@ -4,6 +4,9 @@ Goal: one folder, `3 Marketing/Brand/`, that holds everything about how the busi
 
 About 10 minutes. Most owners have bits of a brand scattered around: a Canva kit, a designer's PDF, a logo in their email, colours on the website. The job is to move it all in here.
 
+## 0. Older brain? Move the old look file first
+If `3 Marketing/Brand Look.md` exists: create `3 Marketing/Brand/`, move its content into `Brand Guidelines.md` (keep every fact), delete the old file, then change every `[[Brand Look]]` link in the brain to `[[Brand Guidelines]]` (check `CLAUDE.md`, `Start Here.md`, `_Setup Progress.md` and anything in `Work/`). Then fill the gaps below.
+
 ## 1. Gather what exists (move it over)
 Ask one at a time:
 - "Got a brand guide or files from a designer? Drop them in `Drop files here`."

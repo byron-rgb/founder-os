@@ -43,7 +43,7 @@ The JSON files come straight from the helper scripts' `--json` option. They neve
 2. Run the checks for this run type, saving each script's `--json` output into today's `runs/` folder.
 3. Compare with the last run:
    ```
-   python3 -I PATH_TO_SKILL/scripts/diff_runs.py --latest "Security/runs" --json "Security/runs/TODAY/changes.json"
+   python3 -I PATH_TO_SKILL/scripts/diff_runs.py --latest "brain/Security/runs" --json "brain/Security/runs/TODAY/changes.json"
    ```
 4. Update `Issues.md` (rules in `templates/issues.md`): new findings get a new number; findings that are gone move to Fixed with today's date and "gone at weekly check"; still-open ones get "still there DATE" in Notes. Re-rate each area per `essential-eight.md` and re-score (only areas checked this run, plus last known ratings for areas not re-checked, marked with their date).
 5. Write the report: weekly = short (score, the owner line, new findings with one fix each); monthly = the full `templates/report.md`.

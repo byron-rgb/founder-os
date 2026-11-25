@@ -17,7 +17,7 @@
 ## How to run it
 
 ```
-python3 -I scripts/domain_dns.py theirdomain.com.au --json "Security/runs/TODAY/domain.json"
+python3 -I scripts/domain_dns.py theirdomain.com.au --json "brain/Security/runs/TODAY/domain.json"
 ```
 
 Options:

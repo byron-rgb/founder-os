@@ -32,7 +32,7 @@ Two ways to run it:
 
 Run the first-look helper. It reads files only and prints counts, not contents:
 ```
-python3 -I scripts/ai_tools_check.py --json "Security/runs/TODAY/ai.json"
+python3 -I scripts/ai_tools_check.py --json "brain/Security/runs/TODAY/ai.json"
 ```
 - Add `--skillspector PATH` if SkillSpector is set up (see below). Adds a static scan of each skill, about 10 to 30 seconds each.
 - Add `--names` to see which skills raised warning signs, so you can look at those. Only share names with the owner, never file contents.
@@ -62,6 +62,9 @@ Personal AI accounts used with customer data are amber. A tool connected to busi
 - **Red:** an item that fails the one-item check below, hidden instructions found, "skip all permissions" mode on, a secret value in a settings file, or an AI tool connected to email or files that nobody approved.
 
 Warning signs from the helper are **"worth a look", not proof**. A skill that teaches security will mention attacks. A skill that downloads its own updates will use `curl`. Look at the flagged ones before rating.
+
+## Expected flags from the Founder OS itself
+The first look flags the Founder OS's own `security` skill (it has scripts and downloads pinned tools) and may flag other Founder OS skills. These are known and checked by Driven Young: list them once as "Founder OS, expected" and don't count them as findings.
 
 ## One item: is this skill, plugin or connector safe?
 
