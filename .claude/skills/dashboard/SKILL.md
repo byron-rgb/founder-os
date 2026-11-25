@@ -24,7 +24,7 @@ One page, saved in their Claude account, that shows their business at a glance. 
    - `brand`: `bg`, `panel`, `text`, `muted`, `accent` hex colours from `brain/3 Marketing/Brand/design-system.json` (dark or light, whatever their brand is). Check the text is readable on `bg` and `panel`.
    - `currency`, and `modules` on or off.
    - `sources`: per module, the connector's display name exactly as it shows in this session (for example `"GHL"`, `"Google Calendar"`, `"Xero"`), the tool's name, its input (IDs like a location or organisation id are fine; never a key or password), and the adapter. Dates can use `{today}`, `{monthStart}`, `{now}`, `{in7days}`.
-   - `goals`: up to 5 from the brain's goals note, each with `title`, `target` (how they'll know) and `status` (`on_track`, `behind`, `done`, `not_started`). Ask if the brain has none.
+   - `goals`: up to 6 from the brain's goals note, each with `title`, `target` (one line: what's left or how they'll know) and `status` (`on_track`, `behind`, `done`, `not_started`). Where the goal is a number, add `current` and `goal` (and `"money": true` for dollars) so it draws a progress bar. Ask if the brain has none.
    - `demo`: `false`.
 4. **Put it in their Claude.** Publish `dashboard/my-dashboard.html` with the Artifact tool. Declare only the tools it reads: `capabilities: {mcp: {servers: [{server: "<name>", tools: ["<tool>", ...]}, ...]}}`. Icon: `chart`. Open it for them.
 5. **First open.** Claude asks them to allow each tool once. Then check every module: numbers look right, nothing says it couldn't load. Fix an adapter if a module is empty or wrong, then publish again with the same file.

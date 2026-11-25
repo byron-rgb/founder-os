@@ -1,6 +1,6 @@
 # Founder dashboard (Level 3)
 
-One private page in your own Claude account that shows your business at a glance, live each time you open it:
+One private page in your own Claude account that shows your business at a glance, live each time you open it. Headline numbers across the top (cash, money in, pipeline, what's next), then what needs you (follow-ups, bills, goals), then a section for each of these:
 
 - **Leads and sales:** open deals, what's in the pipeline, who needs a follow-up (your CRM)
 - **This week:** your calendar and tasks due
