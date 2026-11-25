@@ -8,24 +8,30 @@ The jobs that eat your week, like inbox, follow-ups, receipts and checks, get do
 **Is this safe?** Agents only use the connectors you turned on. They prepare drafts and wait for you: they never send, pay, post or delete. Each one has its own short rules you can read, and you can pause any agent in one click. The Security agent checks the rest every week.
 
 ## 2. Set up
-Pick the agents you want. Each one is set up by interview, then put on a schedule.
+Your agents came with your Founder OS, in the `agents` folder. Set them up one at a time, each in a new chat in your Founder OS folder:
 
-| Agent | What it does | When |
+| Say | What it does | When |
 | --- | --- | --- |
-| EA | Morning brief, inbox and calendar triage, replies drafted | Every morning |
-| Finance + bookkeeping | Money snapshot, invoice chasing, receipts sorted, the pack your bookkeeper asks for | Weekly, quarterly |
-| Security | The security check on a schedule (`security` skill): light weekly, deeper monthly; one line "2 new, 1 fixed" | Weekly, monthly |
-| Sales follow-up | New enquiries answered in draft, a lead board | Hourly or daily |
+| **set up my EA** | Morning brief of your inbox and calendar, replies drafted | Weekday mornings |
+| **set up my sales agent** | New enquiries and quiet leads, follow-ups drafted | Daily |
+| **set up my finance agent** | Money snapshot, invoices to chase, receipts missing for your bookkeeper | Weekly |
+| **set up my security agent** | Your security check on a schedule | Weekly, deeper monthly |
+
+Each one:
+1. Checks the tools it needs and shows a Connect button for any that are missing.
+2. Asks a few questions to fit it to you (what time, who matters, where the report goes). Your answers are saved in `brain/Agents/`.
+3. Runs once there and then, so you see a real result.
+4. Gets scheduled in the cloud: Claude fills in every field, you press **Create**. It runs with your laptop shut, and each run shows up in Claude.
+
+Change one any time: **change my EA**. When an agent gets something wrong, just tell Claude: it adds a rule to that agent so it learns. Needs Level 3 done first (your Founder OS saved to your private GitHub, which the cloud runs read).
 
 ## 3. Make your own
 Say: **make me an agent for the job I do every Monday.** Claude interviews you, writes it, and schedules it with the ground rules built in.
 
 ## 4. Check
-- [ ] EA brief arrives each morning
+- [ ] EA brief ready each morning (in Claude or your email)
 - [ ] At least two agents on a schedule
 - [ ] Everything they send waits as a draft
-
-> Beta note: agents are being packaged. Until they land, Claude sets them up with you one at a time.
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md
