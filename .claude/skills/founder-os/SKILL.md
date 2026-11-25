@@ -24,7 +24,7 @@ You guide a founder through five levels. Each level: Why, Set up, Make your own,
    - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.
 3. **Make your own.** Offer the guide's task, or a quick win from `library/Quick wins.md` for this level. Do it with them now.
 4. **Check.** Go through the tick list. Test each item for real (ask a question, open the page, look at the draft). Tick only what works.
-5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes and GitHub is set up, save a copy with a short plain note of what changed. If GitHub isn't set up yet (Level 3), say it gets set up then.
+5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes, save a copy to their private GitHub with a short plain note of what changed. If this folder isn't linked to their GitHub yet (they downloaded it some other way), help them link it to a new private copy first, one step at a time.
 
 ## The library (any level)
 - After Level 1's brand step, offer **Brand Studio** (`brand-studio`) as the big Make your own: "Want to see what your brand can do?"

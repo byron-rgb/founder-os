@@ -6,8 +6,13 @@ This folder is your Founder OS. It holds your AI brain, your skills, your dashbo
 
 ## Start here
 
+**Get your copy (once):**
+1. Driven Young adds your GitHub username to the Founder OS. Open the link you're sent and press **Use this template**, then **Create a new repository**. Name it `Founder OS`, choose **Private**, and press **Create**.
+2. On your new copy press the green **Code** button, then **Open with GitHub Desktop**. GitHub Desktop (free, desktop.github.com) asks where to save it: keep **Documents** and press **Clone**. You now have a `Founder OS` folder on your computer, and your private copy on GitHub keeps a backup of every change.
+
+**Then, every time:**
 1. Open the **Claude** desktop app and go to the **Code** tab (or open Terminal and type `claude`).
-2. Pick this folder (`Founder OS`).
+2. Pick your `Founder OS` folder.
 3. Type: **start my Founder OS**
 
 Claude takes it from there, one step at a time.

@@ -7,11 +7,13 @@ About 30 minutes, before your first session. Use your work email, and save every
 ## Accounts
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
 - [ ] GitHub, free (github.com). Send your username to Driven Young so you get your private copy.
+- [ ] Your copy on your computer: on the link you're sent press **Use this template** (Private), then **Code**, **Open with GitHub Desktop**, **Clone** into Documents.
 - [ ] Cloudflare, free (cloudflare.com). Puts your website live.
 - [ ] A password manager: 1Password, or Apple Passwords on a Mac.
 
 ## On your laptop (Mac easiest, Windows works)
 - [ ] Claude desktop app (claude.ai/download), signed in.
+- [ ] GitHub Desktop, free (desktop.github.com), signed in with your GitHub account.
 - [ ] Obsidian, free (obsidian.md).
 - [ ] Updates done, charger packed.
 
