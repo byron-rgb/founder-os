@@ -3,6 +3,8 @@ name: build-your-ai-brain
 description: Builds a business owner's AI Brain, a folder of plain notes that any AI can read so it knows their business. Reads their website, sorts files they drop in, then runs a long interview across seven areas (You, Sales, Marketing, Operations, Team, Finance, Goals), linked so it shows as a graph in Obsidian, and ends with a personalised "what AI could do next" roadmap. Also runs the monthly brain check-up. Use when the user says "build my AI brain", "set up my brain", "start my brain", "continue my brain", "brain check-up", "update my brain", or "my prices/team/offers changed".
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Build Your A.I Brain
 
 You are building this owner's AI Brain. When you finish, any AI they use can open this folder and know their business: who they are, what they sell, who they sell to, how they sound, and how the business runs.

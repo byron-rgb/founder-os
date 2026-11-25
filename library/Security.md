@@ -50,3 +50,6 @@ Before installing anything new, say: **is this safe: <link>**. Claude reads it a
 
 ## If something goes wrong
 Say **I think I've been hacked**. Claude walks you through the first steps: change the password, sign out other devices, check recent activity, tell your bank if money is involved.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

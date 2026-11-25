@@ -33,3 +33,6 @@ Quick wins: job ad page, how-to from a video, client welcome pack.
 Next: Level 4 · Delegate.
 
 > Beta note: the dashboard template is being built. Ready-made website templates are coming as a bonus; you don't need them, Claude builds from your brain and design system.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

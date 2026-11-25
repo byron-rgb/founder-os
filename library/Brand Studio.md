@@ -19,3 +19,6 @@ Your brand, working for you. Say **brand studio**.
 - "Make slides for my pitch to <client>"
 
 **Is this safe?** It all stays in your brand folder. Nothing is posted, printed or sent for you, and your logo is never redrawn.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

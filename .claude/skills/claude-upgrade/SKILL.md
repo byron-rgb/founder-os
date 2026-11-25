@@ -3,6 +3,8 @@ name: claude-upgrade
 description: Level 0 of the Founder OS. Installs the Claude Upgrade pack, a hand-picked set of free, open-source skills, each from its own public source, and explains each in one line. Use when the founder says "install my Claude Upgrade", "upgrade my Claude", "Level 0", or "what skills should I have".
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Claude Upgrade
 
 Install these skills for the founder so every later level is sharper. Each one comes from its own public GitHub page at a checked version. Driven Young picks them; we never copy or re-share anyone's files.

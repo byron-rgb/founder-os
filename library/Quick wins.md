@@ -20,3 +20,6 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 | 4 | Receipts sorted | Every receipt matched for your bookkeeper | Email + accounts connectors |
 | 4 | Captions from photos | Job photos turned into a week of posts | Photos you drop in, Brand Voice |
 | 4 | Contract, explained | Any contract in plain English, with what to ask | The contract file. Not legal advice; flag anything to check with a lawyer |
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

@@ -50,3 +50,6 @@ Then run your first **security check** (see `library/Security.md`) now that your
 - [ ] First security check done
 
 Next: Level 3 · Build.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

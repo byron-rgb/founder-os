@@ -3,6 +3,8 @@ name: brand-studio
 description: Founder OS Brand Studio. Turns the founder's brand (brain/3 Marketing/Brand) into a design system, offers a brand refresh, then shows what it can do by making real slides, social graphics, a poster and a flyer on brand. Use when the founder says "brand studio", "refresh my brand", "make my design system", "show me what my brand can do", "make slides", "make a poster", "make a flyer", "make a social post", or "make a graphic".
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Brand Studio
 
 The founder's brand lives in `brain/3 Marketing/Brand/`. This skill makes it powerful: one design system that everything Claude makes follows, an optional refresh, and a showcase that proves it.

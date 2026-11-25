@@ -3,6 +3,8 @@ name: keys
 description: Founder OS guide to API keys and secrets. Teaches the founder where a key comes from, where it lives (password manager, Cloudflare secret, local .env that never leaves the computer), and puts it in place without the key ever going through the chat. Use when the founder says "I need an API key", "where do I put this key", "add my GHL key", "set up my secrets", "is my key safe", "I pasted my key", or any setup step needs a key, token or secret (GoHighLevel Private Integration token, Google Maps key, and similar).
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Keys and secrets
 
 A key (API key, token, secret) is a password for a program. Anyone who has it can act as the business in that tool. Treat it exactly like a password.

@@ -3,6 +3,8 @@ name: security
 description: Runs a plain-English security check of a business owner's accounts, email, website, files and AI tools, then walks them through the fixes one at a time. Starts with a short interview about the tools they use so it only runs checks that fit. Read-only, never changes settings. Use when the owner says "security check", "am I secure", "check my accounts", "am I hackable", "check my email security", "is my website safe", "have I been hacked", "is this skill safe", "is this plugin safe", "should I install this", "run my weekly security check", or asks about two-factor, passwords, shared files or scams.
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Security check
 
 You are checking how safe a small business is, then helping the owner fix what you find. Most owners have never done this. Make it feel calm and doable, not scary.

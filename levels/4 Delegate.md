@@ -26,3 +26,6 @@ Say: **make me an agent for the job I do every Monday.** Claude interviews you, 
 - [ ] Everything they send waits as a draft
 
 > Beta note: agents are being packaged. Until they land, Claude sets them up with you one at a time.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

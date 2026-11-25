@@ -29,3 +29,6 @@ Or pick one quick win (say **give me a quick win**):
 - [ ] Monthly **brain check-up** in your calendar (add it yourself, or Claude does it after Level 2)
 
 Next: Level 2 · Connect.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

@@ -3,6 +3,8 @@ name: quick-wins
 description: Founder OS quick wins, small useful jobs done in minutes (email signature, price list PDF, quote from a voice note, review replies, landing page and more). Use when the founder says "give me a quick win", "what can I use my AI for", "something useful", or names one of the wins in library/Quick wins.md.
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Quick wins
 
 1. Read `library/Quick wins.md` and `Progress.md` (their level).

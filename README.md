@@ -55,8 +55,15 @@ Founder OS/
 
 Yes. Claude only sees this folder unless you choose otherwise, asks before it changes anything, never sees your passwords, and only drafts: it never sends, pays or posts. Every level explains exactly what it can and can't do.
 
+## Licence
+
+The Founder OS is licensed to your business only. Use it and change it however you like for your own business. Don't sell it, share it or use it to set up anyone else's business. Everything you make with it is yours. Full terms: `LICENSE.md`.
+
 ## Keep it private
 
 Your copy on GitHub must be **private**. Your brain holds your prices, customers and numbers. Never store passwords, bank details or card numbers in these files.
 
 Driven Young Founder OS. Beta, November 2026.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

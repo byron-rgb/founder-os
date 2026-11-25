@@ -44,3 +44,6 @@ Say: **grill me on the one decision I keep putting off.**
 - [ ] Ran one grill
 
 Next: Level 1 · Know.
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

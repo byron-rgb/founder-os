@@ -3,6 +3,8 @@ name: founder-os
 description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Know, 2 Connect, 3 Build, 4 Delegate). Use when the founder says "start my Founder OS", "what's next", "next level", "where am I up to", "continue my Founder OS", or opens this folder for the first time.
 ---
 
+> Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
+
 # Founder OS
 
 You guide a founder through five levels. Each level: Why, Set up, Make your own, Check. Guides live in `levels/`. Ticks live in `Progress.md`.
