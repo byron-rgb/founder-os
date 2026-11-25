@@ -185,6 +185,9 @@
     "owed":     { "server": "Xero", "tool": "get_aged_receivables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroReceivables" },
     "bills":    { "server": "Xero", "tool": "get_aged_payables", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroPayables" },
     "deals":    { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "locationId": "LOCATION_ID", "query_status": "open", "query_limit": 100 }, "adapter": "ghlOpportunities" },
+    "pnl12":    { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{yearAgo}", "end_date": "{today}" }, "adapter": "xeroPnl" },
+    "customers": { "server": "", "tool": "", "input": {}, "adapter": "" },
+    "unit":     { "derive": "unitEconomics", "from": { "revenue": "pnl12.income", "customers": "customers.active", "newCustomers": "customers.newThisPeriod", "marketing": "spend.total" } },
     "funnel":   { "server": "", "tool": "", "input": {}, "adapter": "" },
     "spend":    { "server": "", "tool": "", "input": {}, "adapter": "" },
     "calendar": { "server": "Google Calendar", "tool": "list_events", "input": { "pageSize": 50, "orderBy": "startTime", "startTime": "{now}", "endTime": "{in7days}" }, "adapter": "googleCalendar" }
@@ -207,6 +210,11 @@
           { "label": "Money out", "value": "pnl.spend", "format": "money", "change": "pnl.spendChange", "invert": true },
           { "label": "Profit", "value": "pnl.profit", "format": "money", "tone": "sign", "sub": "pnl.marginText" },
           { "label": "Real cash", "value": "cash.real", "format": "money", "sub": "Bank + owed to you − bills" } ] },
+        { "type": "stats", "items": [
+          { "label": "LTV", "value": "unit.ltv", "format": "money", "sub": "Per customer, last 12 months" },
+          { "label": "CAC", "value": "unit.cac", "format": "money", "sub": "unit.cacText" },
+          { "label": "LTV:CAC", "value": "unit.ratio", "format": "ratio", "tone": "atLeast", "good": 3, "sub": "unit.ratioText" },
+          { "label": "New customers", "value": "unit.newCustomers", "format": "number", "sub": "This period" } ] },
         { "type": "chart", "title": "Money in and out by month", "data": "pnl.byMonth", "format": "money", "width": 12 },
         { "type": "list", "title": "Owed to you", "data": "owed.items", "total": "owed.total", "format": "money", "width": 6, "empty": "Nobody owes you anything." },
         { "type": "list", "title": "You owe", "data": "bills.items", "total": "bills.total", "format": "money", "width": 6, "empty": "You don't owe anything right now." },
@@ -301,6 +309,18 @@ function shapeDeals(deals, won = 0) {
   };
 }
 
+/* DERIVE: numbers worked out from other sources (see BLOCKS.md). Each gets {name: value} from the paths in its "from". */
+const DERIVE = {
+  // Same maths as the Driven Young dashboard: LTV = revenue per customer, CAC = marketing spend per new customer, healthy LTV:CAC is 3 or more.
+  unitEconomics({ revenue, customers, newCustomers, marketing }) {
+    const ltv = customers > 0 ? revenue / customers : null, cac = newCustomers > 0 && marketing > 0 ? marketing / newCustomers : null;
+    const ratio = ltv != null && cac ? ltv / cac : null;
+    return { ltv, cac, ratio, newCustomers: newCustomers ?? null,
+      cacText: cac == null ? (marketing > 0 ? 'No new customers this period' : 'Needs marketing spend') : 'Spend per new customer',
+      ratioText: ratio == null ? 'Needs LTV and CAC' : ratio >= 3 ? 'Healthy (3 or more)' : 'Aim for 3 or more' };
+  },
+};
+
 /* DEMO: made-up data so the page can be seen before any tool is connected, one entry per source. */
 const DEMO = () => {
   const d = (days, h, m = 0) => { const t = new Date(); t.setDate(t.getDate() + days); t.setHours(h, m, 0, 0); return t.toISOString(); };
@@ -320,9 +340,11 @@ const DEMO = () => {
       { name: 'Ella Hartigan', stage: 'Quote sent', value: 2400, updated: now - 3 * D, late: false },
       { name: 'Mia Tran', stage: 'Call booked', value: 3800, updated: now - 2 * D, late: false },
       { name: 'Sam and Lou Becker', stage: 'New enquiry', value: 0, updated: now - D, late: false }], 14500),
+    pnl12: { income: 226400, spend: 131900, profit: 94500 },
+    customers: { active: 71, newThisPeriod: 4 },
     funnel: { steps: [{ label: 'Leads', value: 412, cost: 18 }, { label: 'Calls booked', value: 96, cost: 77 }, { label: 'Showed', value: 71, cost: 104 }, { label: 'Proposals', value: 38, cost: 195 }, { label: 'Won', value: 14, cost: 529 }],
       summary: [{ label: 'Ad spend', value: 7400, format: 'money' }, { label: 'Cost per lead', value: 18, format: 'money' }, { label: 'Cost per client', value: 529, format: 'money' }, { label: 'Return on ad spend', value: '4.1x' }, { label: 'Show rate', value: '74%' }] },
-    spend: { byMonth: { labels: months, series: [{ name: 'Meta ads', values: [980, 1150, 860, 1320, 1610, 1210] }, { name: 'Google ads', values: [420, 460, 380, 510, 590, 450] }, { name: 'Tools', values: [190, 190, 210, 210, 230, 230] }] } },
+    spend: { total: 1890, byMonth: { labels: months, series: [{ name: 'Meta ads', values: [980, 1150, 860, 1320, 1610, 1210] }, { name: 'Google ads', values: [420, 460, 380, 510, 590, 450] }, { name: 'Tools', values: [190, 190, 210, 210, 230, 230] }] } },
     calendar: { events: [
       { title: 'Client call: Mia Tran', start: d(0, 9), end: d(0, 10) }, { title: 'Team check-in', start: d(0, 13), end: d(0, 13, 30) },
       { title: 'Proposal walkthrough: Northside Physio', start: d(1, 10), end: d(1, 11) }, { title: 'Supplier call', start: d(2, 11), end: d(2, 11, 30) },
@@ -341,6 +363,7 @@ const fmt = (v, f) => {
   if (v == null || v === '') return '–';
   if (typeof v === 'string' && f !== 'money' && f !== 'number') return v;
   if (f === 'money') return new Intl.NumberFormat('en-AU', { style: 'currency', currency: CFG.currency || 'AUD', maximumFractionDigits: 0 }).format(num(v));
+  if (f === 'ratio') return `${(Math.round(num(v) * 10) / 10).toFixed(1)}x`;
   if (f === 'percent') return `${Math.round(num(v))}%`;
   if (f === 'number' || typeof v === 'number') return new Intl.NumberFormat('en-AU', { maximumFractionDigits: 1 }).format(num(v));
   return String(v);
@@ -370,7 +393,7 @@ const range = () => {
   else if (period === '30d') from = new Date(n.getTime() - 30 * 864e5);
   else if (period === '90d') from = new Date(n.getTime() - 90 * 864e5);
   else from = new Date(n.getFullYear(), n.getMonth(), 1);
-  return { '{from}': ymd(from), '{to}': ymd(n), '{today}': ymd(n), '{monthStart}': ymd(new Date(n.getFullYear(), n.getMonth(), 1)), '{now}': local(n), '{in7days}': local(new Date(n.getTime() + 7 * 864e5)) };
+  return { '{from}': ymd(from), '{to}': ymd(n), '{today}': ymd(n), '{monthStart}': ymd(new Date(n.getFullYear(), n.getMonth(), 1)), '{now}': local(n), '{in7days}': local(new Date(n.getTime() + 7 * 864e5)), '{yearAgo}': ymd(new Date(n.getFullYear() - 1, n.getMonth(), n.getDate() + 1)) };
 };
 const fill = (v, F) => typeof v === 'string' ? (F[v] ?? v) : Array.isArray(v) ? v.map((x) => fill(x, F)) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, fill(x, F)])) : v;
 function drawPeriods() {
@@ -406,6 +429,20 @@ function arrive(key, data, err, at) {
 async function connect(keys) {
   stops.splice(0).forEach((s) => { try { s(); } catch { /* already stopped */ } });
   const F = range();
+  // Derived sources: read what they're worked out from, then recompute whenever one of those arrives
+  const derived = keys.filter((k) => CFG.sources?.[k]?.derive);
+  keys = [...new Set(keys.filter((k) => !derived.includes(k)).concat(derived.flatMap((k) => Object.values(CFG.sources[k].from || {}).map(keyOf))))];
+  for (const k of derived) {
+    const src = CFG.sources[k], deps = [...new Set(Object.values(src.from || {}).map(keyOf))];
+    for (const d of deps) delete store[d];
+    const calc = () => {
+      if (deps.some((d) => !store[d])) return;
+      const bad = deps.find((d) => store[d].err); if (bad) return arrive(k, undefined, { ...store[bad].err, from: bad });
+      try { arrive(k, DERIVE[src.derive](Object.fromEntries(Object.entries(src.from).map(([n, p]) => [n, get(p)]))), null, Date.now()); }
+      catch { arrive(k, undefined, { code: 'adapter' }); }
+    };
+    for (const d of deps) (waiting[d] ||= []).push(calc);
+  }
   if (CFG.demo) { const demo = DEMO(); for (const k of keys) arrive(k, demo[k], null, Date.now()); return; }
   if (!mcp) mcp = await window.claude?.use?.('mcp');
   for (const k of keys) {
@@ -421,12 +458,12 @@ async function connect(keys) {
   }
 }
 function problem(key) {
-  const s = store[key]; if (!s?.err) return null; const src = CFG.sources?.[key] || {}; const name = src.server || 'this tool';
+  const s = store[key]; if (!s?.err) return null; const src = CFG.sources?.[s.err.from || key] || {}; const name = src.server || 'this tool';
   const say = {
-    not_set_up: 'Not connected yet. Ask Claude: "connect this to my dashboard".',
+    not_set_up: 'Not connected yet. Ask Claude: "add this to my dashboard".',
     no_claude: 'Open this dashboard in Claude to see your live numbers.',
     needs_reauth: `${name} needs reconnecting. In Claude: Settings, then Connectors, then ${name}.`,
-    server_not_connected: `Connect ${name} in Claude (Settings, then Connectors) to see this.`,
+    server_not_connected: `${name} isn't connected. Ask Claude: "connect ${name}", then press Connect.`,
     selection_required: `You have more than one ${name} connected. Choose one when Claude asks.`,
     not_in_manifest: `${name} is switched off for this dashboard. Turn it on in this page's permissions menu.`,
     blocked_by_policy: `${name} is blocked by your organisation's settings.`,
@@ -444,7 +481,7 @@ function problem(key) {
 
 /* BLOCKS: each draws into its own card. Add a new kind by adding a function here (see BLOCKS.md). */
 const card = (b) => { const c = el('section', 'card'); if (b.title) { const h = el('div', 'card-h'); h.append(el('h2', null, b.title)); if (b.note) h.append(el('span', 'note', b.note)); c.append(h); } return c; };
-const tone = (it, v) => it.tone === 'sign' ? (num(v) >= 0 ? 'up' : 'down') : it.tone === 'accent' ? 'acc' : '';
+const tone = (it, v) => v == null ? '' : it.tone === 'sign' ? (num(v) >= 0 ? 'up' : 'down') : it.tone === 'accent' ? 'acc' : it.tone === 'atLeast' ? (num(v) >= num(it.good) ? 'up' : 'down') : '';
 const BLOCKS = {
   stats(b, box) {
     const wrap = el('div', 'stats');

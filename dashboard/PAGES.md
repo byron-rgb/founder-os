@@ -8,8 +8,8 @@ Keep the sidebar to main sections (Finance, Marketing...), not one page per smal
 
 ## Business
 
-**Finance** (built in). Money in, money out, profit, real cash (bank + owed to you − bills). Money in and out by month. Owed to you, you owe. Spend by category.
-Usually from: Xero, QuickBooks or MYOB.
+**Finance** (built in). Money in, money out, profit, real cash (bank + owed to you − bills). LTV, CAC and LTV:CAC, new customers. Money in and out by month. Owed to you, you owe. Spend by category.
+Usually from: Xero, QuickBooks or MYOB. LTV and CAC also need a customer count (CRM or invoices) and marketing spend (ads or accounting).
 
 **Cash flow.** Cash today, the next 4 to 8 weeks of money due in and bills due out, lowest point coming up.
 Usually from: accounting (invoices and bills due), the bank feed.

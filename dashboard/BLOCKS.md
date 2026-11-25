@@ -20,9 +20,11 @@ How `dashboard-template.html` is put together, so Claude can build any page a bu
 }
 ```
 
-- **sources**: one entry per tool call. `server` is the connector's display name exactly as it shows in the session. `adapter` names a function in `ADAPTERS` that turns the tool's answer into plain data. Inputs can use `{from}` and `{to}` (follow the period picked at the top of the page), `{today}`, `{monthStart}`, `{now}`, `{in7days}`. A source with an empty `server` shows "Not connected yet".
+- **sources**: one entry per tool call. `server` is the connector's display name exactly as it shows in the session. `adapter` names a function in `ADAPTERS` that turns the tool's answer into plain data. Inputs can use `{from}` and `{to}` (follow the period picked at the top of the page), `{today}`, `{monthStart}`, `{now}`, `{in7days}`, `{yearAgo}`. A source with an empty `server` shows "Not connected yet".
 - **pages**: one page per section. They show in the sidebar in this order. `group` puts a small heading above a run of pages (Business, Growth, Running, Team...). `icon` is a Phosphor icon name from the list below.
 - **blocks**: what's on the page, top to bottom. Every block takes `title`, an optional `note` (small grey text on the right of the title), `width` (12 full, 8, 6 or 4; stacks on phones) and `empty` (what to say when there's nothing).
+
+- **worked-out sources**: `{ "derive": "unitEconomics", "from": { "revenue": "pnl12.income", "customers": "customers.active", "newCustomers": "customers.newThisPeriod", "marketing": "spend.total" } }`. No tool of its own: it reads the paths in `from`, then runs a function in `DERIVE` whenever one of them arrives. If one of them fails, the block shows that tool's message. Use it for any number that mixes tools.
 
 Blocks read data by **path**: `"pnl.income"` means source `pnl`, then the `income` field of what its adapter returned. Only the sources the open page uses are read, so add as many pages as the business wants.
 
@@ -30,7 +32,7 @@ Blocks read data by **path**: `"pnl.income"` means source `pnl`, then the `incom
 
 | type | reads | shows |
 |---|---|---|
-| `stats` | `items: [{label, value, format, sub, change, invert, tone, icon}]` | A row of headline numbers. `value`, `sub` and `change` can be paths. `change` = % on last period (green up, red down; `invert: true` when down is good, like spend). `tone`: `sign` (green or red by sign) or `accent`. |
+| `stats` | `items: [{label, value, format, sub, change, invert, tone, good, icon}]` | A row of headline numbers. `value`, `sub` and `change` can be paths. `change` = % on last period (green up, red down; `invert: true` when down is good, like spend). `tone`: `sign` (green or red by sign), `accent`, or `atLeast` with `good` (green at or above it, red below; LTV:CAC uses 3). |
 | `kv` | `data` → `[{label, value, format}]`, or `items` with paths | A label and value list ("Spend and return"). |
 | `list` | `data` → `[{title, sub, value, tag, tone}]`, `total` (path), `format`, `limit` | People, invoices, bills, tasks. `tone` on the tag: `good`, `bad`, `warn`, `acc`. |
 | `bars` | `data` → `[{label, value}]`, `format`, `limit` | Ranked bars (spend by category, pipeline by stage, leads by source). |
@@ -41,7 +43,7 @@ Blocks read data by **path**: `"pnl.income"` means source `pnl`, then the `incom
 | `goals` | CONFIG `goals` | Goal cards. Each goal: `title`, `target` (one line), `status` (`on_track`, `behind`, `done`, `not_started`), optional `current` + `goal` numbers for a progress bar, `money: true` for dollars. |
 | `text` | `text` | A short note. |
 
-Formats: `money`, `number`, `percent`. Text values show as they are.
+Formats: `money`, `number`, `percent`, `ratio` (6.7x). Text values show as they are.
 
 ## Adapters
 
@@ -52,6 +54,10 @@ One function per tool, in `ADAPTERS`. It gets the tool's answer (`payload`) and 
 - CRMs: build a list of deals `{name, stage, value, updated, late}` and pass it to `shapeDeals(deals, wonValue)`; it returns everything the Sales page reads.
 - Mark each adapter in a comment: "Checked <date>" or "NOT yet checked".
 - Already checked: `xeroCash`, `xeroPnl` (totals only), `googleCalendar`. Not yet checked: `xeroReceivables`, `xeroPayables`, `ghlOpportunities`, the monthly and category parts of `xeroPnl`.
+
+## Worked-out numbers
+
+`DERIVE.unitEconomics` gives `ltv`, `cac`, `ratio`, `newCustomers` and the small text under each. Same maths as the Driven Young dashboard: LTV = 12 months' income ÷ customers who paid, CAC = marketing spend ÷ new customers. The `customers` source must return `{active, newThisPeriod}`; `spend` must return `total` for the period.
 
 ## Demo data
 

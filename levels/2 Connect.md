@@ -11,6 +11,7 @@ You do this part yourself. It takes a few minutes and Claude can't sign in for y
 ### Built-in connectors
 1. In the Claude app open **Customize**, then **Connectors**.
 2. Find the tool (Gmail, Google Calendar, Google Drive and many more), press **Connect**, sign in on the tool's own page, press **Allow**.
+   Or just say **connect Xero** (or any tool): Claude shows a Connect button right in the chat.
 3. Back in Claude, say: **check my connections**. Claude tries each one and tells you what works.
 
 ### Tools without a built-in connector

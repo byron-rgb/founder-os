@@ -19,16 +19,38 @@ Files:
 
 ## 1. Ask what they want to track
 
-Read `brain/CLAUDE.md` first so the questions fit their business. Find out yourself which tools are connected in this session; never ask the founder for a fact you can check.
+Read `brain/CLAUDE.md` first so the questions fit their business. Find out yourself which tools are connected in this session (and which tools the brain says they use); never ask the founder for a fact you can check.
 
 Ask **one question at a time**, with clickable options (use the question tool where there is one; otherwise short numbered options they can reply to with a number). Put your recommendation first. Wait for each answer.
 
 1. **Which areas?** Multi-select from `PAGES.md`, with the ones that fit their business ticked first (a trade: Finance, Sales, Jobs, Operations; a clinic: Finance, Bookings, Marketing, Team; a shop: Finance, Shop, Marketing).
-2. **Per area, what matters?** One question per area, multi-select from that page's list in `PAGES.md`, plus "something else". Keep it to what they would act on.
-3. **The four numbers on the front page.** Pick from what they chose above.
-4. **Look.** Their brand from `brain/3 Marketing/Brand/design-system.json` (offer light or dark), or the clean default.
+2. **Per area, which tool?** One question per area, single choice, skipping any the brain already answers. Put the most likely first:
+   - Accounting: Xero (first), QuickBooks, MYOB, something else, none.
+   - Sales and customers: GoHighLevel, HubSpot, Pipedrive, a spreadsheet, none.
+   - Ads: Meta, Google, both, none. Bookings, shop, calendar: same idea, from `PAGES.md`.
+3. **Per area, what matters?** One question per area, multi-select from that page's list in `PAGES.md`, plus "something else". Keep it to what they would act on. For Finance, offer **LTV, CAC and LTV:CAC** (ticked by default, see below).
+4. **The four numbers on the front page.** Pick from what they chose above.
+5. **Look.** Their brand from `brain/3 Marketing/Brand/design-system.json` (offer light or dark), or the clean default.
 
-If they want something no connected tool holds, say which tool would hold it and offer Level 2 to connect it. Leave that block in as "Not connected yet"; don't drop it.
+### LTV, CAC and LTV:CAC
+
+Built into the Finance page, worked out the same way as the Driven Young dashboard:
+- **LTV** = money in over the last 12 months ÷ customers who paid in that time.
+- **CAC** = marketing spend this period ÷ new customers this period.
+- **LTV:CAC** = LTV ÷ CAC. Green at 3 or more.
+
+It needs four numbers: 12 months of income (accounting), customers who paid and new customers (CRM won deals, or accounting invoices: count each customer once), and marketing spend (ads, or the accounting marketing category). Ask which tool holds their customer count if it isn't obvious. Xero's top customers report only lists the top few, so don't count customers from it.
+
+### Connect what's missing (one tap each)
+
+Do this right after question 2, before mapping, so the map only shows tools that work.
+
+1. Say the security line for that tool: "Claude can read your <tool> numbers. It can't change or send anything from the dashboard, and you can disconnect it any time in Settings, Connectors."
+2. Search the connector directory for each tool they named that isn't connected (`search_mcp_registry`). Show the official one with a **Connect** button in the chat (`suggest_connectors` with its id). Never pick a connector that changes or books things when a read-only official one exists (for Xero use "Xero", not a third-party one).
+3. They press Connect, sign in on the tool's own page and press Allow. Then make one small read-only call to check it works, and say so in one line.
+4. No connector in the directory: offer Level 2's custom connector steps, or leave the block in as "Not connected yet". Don't drop it.
+
+If a connector stops working later, the dashboard says so on the block. Show the Connect button again (`suggest_connectors` with the server id from the failed tool name).
 
 ## 2. Map it with them
 
@@ -56,6 +78,7 @@ Then: "Anything to add, move or drop?" Change it until they say it's right. Keep
    - `business`, `currency`, `brand` (check text is readable on `bg` and `panel`), `logo` only if it's an https link to their own logo.
    - `sources`: one per tool call, with IDs like a location or organisation id where needed (never a key or password).
    - `pages`: from the map, in its order, built from the blocks in `BLOCKS.md`. Start each page from the matching built-in page where there is one.
+   - `unit` (LTV, CAC): point its `from` paths at their sources (see `BLOCKS.md`, worked-out sources). Drop the LTV row only if they said no to it.
    - `goals` from the brain's goals note (ask if there are none).
    - `demo`: `false`.
 4. Open it in a browser first and check every page at desktop and phone width.
@@ -74,7 +97,7 @@ If the page says "Open this dashboard in Claude" or shows no live numbers inside
 
 - **"Add a page" / "track X":** steps 1 to 3 for just that page (ask what it should show, one question at a time; add it to the map), then publish again with the same file. Add any new tool to `capabilities`.
 - **Move, rename or drop a page or block:** change `pages`, update the map, publish again.
-- **New tool** (they moved CRM, added a booking app): a new source and adapter, point the blocks at it, publish with the tool added to `capabilities`.
+- **New tool** (they moved CRM, added a booking app): show its Connect button first, then a new source and adapter, point the blocks at it, publish with the tool added to `capabilities`.
 - **Goals:** update `goals` from the brain, publish again.
 
 ## Rules
