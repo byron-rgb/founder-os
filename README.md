@@ -35,7 +35,7 @@ Founder OS/
   brain/             your AI brain (open it in Obsidian)
   library/           Quick wins, Security, Brand Studio: use at any level
   dashboard/         your founder dashboard (Level 3)
-  site/              your landing pages and site (Level 3)
+  site/              your website starter + templates (Level 3)
   agents/            your agents (Level 4)
   .claude/skills/    the skills Claude uses to guide you
 ```
@@ -46,6 +46,7 @@ Founder OS/
 - **install my Claude Upgrade**: Level 0
 - **build my AI brain** / **continue my brain** / **brain check-up**: Level 1
 - **give me a quick win**: a small useful job, done now
+- **build my website** / **rebuild my website from <address>**: Level 3
 - **help me with a key**: store an API key safely, without it touching the chat
 - **security check**: your plain-English security check and fix list
 - **brand studio**: your design system, a brand refresh, and real slides, posts, posters and flyers

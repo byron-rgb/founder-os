@@ -1,0 +1,62 @@
+---
+// Site layout: head, brand fonts, local business details for Google, header and footer.
+import '../styles/brand.css';
+import '../styles/base.css';
+import site from '../content/site.json';
+import fonts from '../content/fonts.json';
+const { title, description } = Astro.props;
+const b = site.business;
+const pageTitle = title ? `${title} | ${b.name}` : `${b.name} | ${b.tagline}`;
+const desc = description || site.hero?.text || b.tagline;
+const schema = {
+  '@context': 'https://schema.org', '@type': site.schemaType || 'LocalBusiness',
+  name: b.name, description: desc, url: site.url, telephone: b.phone || undefined, email: b.email || undefined,
+  areaServed: (b.serviceAreas || []).map((a) => ({ '@type': 'Place', name: a })),
+  address: b.address ? { '@type': 'PostalAddress', streetAddress: b.address.street, addressLocality: b.address.suburb, addressRegion: b.address.state, postalCode: b.address.postcode, addressCountry: 'AU' } : undefined,
+};
+const logo = site.logo || null;
+---
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={desc} />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={desc} />
+  {fonts.href && <><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href={fonts.href} /></>}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body>
+  <header class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px">
+    <a href="/" style="text-decoration:none;display:flex;align-items:center;gap:10px">
+      {logo ? <img src={logo} alt={b.name} style="height:40px;width:auto" /> : <strong style="font-family:var(--f-head);font-size:20px">{b.name}</strong>}
+    </a>
+    <nav style="display:flex;align-items:center;gap:16px">
+      {b.phone && <a href={`tel:${b.phone.replace(/\s/g, '')}`} class="hide-sm" style="font-weight:600;text-decoration:none">{b.phone}</a>}
+      <a class="btn btn-sm" href="#quote">{site.cta || 'Get a quote'}</a>
+    </nav>
+  </header>
+  <main><slot /></main>
+  <footer class="panel">
+    <div class="wrap section" style="padding-block:48px;display:grid;gap:24px" >
+      <div class="grid g3">
+        <div class="stack"><strong style="font-family:var(--f-head);font-size:20px">{b.name}</strong><p class="muted">{b.tagline}</p></div>
+        <div class="stack">
+          {b.phone && <a href={`tel:${b.phone.replace(/\s/g, '')}`}>{b.phone}</a>}
+          {b.email && <a href={`mailto:${b.email}`}>{b.email}</a>}
+          {b.hours && <p class="muted">{b.hours}</p>}
+        </div>
+        <div class="stack">
+          {b.serviceAreas?.length > 0 && <p class="muted">Servicing {b.serviceAreas.join(', ')}</p>}
+          {b.abn && <p class="muted">ABN {b.abn}</p>}
+          {b.licence && <p class="muted">{b.licence}</p>}
+        </div>
+      </div>
+      <p class="muted" style="font-size:var(--t-small)">© {new Date().getFullYear()} {b.name} · <a href="/privacy">Privacy</a></p>
+    </div>
+  </footer>
+</body>
+</html>

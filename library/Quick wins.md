@@ -12,7 +12,7 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 | 2 | Meeting to follow-up | The follow-up email after a call | Meeting notes or transcript, Brand Voice, saved as a draft |
 | 2 | Review replies | Every Google review answered in your voice | Pasted reviews, Brand Voice, drafts to copy |
 | 2 | Plan my week | Calendar and tasks turned into a realistic week | Calendar + tasks connectors, Goals |
-| 3 | Landing page | One offer, one page, one form, live today | Damn Good Funnels blocks in site/, Brand Guidelines |
+| 3 | Landing page | One offer, one page, one form, live today | Site starter in site/, design system, `website` skill |
 | 3 | Job ad | A hiring page and the ad pointing to it | Team + Brand Voice |
 | 3 | How-to from a video | A written step-by-step from a screen recording | Watch skill or a transcript, saved to brain/4 Operations |
 | 3 | Client welcome pack | The emails and page every new client gets | Processes + Brand Voice, drafts |

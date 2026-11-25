@@ -1,0 +1,13 @@
+---
+import Site from '../layouts/Site.astro';
+import site from '../content/site.json';
+const b = site.business;
+---
+<Site title="Privacy">
+  <section class="section"><div class="wrap stack" style="max-width:720px">
+    <h1>Privacy</h1>
+    <p>{b.name} collects the details you send through our quote form (name, phone, email, suburb and job details) so we can reply and quote on your job.</p>
+    <p>We keep them in our customer system, don't sell them, and only share them with people who help us do the job. You can ask us to see, correct or delete your details at any time{b.email ? <> by emailing <a href={`mailto:${b.email}`}>{b.email}</a></> : ''}.</p>
+    <p class="muted">This is a plain starter notice. Have it checked for your business before you rely on it.</p>
+  </div></section>
+</Site>

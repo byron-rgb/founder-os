@@ -1,0 +1,73 @@
+---
+// Landscaping template (Founder OS). Content comes from src/content/site.json,
+// styles from the founder's design system. Sections with no content are hidden.
+import Site from '../layouts/Site.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import site from '../content/site.json';
+const { hero, services = [], steps = [], gallery = [], why = [], reviews = [], faqs = [], proof = [], business: b } = site;
+---
+<Site>
+  <section class="section" style="padding-top:clamp(32px,5vw,64px)">
+    <div class="wrap grid g2" style="align-items:center">
+      <div class="stack" style="gap:var(--s3)">
+        <span class="eyebrow">{hero.eyebrow}</span>
+        <h1>{hero.title}</h1>
+        <p class="lead">{hero.text}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a class="btn" href="#quote">{site.cta}</a>
+          {b.phone && <a class="btn ghost" href={`tel:${b.phone.replace(/\s/g, '')}`}>Call {b.phone}</a>}
+        </div>
+        {proof.length > 0 && <ul style="list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:var(--t-small);font-weight:600">{proof.map((p) => <li>✓ {p}</li>)}</ul>}
+      </div>
+      <div class="photo" style="aspect-ratio:5/4">{hero.image ? <img src={hero.image} alt={hero.imageLabel || b.name} /> : <span class="muted">{hero.imageLabel}</span>}</div>
+    </div>
+  </section>
+
+  {services.length > 0 && <section class="section panel" id="services">
+    <div class="wrap stack" style="gap:var(--s4)">
+      <div class="stack"><span class="eyebrow">What we do</span><h2>Services</h2></div>
+      <div class="grid g3">{services.map((s) => <article class="card"><h3>{s.name}</h3><p class="muted">{s.text}</p>{s.from && <p style="font-weight:600;margin-top:auto;padding-top:8px">{s.from}</p>}</article>)}</div>
+    </div>
+  </section>}
+
+  {gallery.length > 0 && <section class="section">
+    <div class="wrap stack" style="gap:var(--s4)">
+      <div class="stack"><span class="eyebrow">Recent work</span><h2>Jobs we're proud of</h2></div>
+      <div class="grid g3">{gallery.map((g) => <figure style="margin:0" class="stack"><div class="photo">{g.src ? <img src={g.src} alt={g.label} loading="lazy" /> : <span class="muted">Photo: {g.label}</span>}</div><figcaption class="muted" style="font-size:var(--t-small)">{g.label}</figcaption></figure>)}</div>
+    </div>
+  </section>}
+
+  {steps.length > 0 && <section class="section panel">
+    <div class="wrap stack" style="gap:var(--s4)">
+      <div class="stack"><span class="eyebrow">How it works</span><h2>Simple from first call to finished yard</h2></div>
+      <ol class="grid g3" style="list-style:none;padding:0;margin:0">{steps.map((s, i) => <li class="stack"><span style="font-family:var(--f-head);font-size:40px;color:var(--c-accent-text);line-height:1">{i + 1}</span><h3>{s.title}</h3><p class="muted">{s.text}</p></li>)}</ol>
+    </div>
+  </section>}
+
+  {why.length > 0 && <section class="section">
+    <div class="wrap grid g2" style="align-items:start">
+      <div class="stack"><span class="eyebrow">Why {b.name}</span><h2>The things that matter on a job</h2></div>
+      <div class="stack" style="gap:var(--s3)">{why.map((w) => <div class="stack" style="gap:4px"><h3>{w.title}</h3><p class="muted">{w.text}</p></div>)}</div>
+    </div>
+  </section>}
+
+  {reviews.length > 0 && <section class="section panel">
+    <div class="wrap stack" style="gap:var(--s4)">
+      <div class="stack"><span class="eyebrow">Reviews</span><h2>What customers say</h2></div>
+      <div class="grid g3">{reviews.map((r) => <blockquote class="card" style="margin:0"><p>"{r.quote}"</p><footer class="muted" style="font-size:var(--t-small);margin-top:auto;padding-top:8px">{r.name}{r.suburb && `, ${r.suburb}`}</footer></blockquote>)}</div>
+    </div>
+  </section>}
+
+  {b.serviceAreas?.length > 0 && <section class="section" style="padding-block:48px">
+    <div class="wrap stack"><span class="eyebrow">Where we work</span><p class="lead">{b.serviceAreas.join(' · ')}</p></div>
+  </section>}
+
+  {faqs.length > 0 && <section class="section">
+    <div class="wrap stack" style="gap:var(--s3);max-width:820px">
+      <div class="stack"><span class="eyebrow">Questions</span><h2>Good to know</h2></div>
+      {faqs.map((f) => <details class="card"><summary style="font-weight:600;cursor:pointer">{f.q}</summary><p class="muted" style="padding-top:8px">{f.a}</p></details>)}
+    </div>
+  </section>}
+
+  <QuoteForm />
+</Site>

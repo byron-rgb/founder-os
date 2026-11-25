@@ -1,0 +1,12 @@
+---
+import Site from '../layouts/Site.astro';
+import site from '../content/site.json';
+---
+<Site title="Thanks">
+  <section class="section"><div class="wrap stack" style="max-width:640px">
+    <span class="eyebrow">Got it</span>
+    <h1>Thanks. We'll be in touch soon.</h1>
+    <p class="lead">{site.thanks || 'We reply to every quote request within one business day.'}</p>
+    <p><a class="btn ghost" href="/">Back to home</a></p>
+  </div></section>
+</Site>

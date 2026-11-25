@@ -11,7 +11,7 @@ This is where AI stops being a chat and becomes part of how you run the business
 1. **GitHub**: make a free account. Claude saves this folder as your own **private** copy. Every change is kept.
 2. **Cloudflare**: make a free account. It puts your dashboard and pages live.
 3. **Founder dashboard** (`dashboard/`): switch on Today, Money, Leads and Content as your tools connect. Demo data until then.
-4. **Your website and landing pages** (`site/`): Claude already knows your business (your brain) and your look (your design system), so say **build my website** and it builds the whole site in one go. Pages use Damn Good Funnels (damngoodfunnels.com) blocks. Forms send to GoHighLevel; use another CRM and Claude points the forms at it.
+4. **Your website and landing pages** (`site/`): Claude already knows your business (your brain) and your look (your design system), so say **build my website** and it builds the whole site in one go. It uses the Founder OS site starter: plain Astro, ready-made templates for common businesses (landscaping first, more coming), your design system for the look, and a quote form that sends leads to GoHighLevel or any other CRM. Using GoHighLevel and want even more page designs? Damn Good Funnels is free for your own business; download it yourself (see `site/README.md`).
 5. **Keys for your forms**: the forms need a GoHighLevel key. Say **help me with a key**. You paste it in yourself, it never goes in the chat (see `library/Security.md`).
 
 ## Your website

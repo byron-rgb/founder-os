@@ -62,4 +62,5 @@ Pasted it in a chat, a file, a screenshot, or saved it to GitHub? No panic, fix 
 - If one is pasted anyway: don't repeat it, don't write it anywhere, tell them to replace it (steps above).
 - Never read `.env`, `.dev.vars` or any secrets file. Never write a key into code, the brain, notes or a commit.
 - Any setup guide (including a template's own setup command) that says "give me your API key": skip that step and use this skill instead.
+- Site form settings: `CRM`, `GHL_LOCATION_ID`, `ALLOWED_ORIGINS`, `LEAD_TAGS` are plain variables; `GHL_API_KEY` and `WEBHOOK_URL` are secrets (`wrangler pages secret put <NAME>`).
 - Least access: every key gets only the permissions its job needs, one key per job.

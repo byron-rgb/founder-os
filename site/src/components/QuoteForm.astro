@@ -1,0 +1,49 @@
+---
+// Quote / enquiry form. Posts to /api/lead (functions/api/lead.js), which sends the lead
+// to the founder's CRM. Has a hidden honeypot field to stop bots.
+import site from '../content/site.json';
+const { title = 'Get a free quote', text = 'Tell us about the job. We reply within one business day.' } = Astro.props;
+const jobs = site.jobTypes || [];
+---
+<section id="quote" class="section panel">
+  <div class="wrap grid g2" style="align-items:start">
+    <div class="stack">
+      <span class="eyebrow">Free quote</span>
+      <h2>{title}</h2>
+      <p class="lead">{text}</p>
+      {site.business.phone && <p>Rather talk? Call <a href={`tel:${site.business.phone.replace(/\s/g, '')}`}><strong>{site.business.phone}</strong></a></p>}
+    </div>
+    <form id="lead-form" class="card stack" novalidate>
+      <div class="grid g2" style="gap:var(--s2)">
+        <div class="stack" style="gap:6px"><label for="f-name">Name</label><input id="f-name" name="name" autocomplete="name" required /></div>
+        <div class="stack" style="gap:6px"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required /></div>
+      </div>
+      <div class="stack" style="gap:6px"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+      <div class="grid g2" style="gap:var(--s2)">
+        <div class="stack" style="gap:6px"><label for="f-suburb">Suburb</label><input id="f-suburb" name="suburb" autocomplete="address-level2" /></div>
+        {jobs.length > 0 && <div class="stack" style="gap:6px"><label for="f-job">Type of job</label><select id="f-job" name="job">{jobs.map((j) => <option>{j}</option>)}</select></div>}
+      </div>
+      <div class="stack" style="gap:6px"><label for="f-details">About the job</label><textarea id="f-details" name="details" placeholder="Size, what you'd like done, timing"></textarea></div>
+      <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button class="btn" type="submit">Send my quote request</button>
+      <p id="f-msg" role="status" class="muted" style="font-size:var(--t-small)">We only use your details to reply to you.</p>
+    </form>
+  </div>
+</section>
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement;
+  const msg = document.getElementById('f-msg')!;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const btn = form.querySelector('button')!; btn.disabled = true; msg.textContent = 'Sending...';
+    try {
+      const res = await fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+      if (!res.ok) throw new Error();
+      location.href = '/thanks';
+    } catch {
+      btn.disabled = false;
+      msg.textContent = "That didn't send. Please try again, or give us a call.";
+    }
+  });
+</script>
