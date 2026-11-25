@@ -13,7 +13,7 @@ Use this in Step 1, and any time the owner says "sort my files".
 | Price list, packages, proposal | `2 Sales/Offers and Prices.md` |
 | Testimonials, reviews, case studies | `2 Sales/Customers.md` (exact words) and `1 You/Stories.md` (client wins) |
 | Emails, captions, messages they wrote | `3 Marketing/Brand Voice.md` (examples) and `1 You/Writing Rules.md` (patterns) |
-| Brand guide, logo, colours, fonts | `3 Marketing/Brand Look.md` |
+| Brand guide, logo, colours, fonts, Canva brand kit | `3 Marketing/Brand/Brand Guidelines.md`. Logo files go in `3 Marketing/Brand/Logos/`, font files in `Fonts/`, brand photos in `Photos/` (not Sources) |
 | SOP, checklist, onboarding doc | `4 Operations/Processes.md` |
 | Team list, org chart, roles | `5 Team/Team.md` |
 | Reports, dashboards, financial summary | `6 Finance/Key Numbers.md` |

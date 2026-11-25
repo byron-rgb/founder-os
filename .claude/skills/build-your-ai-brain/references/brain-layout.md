@@ -23,7 +23,10 @@ AI Brain/
     Offers and Prices.md
   3 Marketing/
     Brand Voice.md
-    Brand Look.md
+    Brand/
+      Brand Guidelines.md  the design file: logo, colours, fonts, type sizes, buttons, photo style, never do
+      Brand Board.html     one visual page of the brand (made from the guidelines)
+      Logos/  Fonts/  Photos/
   4 Operations/
     Processes.md
     Tools.md
@@ -40,7 +43,7 @@ AI Brain/
 
 Create the folders and `_Setup Progress.md` at the start. Create each brain file the first time something goes into it: during file sorting (`status: draft`) or the interview (`status: in progress`). Set `status: done` when its interview section is finished.
 
-Older brains (built before 11 Oct 2026) used three folders: `1 You/`, `2 Business/`, `3 Operations/`. If a file isn't where this says, find it by its name anywhere in the brain.
+Brains built before 25 Nov 2026 kept the look in `3 Marketing/Brand Look.md`: move it to `3 Marketing/Brand/Brand Guidelines.md` and fill the gaps with `brand-file.md`. Older brains (built before 11 Oct 2026) used three folders: `1 You/`, `2 Business/`, `3 Operations/`. If a file isn't where this says, find it by its name anywhere in the brain.
 
 ## Every brain file starts like this
 
@@ -68,7 +71,7 @@ Owner: <first name> · Business: <name> · Started: YYYY-MM-DD
 - [ ] Read website and files
 - [ ] 1 You: Profile · Values · Writing Rules · Stories
 - [ ] 2 Sales: Customers · Offers and Prices
-- [ ] 3 Marketing: Brand Voice · Brand Look
+- [ ] 3 Marketing: Brand Voice · Brand folder (Guidelines, Board, files)
 - [ ] 4 Operations: Processes · Tools
 - [ ] 5 Team: Team
 - [ ] 6 Finance: Key Numbers
@@ -105,7 +108,7 @@ This folder is the brain for <Business name>, run by <first name>. Read this fil
 ## Where things live
 - 1 You: Profile, Values, Writing Rules, Stories
 - 2 Sales: Customers, Offers and Prices
-- 3 Marketing: Brand Voice, Brand Look
+- 3 Marketing: Brand Voice, Brand/Brand Guidelines (the design file: use it for anything visual)
 - 4 Operations: Processes, Tools
 - 5 Team: Team
 - 6 Finance: Key Numbers

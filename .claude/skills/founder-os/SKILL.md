@@ -14,11 +14,12 @@ You guide a founder through five levels. Each level: Why, Set up, Make your own,
 4. Run that level (below). Then tick what's done in `Progress.md` and set "Current level".
 
 ## Running a level
-1. **Why.** Read the level guide's "Why" and say it in two short lines, in your own words. Mention the short video for this level if they have the link.
+1. **Why.** Read the level guide's "Why" and say it in two short lines, in your own words. Mention the short video for this level if they have the link. Then always say the guide's **Is this safe?** line in your own words, calmly, before any setup. People worry about AI and security; a clear, plain answer up front is part of the job. If they ask a safety question at any point, stop and answer it straight before carrying on.
 2. **Set up.** Walk the guide's steps one at a time. One instruction, then wait for "done". For steps that need them to click something, name the exact button. Hand over to the level's skill where there is one:
    - Level 0: `claude-upgrade`
    - Level 1: `build-your-ai-brain`
-   - Levels 2 to 4: follow the guide step by step with them.
+   - Levels 2 to 4: follow the guide step by step with them. Connecting tools (Level 2) is their click, not yours: guide them through Customize, Connectors, and test each one after.
+   - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.
 3. **Make your own.** Offer the guide's task, or a quick win from `quick-wins/Quick wins.md` for this level. Do it with them now.
 4. **Check.** Go through the tick list. Test each item for real (ask a question, open the page, look at the draft). Tick only what works.
 5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes and GitHub is set up, save a copy with a short plain note of what changed. If GitHub isn't set up yet (Level 3), say it gets set up then.

@@ -4,7 +4,7 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 
 | Level | Quick win | What you get | How Claude does it |
 | --- | --- | --- | --- |
-| 1 | Email signature | A signature ready to paste into Gmail or Outlook | From Profile + Brand Look (no website yet: leave the link out; no brand colours yet: use black text). Simple HTML table, no hosted images. Save as an `.html` file, open it in the browser, select all, copy, paste into Gmail signature settings |
+| 1 | Email signature | A signature ready to paste into Gmail or Outlook | From Profile + Brand Guidelines (no website yet: leave the link out; no brand colours yet: use black text). Simple HTML table, no hosted images. Save as an `.html` file, open it in the browser, select all, copy, paste into Gmail signature settings |
 | 1 | Price list PDF | Your services and prices, laid out properly | From Offers and Prices. One page, your brand colours |
 | 1 | Proposal template | A proposal you fill from a voice note | From Offers, Customers, Brand Voice. Saved to brain/Work/Proposals |
 | 1 | Your FAQ | The 10 questions customers always ask, answered your way | From Customers + Offers. Practical questions only |
@@ -12,7 +12,7 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 | 2 | Meeting to follow-up | The follow-up email after a call | Meeting notes or transcript, Brand Voice, saved as a draft |
 | 2 | Review replies | Every Google review answered in your voice | Pasted reviews, Brand Voice, drafts to copy |
 | 2 | Plan my week | Calendar and tasks turned into a realistic week | Calendar + tasks connectors, Goals |
-| 3 | Landing page | One offer, one page, one form, live today | Damn Good Funnels blocks in site/, Brand Look |
+| 3 | Landing page | One offer, one page, one form, live today | Damn Good Funnels blocks in site/, Brand Guidelines |
 | 3 | Job ad | A hiring page and the ad pointing to it | Team + Brand Voice |
 | 3 | How-to from a video | A written step-by-step from a screen recording | Watch skill or a transcript, saved to brain/4 Operations |
 | 3 | Client welcome pack | The emails and page every new client gets | Processes + Brand Voice, drafts |

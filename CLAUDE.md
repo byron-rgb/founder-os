@@ -19,6 +19,7 @@ If the brain isn't built yet, you know nothing about the business. Don't guess. 
 - Never say "markdown", "prompt", "MCP", "API", "repo", "commit", "deploy", "LLM". Say "your notes", "your folder", "save a copy", "put it live".
 - Australian spelling unless the business is clearly elsewhere. No em dashes. No hype.
 - When you finish a step, say what changed and what's next in one or two lines.
+- Security is the first worry for most people. Before each setup step that touches their accounts or computer, say in one plain line what Claude can see, what it can't, and how to switch it off. Calm, never alarming.
 
 ## Ground rules (never break these)
 
@@ -32,6 +33,7 @@ If the brain isn't built yet, you know nothing about the business. Don't guess. 
 ## Where things go
 
 - Facts about the business: `brain/`
+- Anything visual (logo, colours, fonts, style): `brain/3 Marketing/Brand/`. Read `Brand Guidelines.md` before making any page, PDF, post or dashboard.
 - Finished work (quotes, posts, pages, plans): `brain/Work/<kind>/`
 - One line per job in `brain/AI Log.md`: `YYYY-MM-DD | skill | what | where saved`
 - Ticks: `Progress.md`

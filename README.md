@@ -6,7 +6,7 @@ This folder is your Founder OS. It holds your AI brain, your skills, your dashbo
 
 ## Start here
 
-1. Open the **Claude** desktop app and go to the **Code** tab.
+1. Open the **Claude** desktop app and go to the **Code** tab (or open Terminal and type `claude`).
 2. Pick this folder (`Founder OS`).
 3. Type: **start my Founder OS**
 
@@ -47,6 +47,10 @@ Founder OS/
 - **build my AI brain** / **continue my brain** / **brain check-up**: Level 1
 - **give me a quick win**: a small useful job, done now
 - **pull the latest Founder OS**: brings in new templates and agents
+
+## Is this safe?
+
+Yes. Claude only sees this folder unless you choose otherwise, asks before it changes anything, never sees your passwords, and only drafts: it never sends, pays or posts. Every level explains exactly what it can and can't do.
 
 ## Keep it private
 

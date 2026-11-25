@@ -5,6 +5,8 @@ Agents doing the weekly jobs. Drafts only.
 ## 1. Why
 The jobs that eat your week, like inbox, follow-ups, receipts and checks, get done before you sit down. They run as Claude scheduled tasks in the cloud, so your laptop can be closed.
 
+**Is this safe?** Agents only use the connectors you turned on. They prepare drafts and wait for you: they never send, pay, post or delete. Each one has its own short rules you can read, and you can pause any agent in one click. The Security agent checks the rest every week.
+
 ## 2. Set up
 Pick the agents you want. Each one is set up by interview, then put on a schedule.
 

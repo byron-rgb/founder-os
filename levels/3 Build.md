@@ -5,6 +5,8 @@ Your dashboard, pages and site. Live and backed up.
 ## 1. Why
 This is where AI stops being a chat and becomes part of how you run the business. You own every file and can change anything by asking.
 
+**Is this safe?** Your GitHub copy is set to private, so only you can see it. Every change is saved, so anything can be undone. Nothing goes live until you say so, and no passwords or keys go into your files.
+
 ## 2. Set up
 1. **GitHub**: make a free account. Claude saves this folder as your own **private** copy. Every change is kept.
 2. **Cloudflare**: make a free account. It puts your dashboard and pages live.

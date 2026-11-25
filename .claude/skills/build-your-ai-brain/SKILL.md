@@ -58,7 +58,7 @@ Run `references/interview-you.md`. Four files in `1 You/`. About 25 minutes.
 
 ## Step 3. Layer 2: Business
 
-Run `references/interview-business.md`. Four files: `2 Sales/` (Customers, Offers and Prices) and `3 Marketing/` (Brand Voice, Brand Look). About 30 minutes.
+Run `references/interview-business.md`. Four files: `2 Sales/` (Customers, Offers and Prices) and `3 Marketing/` (Brand Voice, and the Brand folder with your design file). About 40 minutes.
 
 ## Step 4. Layer 3: Operations
 

@@ -1,6 +1,6 @@
 # Layer 2: Business (about 30 minutes)
 
-Four files: `2 Sales/` (Customers, Offers and Prices) and `3 Marketing/` (Brand Voice, Brand Look). One question at a time. Use what the website and files already told you: confirm, don't re-ask.
+Four files: `2 Sales/` (Customers, Offers and Prices) and `3 Marketing/` (Brand Voice, and the Brand folder). One question at a time. Use what the website and files already told you: confirm, don't re-ask.
 
 ---
 
@@ -49,19 +49,6 @@ Writing Rules (Layer 1) covers the person. This covers how the business sounds o
 
 **File sections:** In three words · I or we · Per channel (Tone · Length · Openings · Endings · Example) · Very us · Not us
 
-## 4. Brand Look → `3 Marketing/Brand Look.md`
+## 4. Brand → `3 Marketing/Brand/`
 
-Keep this quick. Most owners have a brand guide or a designer: ask for it first.
-
-- Got a brand guide, or files from your designer? Drop them in.
-- Where's your logo? (A file, or a link.) Light and dark versions?
-- Your brand colours? (Hex codes if you have them, otherwise describe them and check the website.)
-- Fonts?
-- What should photos and graphics feel like? Any examples you love, or hate?
-- Anything the AI should never do visually?
-
-Pull colours and fonts from the website if they don't know them, and mark `[CHECK]`. No website and no brand yet? Write "Not set yet", add it to Still to confirm, and note it as a Level 3 job (their site and pages set the look).
-
-**File sections:** Logo files (where they live) · Colours (Hex · Use) · Fonts (Name · Use) · Photo and graphic style · Never do
-
-Close the layer: "Business done. Last layer is how it runs: team, processes, tools and numbers. This is what lets the AI actually help day to day."
+This is their design file: everything about how the business looks, in one folder, so every page, post, PDF and dashboard comes out on brand. Run `references/brand-file.md`.
