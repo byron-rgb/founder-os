@@ -46,6 +46,7 @@ Founder OS/
 - **install my Claude Upgrade**: Level 0
 - **build my AI brain** / **continue my brain** / **brain check-up**: Level 1
 - **give me a quick win**: a small useful job, done now
+- **help me with a key**: store an API key safely, without it touching the chat
 - **security check**: your plain-English security check and fix list
 - **brand studio**: your design system, a brand refresh, and real slides, posts, posters and flyers
 - **pull the latest Founder OS**: brings in new templates and agents

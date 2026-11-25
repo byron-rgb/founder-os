@@ -17,6 +17,17 @@ Yes, set up properly. The Founder OS is built so that:
 4. **Only install from the source.** Skills, plugins and connectors from the maker's own page. Never a link someone sent you.
 5. **Press No when unsure.** If a permission box doesn't make sense, say No and ask Claude what it's for.
 
+## API keys and secrets
+Most of the Founder OS needs **no keys**: you sign in to Claude connectors, Cloudflare and GitHub in the browser. Keys only come up for a few things, mostly your website's forms sending leads to GoHighLevel.
+
+When one does:
+- **The key never goes in the chat.** You copy it from the tool into your password manager, then into the safe place. Claude tells you where to click and never sees it.
+- **Three safe places:** your password manager (master copy), Cloudflare secrets (the live site, encrypted), and `site/.env` on your computer (testing only, never saved to GitHub).
+- **Least access.** One key per job, with only the permissions that job needs.
+- **Leaked one?** Delete it in the tool, make a new one, put it back. Then run a security check.
+
+Say **help me with a key** and Claude walks you through it.
+
 ## Your security check
 Say **security check**. About 30 minutes the first time. Claude asks what tools you use, then checks only what fits:
 - Can scammers send email pretending to be you

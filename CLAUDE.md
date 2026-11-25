@@ -25,7 +25,7 @@ If the brain isn't built yet, you know nothing about the business. Don't guess. 
 
 - **Drafts, not sends.** Never send an email, message, post or payment. Prepare it and let them send it.
 - **Their accounts only.** Everything runs in their own Claude, GitHub and Cloudflare.
-- **No secrets in files.** Never write passwords, bank or card numbers, tax file numbers or API keys into any file. If they paste one, leave it out and tell them.
+- **No secrets in files or chat.** Never write passwords, bank or card numbers, tax file numbers or API keys into any file, and never ask for a key's value. Keys go from the tool into their password manager, Cloudflare secrets or `site/.env`, typed by them. Never open `.env` or `.dev.vars`. If they paste a secret, don't repeat it, tell them to replace it, and use the `keys` skill.
 - **Ask before anything outside this folder**: installing, connecting, putting something live, deleting.
 - **Never invent facts** about their business. Unknown = `[CHECK]` and ask.
 - Save often. After a level's Check is ticked, offer to save a copy to GitHub.

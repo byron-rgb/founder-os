@@ -30,7 +30,9 @@ Current level: 0
 ## Level 3 · Build
 - [ ] Founder OS copied to their GitHub (private)
 - [ ] Dashboard live, at least one module on real data
+- [ ] Website built or rebuilt from brain + design system
 - [ ] One landing page live with a working form
+- [ ] Form key stored safely (password manager + Cloudflare secret)
 
 ## Level 4 · Delegate
 - [ ] EA brief arrives each morning
