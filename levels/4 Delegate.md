@@ -14,7 +14,7 @@ Pick the agents you want. Each one is set up by interview, then put on a schedul
 | --- | --- | --- |
 | EA | Morning brief, inbox and calendar triage, replies drafted | Every morning |
 | Finance + bookkeeping | Money snapshot, invoice chasing, receipts sorted, the pack your bookkeeper asks for | Weekly, quarterly |
-| Security | Checks your accounts, site and files; plain-English fix list | Weekly |
+| Security | The security check on a schedule (`security` skill): light weekly, deeper monthly; one line "2 new, 1 fixed" | Weekly, monthly |
 | Sales follow-up | New enquiries answered in draft, a lead board | Hourly or daily |
 
 ## 3. Make your own

@@ -16,7 +16,8 @@ Generic answers come from AI that doesn't know you. Your brain is a folder of pl
 6. In Obsidian, open **Graph view** to see it connect.
 
 ## 3. Make your own
-Pick one quick win (say **give me a quick win**):
+Big one: say **brand studio** to turn your brand into a design system and make real slides, posts and a poster.
+Or pick one quick win (say **give me a quick win**):
 - Your email signature, built from your brain
 - Your price list as a clean PDF
 

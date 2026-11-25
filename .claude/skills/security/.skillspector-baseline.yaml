@@ -1,0 +1,52 @@
+# SkillSpector baseline for the Founder OS security skill.
+# Every rule below was reviewed by hand on 2026-10-09. Scan with:
+#   skillspector scan security --no-llm --baseline security/.skillspector-baseline.yaml
+# Scope is kept narrow (by file and rule). Anything new still shows up.
+version: 2
+scanner_version: "2.12.0"
+
+rules:
+  # Cloudflare's security-audit guide, bundled unchanged (MIT). It teaches how to find attacks,
+  # so it names them (memory poisoning, keychains, /etc/passwd in tests, permission checks).
+  - path: "addons/cloudflare-security-audit/*"
+    reason: "Vendor security guide bundled unchanged; flagged lines are teaching text and test fixtures describing attacks, read 2026-10-09"
+
+  # Our detection lists: the AI tools check looks FOR these patterns in other people's skills.
+  - id: "PE3"
+    path: "scripts/ai_tools_check.py"
+    reason: "Regex list of warning signs to detect in skills under review; the script never reads those files"
+  - id: "AS3"
+    path: "scripts/ai_tools_check.py"
+    reason: "Lists skill folders by design (that is the check); counts only, read-only"
+  - id: "EA2"
+    path: "scripts/ai_tools_check.py"
+    reason: "Detection phrase in a regex, not an instruction"
+  - id: "AST4"
+    path: "scripts/*.py"
+    reason: "subprocess with fixed argument lists (dig, checkdmarc, skillspector), no shell, no user-built command strings"
+  - id: "E1"
+    path: "scripts/password_check.py"
+    reason: "HIBP Pwned Passwords range API; only a 5-character hash prefix is sent (k-anonymity), documented in the file header"
+
+  # Reference docs that tell Claude what to check, and what never to do.
+  - id: "AS1"
+    path: "references/checks/ai-tool-vetting.md"
+    reason: "The AI tools check reads Claude settings to flag risky choices; names and counts only, never values"
+  - id: "AS3"
+    path: "references/checks/ai-tool-vetting.md"
+    reason: "Documents the default skills folder the check lists"
+  - id: "AE1"
+    path: "SKILL.md"
+    reason: "Partial match through the referenced ai-tool-vetting.md (see that file's entries)"
+  - id: "PE3"
+    path: "references/checks/workspace-settings.md"
+    reason: "Tells the admin where their own Google access file lives and to never paste or share it"
+  - id: "PE3"
+    path: "references/code-quick-score.md"
+    reason: "Checklist item about short-lived access tokens (a check, not access)"
+  - id: "EA2"
+    path: "references/checks/*.md"
+    reason: "Warning text ('without asking' describes a risky setting to fix)"
+  - id: "LP3"
+    path: "SKILL.md"
+    reason: "Tool approval is deliberately left to the owner's own Claude permission settings; scripts are read-only"

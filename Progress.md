@@ -16,6 +16,7 @@ Current level: 0
 - [ ] Obsidian installed, brain folder open, graph shows
 - [ ] All seven areas have notes
 - [ ] Brand folder done, Brand Board looks right
+- [ ] Brand Studio: design system + showcase made (optional)
 - [ ] Ask "what do we charge for <service>?" and Claude gets it right
 - [ ] Monthly brain check-up in the calendar (by hand now, or by Claude once Level 2 connects the calendar)
 
@@ -24,6 +25,7 @@ Current level: 0
 - [ ] One tool added with a custom connector, if needed
 - [ ] CRM and accounting connected, if used
 - [ ] A morning brief that's actually right
+- [ ] First security check done
 
 ## Level 3 · Build
 - [ ] Founder OS copied to their GitHub (private)

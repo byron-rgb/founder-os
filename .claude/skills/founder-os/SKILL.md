@@ -20,9 +20,13 @@ You guide a founder through five levels. Each level: Why, Set up, Make your own,
    - Level 1: `build-your-ai-brain`
    - Levels 2 to 4: follow the guide step by step with them. Connecting tools (Level 2) is their click, not yours: guide them through Customize, Connectors, and test each one after.
    - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.
-3. **Make your own.** Offer the guide's task, or a quick win from `quick-wins/Quick wins.md` for this level. Do it with them now.
+3. **Make your own.** Offer the guide's task, or a quick win from `library/Quick wins.md` for this level. Do it with them now.
 4. **Check.** Go through the tick list. Test each item for real (ask a question, open the page, look at the draft). Tick only what works.
 5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes and GitHub is set up, save a copy with a short plain note of what changed. If GitHub isn't set up yet (Level 3), say it gets set up then.
+
+## The library (any level)
+- After Level 1's brand step, offer **Brand Studio** (`brand-studio`) as the big Make your own: "Want to see what your brand can do?"
+- Offer the **Security check** (`security`) after Level 2, once tools are connected. Any safety worry, any time: answer from `library/Security.md`.
 
 ## Pace
 - One level per sitting is normal. Never rush them up a level with empty ticks.

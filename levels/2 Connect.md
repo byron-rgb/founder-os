@@ -40,10 +40,13 @@ Many tools publish their own connector link. Some tools only connect through a b
 Ask: **who haven't I replied to this week, and when am I free to call them?**
 Quick wins: quote from a voice note, meeting notes to follow-up email, review replies, plan my week.
 
+Then run your first **security check** (see `library/Security.md`) now that your tools are connected.
+
 ## 4. Check
 - [ ] Email, calendar and files connected
 - [ ] One tool added with a custom connector, if you need one
 - [ ] CRM and accounting connected, if you use them
 - [ ] A morning brief that's actually right
+- [ ] First security check done
 
 Next: Level 3 · Build.
