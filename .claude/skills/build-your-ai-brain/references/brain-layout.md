@@ -73,7 +73,7 @@ Owner: <first name> · Business: <name> · Started: YYYY-MM-DD
 - [ ] 5 Team: Team
 - [ ] 6 Finance: Key Numbers
 - [ ] 7 Goals: Goals
-- [ ] Read-back done, [CHECK]s cleared
+- [ ] Read-back done, [CHECK]s cleared or listed in Still to confirm
 - [ ] Navigator files filled
 - [ ] Roadmap written
 
@@ -147,5 +147,5 @@ This is your AI Brain. It's a set of notes about you and <Business name> that an
 - New file worth keeping? Drop it in `Drop files here` and say "sort my files".
 
 ## What's in here
-<list the files with one line each; keep this list current whenever a file is added>
+<list every note in the seven area folders plus Roadmap.md, one line each, as [[links]]; mention Work/, Sources/ and AI Log.md in one line each; keep this list current whenever a file is added>
 ```

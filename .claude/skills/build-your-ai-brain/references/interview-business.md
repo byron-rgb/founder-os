@@ -60,7 +60,7 @@ Keep this quick. Most owners have a brand guide or a designer: ask for it first.
 - What should photos and graphics feel like? Any examples you love, or hate?
 - Anything the AI should never do visually?
 
-Pull colours and fonts from the website if they don't know them, and mark `[CHECK]`.
+Pull colours and fonts from the website if they don't know them, and mark `[CHECK]`. No website and no brand yet? Write "Not set yet", add it to Still to confirm, and note it as a Level 3 job (their site and pages set the look).
 
 **File sections:** Logo files (where they live) · Colours (Hex · Use) · Fonts (Name · Use) · Photo and graphic style · Never do
 

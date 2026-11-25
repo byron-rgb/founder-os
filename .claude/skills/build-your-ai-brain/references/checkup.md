@@ -5,7 +5,7 @@ Use when they say "brain check-up", "update my brain", or "something changed". A
 ## Steps
 
 1. Read `CLAUDE.md`, `_Setup Progress.md` and the `updated:` date on every brain file. If setup isn't finished, offer to continue it instead.
-2. Sort anything sitting in `Drop files here/` (see `drop-files.md`).
+2. Sort anything new in `Drop files here/` (see `drop-files.md`). A file you already cleaned before is not new: remind the owner to delete it, don't re-sort it.
 3. Ask these, one at a time. Skip any that clearly don't apply.
    - Any new offers, price changes, or things you've stopped selling?
    - Anyone joined or left the team? Any role changes?

@@ -4,7 +4,7 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 
 | Level | Quick win | What you get | How Claude does it |
 | --- | --- | --- | --- |
-| 1 | Email signature | A signature ready to paste into Gmail or Outlook | From Profile + Brand Look. Simple HTML table, no images hosted elsewhere, phone and site as text |
+| 1 | Email signature | A signature ready to paste into Gmail or Outlook | From Profile + Brand Look (no website yet: leave the link out; no brand colours yet: use black text). Simple HTML table, no hosted images. Save as an `.html` file, open it in the browser, select all, copy, paste into Gmail signature settings |
 | 1 | Price list PDF | Your services and prices, laid out properly | From Offers and Prices. One page, your brand colours |
 | 1 | Proposal template | A proposal you fill from a voice note | From Offers, Customers, Brand Voice. Saved to brain/Work/Proposals |
 | 1 | Your FAQ | The 10 questions customers always ask, answered your way | From Customers + Offers. Practical questions only |

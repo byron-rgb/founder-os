@@ -18,6 +18,7 @@ Say: **grill me on the one decision I keep putting off.**
 ## 4. Check
 - [ ] Claude app on Pro, signed in
 - [ ] Upgrade pack installed
+- [ ] Official plugins installed
 - [ ] Ran one grill
 
 Next: Level 1 · Know.

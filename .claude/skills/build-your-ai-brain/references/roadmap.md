@@ -8,7 +8,7 @@ Write this after the read-back. It answers: "Now the AI knows my business, what 
 2. List every job AI could take off them. Score each one:
    - **Time back:** hours a month (estimate from what they told you, and say it's an estimate).
    - **Effort:** Easy (works today with just the brain) · Medium (connect one tool) · Bigger (several tools, or a custom build).
-3. Sort them into the four levels below. Put each job in ONE level only: the lowest level that can do it. Within each level, most time back first. The total counts each job once.
+3. Sort them into the four levels below. In a Founder OS these are Levels 1 to 4 of the Founder OS (Know, Connect, Build, Delegate), so name them that way. Put each job in ONE level only: the lowest level that can do it. Within each level, most time back first. The total counts each job once.
 
 ## The four levels
 
@@ -51,4 +51,4 @@ About <X> hours a month back if you did all of it.
 
 End `Roadmap.md` with one quiet line, no sales pitch:
 
-> Want help with Levels 2 to 4? Ask the person who gave you this skill.
+> Next: in a Founder OS, say "what's next" to start Level 2. Otherwise, want help with Levels 2 to 4? Ask the person who gave you this skill.

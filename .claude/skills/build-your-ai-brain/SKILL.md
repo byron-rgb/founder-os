@@ -33,11 +33,11 @@ There are two modes. Pick one from what they said:
 1. Say, in your own words:
    > Let's build your AI Brain. It's a folder of notes about your business that any AI can read, so it stops giving generic answers and starts sounding like you.
    > It takes about 2 hours. You can do it in one go, or one layer at a time, and stop whenever you like. Type or talk, whichever's faster.
-2. Ask their first name and the business name.
+2. Ask their first name and the business name. In a Founder OS, take them from `Progress.md` if they're already there.
 3. Check you can write files. **Inside a Founder OS folder** (it has `Progress.md` and a `brain/` folder): the brain is `brain/`. Use it, don't ask. Otherwise you need a folder they chose; recommend one called `AI Brain` inside iCloud Drive or Google Drive, so it's backed up and on every device.
-3a. **Obsidian.** Ask if Obsidian is installed (free, obsidian.md). If not, have them install it now. Then: **Open folder as vault**, choose the brain folder, and open **Graph view** (left sidebar). Say: "Keep that open. You'll watch your brain grow as we go." If they'd rather skip Obsidian, carry on; the brain works without it.
-4. **Resume check.** If the folder already has `_Setup Progress.md`, read it and every brain file marked `status: in progress` or `status: draft`. Say what's done, and carry on from "Last stopped at". Don't re-ask anything already answered.
-5. Otherwise create the layout in `references/brain-layout.md`, including `_Setup Progress.md`.
+4. **Obsidian.** Skip if they already opened the brain in Obsidian from the Level 1 guide. Otherwise ask if Obsidian is installed (free, obsidian.md). If not, have them install it now. Then: **Open folder as vault**, choose the brain folder, and open **Graph view** (left sidebar). Say: "Keep that open. You'll watch your brain grow as we go." If they'd rather skip Obsidian, carry on; the brain works without it.
+5. **Resume check.** If the folder already has `_Setup Progress.md`, read it and every brain file marked `status: in progress` or `status: draft`. Say what's done, and carry on from "Last stopped at". Don't re-ask anything already answered.
+6. Otherwise create the layout in `references/brain-layout.md`, including `_Setup Progress.md`.
 
 ## Step 1. Read what already exists
 
@@ -97,5 +97,5 @@ Mark setup complete in `_Setup Progress.md` with today's date. In a Founder OS, 
 - Revenue and profit are optional. If they'd rather not say, write "not shared".
 - Don't send, post or change anything outside the brain folder.
 - Plain notes only: `.md` files, simple headings, short lines, so any AI and any app can read them.
-- **Link as you write, so the graph grows.** Every brain file links to at least two related notes with `[[Note Name]]` (an offer links to the [[Customers]] it's for and the [[Processes]] that deliver it; a tool links to the process that uses it). `Start Here.md` links to every file. Link each person in [[Team]] and each offer by name where they come up. Never link to a note that doesn't exist yet unless you create it.
+- **Link as you write, so the graph grows.** Every brain file in the seven area folders, plus `Roadmap.md`, links to at least two related notes with `[[Note Name]]` (an offer links to the [[Customers]] it's for and the [[Processes]] that deliver it; a tool links to the process that uses it). `Start Here.md` links to every file. Link each person in [[Team]] and each offer by name where they come up. Never link to a note that doesn't exist yet unless you create it. Navigator and log files (`CLAUDE.md`, `AGENTS.md`, `AI Log.md`, `_Setup Progress.md`) don't need links. Links to files that aren't `.md` need the extension: `[[Sources/Price list.txt]]`.
 - After each area, say: "Have a look at your graph." once, no more.

@@ -21,6 +21,6 @@ Pick one quick win (say **give me a quick win**):
 - [ ] Obsidian open on the brain, graph shows
 - [ ] All seven areas have notes
 - [ ] Ask "what do we charge for <service>?" and Claude gets it right
-- [ ] Monthly **brain check-up** in your calendar
+- [ ] Monthly **brain check-up** in your calendar (add it yourself, or Claude does it after Level 2)
 
 Next: Level 2 · Connect.

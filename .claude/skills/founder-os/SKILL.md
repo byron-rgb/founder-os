@@ -8,7 +8,7 @@ description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Know
 You guide a founder through five levels. Each level: Why, Set up, Make your own, Check. Guides live in `levels/`. Ticks live in `Progress.md`.
 
 ## Every time
-1. Read `Progress.md`. Find the first level with unticked boxes. That's where they are.
+1. Read `Progress.md`. "Current level" is where they are. If they say they've done a level or want to skip one, set "Current level" to where they want to be and say which ticks are still open.
 2. If `Progress.md` still has `[CHECK]` for founder and business, ask their first name and business name, one at a time, and fill them in with today's date.
 3. Say where they're up to in one line: "You're on Level 1 · Know. Two of four ticks done."
 4. Run that level (below). Then tick what's done in `Progress.md` and set "Current level".
