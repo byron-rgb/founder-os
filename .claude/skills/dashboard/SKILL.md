@@ -1,6 +1,6 @@
 ---
 name: dashboard
-description: Founder OS Level 3 founder dashboard. Builds one private dashboard page in the founder's own Claude account that reads their connected tools live each time they open it, with modules for Leads and sales, This week, Money and Goals. Use when the founder says "build my dashboard", "update my dashboard", "add X to my dashboard", "turn off the money module", "add my goals to my dashboard", or Level 3 reaches the dashboard step.
+description: Founder OS Level 3 founder dashboard. Builds one private dashboard page in the founder's own Claude account that reads their connected tools live each time they open it, with main sections Finance, Sales, Marketing, Operations and Goals. Use when the founder says "build my dashboard", "update my dashboard", "add X to my dashboard", "turn off the money module", "add my goals to my dashboard", or Level 3 reaches the dashboard step.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -13,7 +13,7 @@ One page, saved in their Claude account, that shows their business at a glance. 
 
 ## Build it ("build my dashboard")
 
-1. **What's connected.** Check which of these tools you can use in this session: a CRM (GoHighLevel, HubSpot, Pipedrive), a calendar (Google Calendar, Outlook), a task app, accounting (Xero, QuickBooks, MYOB). A module with no tool behind it: offer Level 2 to connect it, or leave that module off for now. Goals need no tool.
+1. **What's connected.** Check which of these tools you can use in this session: accounting (Xero, QuickBooks, MYOB) for Finance; a CRM (GoHighLevel, HubSpot, Pipedrive) for Sales; social, website or ads stats (GHL Social Planner, Search Console, Meta) for Marketing; a calendar (Google Calendar, Outlook) and task app for Operations. A module with no tool behind it: offer Level 2 to connect it, or leave that module off for now. Goals need no tool.
 2. **Learn each tool's answer.** For every tool the dashboard will read:
    - read its input schema in this session;
    - make ONE read-only call with a small limit to see the shape of the answer (never a tool that creates, sends or changes anything);
@@ -22,7 +22,8 @@ One page, saved in their Claude account, that shows their business at a glance. 
 3. **Fill CONFIG** in a copy of the template saved as `dashboard/my-dashboard.html`:
    - `business`: their business name from the brain.
    - `brand`: `bg`, `panel`, `text`, `muted`, `accent` hex colours from `brain/3 Marketing/Brand/design-system.json` (dark or light, whatever their brand is). Check the text is readable on `bg` and `panel`.
-   - `currency`, and `modules` on or off.
+   - `currency`, and `modules` on or off (ids: `money` = Finance, `leads` = Sales, `marketing`, `week` = Operations, `goals`). Keep to these main sections; don't add business-specific ones to the sidebar.
+   - Marketing has no checked adapter yet: write one from the real answer that returns `{stats:[{label, value, change}], sources:[{name, leads}]}`.
    - `sources`: per module, the connector's display name exactly as it shows in this session (for example `"GHL"`, `"Google Calendar"`, `"Xero"`), the tool's name, its input (IDs like a location or organisation id are fine; never a key or password), and the adapter. Dates can use `{today}`, `{monthStart}`, `{now}`, `{in7days}`.
    - `goals`: up to 6 from the brain's goals note, each with `title`, `target` (one line: what's left or how they'll know) and `status` (`on_track`, `behind`, `done`, `not_started`). Where the goal is a number, add `current` and `goal` (and `"money": true` for dollars) so it draws a progress bar. Ask if the brain has none.
    - `demo`: `false`.

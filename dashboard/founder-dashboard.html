@@ -30,7 +30,7 @@
   .mark{width:34px;height:34px;border-radius:8px;background:var(--accent);color:var(--bg);display:grid;place-items:center;font:700 15px var(--head)}
   .brand b{display:block;font:700 15px/1.2 var(--head)}
   .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-  nav{padding:0 10px;display:flex;flex-direction:column;gap:18px}
+  nav{padding:0 10px;display:flex;flex-direction:column;gap:2px}
   nav .eyebrow{padding:0 10px 6px;display:block}
   nav .eyebrow::before{content:"";display:inline-block;width:10px;height:2px;background:var(--accent);vertical-align:middle;margin-right:8px;border-radius:2px}
   nav a{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;color:var(--muted);text-decoration:none;font-size:14px;border-left:2px solid transparent}
@@ -96,7 +96,7 @@
 
   /* Week */
   .day{display:flex;gap:16px;padding:12px 0;border-top:1px solid var(--line)}
-  .day:first-of-type{border-top:0;padding-top:2px}
+  .sub-h+.day{border-top:0;padding-top:2px}
   .date{width:54px;flex:none;text-align:center;border-radius:8px;padding:6px 0;background:var(--line)}
   .date.today{background:var(--soft);color:var(--accent)}
   .date b{display:block;font:700 20px/1.1 var(--head)}
@@ -116,7 +116,7 @@
   .foot3{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
   .foot3 .meta{font-size:12px}
   .foot3 b{display:block;font:700 17px var(--head);font-variant-numeric:tabular-nums}
-  .pos{color:var(--good)} .neg{color:var(--bad)}
+  .pos,.stat .s.pos{color:var(--good)} .neg,.stat .s.neg{color:var(--bad)}
 
   /* Goals */
   .goal h3{font:700 16px/1.3 var(--head);margin:0}
@@ -179,7 +179,7 @@
   "demo": true,
   "currency": "AUD",
   "brand": { "bg": "#111214", "panel": "#191A1D", "text": "#F3F3F1", "muted": "#9C9EA4", "accent": "#E8893F" },
-  "modules": { "leads": true, "week": true, "money": true, "goals": true },
+  "modules": { "money": true, "leads": true, "marketing": true, "week": true, "goals": true },
   "sources": {
     "leads": [
       { "server": "GHL", "tool": "opportunities_search-opportunity", "input": { "locationId": "LOCATION_ID", "query_status": "open", "query_limit": 50 }, "adapter": "ghlOpportunities" }
@@ -187,6 +187,7 @@
     "week": [
       { "server": "Google Calendar", "tool": "list_events", "input": { "pageSize": 50, "orderBy": "startTime", "startTime": "{now}", "endTime": "{in7days}" }, "adapter": "googleCalendar" }
     ],
+    "marketing": [],
     "money": [
       { "server": "Xero", "tool": "get_cash_position", "input": { "organisation_id": "ORG_ID" }, "adapter": "xeroCash" },
       { "server": "Xero", "tool": "get_profit_and_loss", "input": { "organisation_id": "ORG_ID", "start_date": "{monthStart}", "end_date": "{today}" }, "adapter": "xeroMonth" }
@@ -206,6 +207,7 @@
    Shapes:  leads -> {open, value, items:[{name, stage, value, updated, followUp}]}
             week  -> {events:[{title, start, end, allDay}], tasks:[{title, due}]}
             money -> any of {cash, income, spend, owedToYou, youOwe}  (numbers)
+            marketing -> {stats:[{label, value, change}], sources:[{name, leads}]}  (change = % vs last period, optional)
    Goals come from CONFIG: title, target (one line), status (on_track, behind, done, not_started),
    and optionally current + goal numbers (draws a progress bar; "money": true shows them as dollars). */
 const num = (v) => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
@@ -251,10 +253,14 @@ const DEMO = {
       { title: 'Day off', start: d(4, 0), end: d(5, 0), allDay: true } ],
       tasks: [{ title: 'Send Jordan the revised quote', due: d(0, 17) }, { title: 'Pay the ute rego', due: d(2, 17) }] }; },
   money: () => ({ cash: 31450, income: 18720, spend: 9310, owedToYou: 6400, youOwe: 2150 }),
+  marketing: () => ({ stats: [
+      { label: 'New leads, 30 days', value: '38', change: 12 }, { label: 'Website visits', value: '2,340', change: 8 },
+      { label: 'Social reach', value: '61.2k', change: -4 }, { label: 'Followers', value: '4,812', change: 3 } ],
+    sources: [{ name: 'Google search', leads: 14 }, { name: 'Instagram', leads: 11 }, { name: 'Referrals', leads: 8 }, { name: 'Facebook ads', leads: 5 }] }),
 };
 
 /* ---------------------------------------------------------------- page (leave as is) */
-const ICONS = {"house": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z\"/>\u003c/svg>", "currency-circle-dollar": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z\"/>\u003c/svg>", "users-three": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z\"/>\u003c/svg>", "calendar-blank": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z\"/>\u003c/svg>", "target": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z\"/>\u003c/svg>", "bell": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z\"/>\u003c/svg>", "wallet": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M216,64H56a8,8,0,0,1,0-16H192a8,8,0,0,0,0-16H56A24,24,0,0,0,32,56V184a24,24,0,0,0,24,24H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64Zm0,128H56a8,8,0,0,1-8-8V78.63A23.84,23.84,0,0,0,56,80H216Zm-48-60a12,12,0,1,1,12,12A12,12,0,0,1,168,132Z\"/>\u003c/svg>", "trend-up": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M240,56v64a8,8,0,0,1-16,0V75.31l-82.34,82.35a8,8,0,0,1-11.32,0L96,123.31,29.66,189.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0L136,140.69,212.69,64H168a8,8,0,0,1,0-16h64A8,8,0,0,1,240,56Z\"/>\u003c/svg>", "check-circle": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z\"/>\u003c/svg>", "warning": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z\"/>\u003c/svg>"};
+const ICONS = {"house": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z\"/>\u003c/svg>", "currency-circle-dollar": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm40-68a28,28,0,0,1-28,28h-4v8a8,8,0,0,1-16,0v-8H104a8,8,0,0,1,0-16h36a12,12,0,0,0,0-24H116a28,28,0,0,1,0-56h4V72a8,8,0,0,1,16,0v8h16a8,8,0,0,1,0,16H116a12,12,0,0,0,0,24h24A28,28,0,0,1,168,148Z\"/>\u003c/svg>", "users-three": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z\"/>\u003c/svg>", "calendar-blank": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Z\"/>\u003c/svg>", "target": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M221.87,83.16A104.1,104.1,0,1,1,195.67,49l22.67-22.68a8,8,0,0,1,11.32,11.32l-96,96a8,8,0,0,1-11.32-11.32l27.72-27.72a40,40,0,1,0,17.87,31.09,8,8,0,1,1,16-.9,56,56,0,1,1-22.38-41.65L184.3,60.39a87.88,87.88,0,1,0,23.13,29.67,8,8,0,0,1,14.44-6.9Z\"/>\u003c/svg>", "bell": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z\"/>\u003c/svg>", "wallet": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M216,64H56a8,8,0,0,1,0-16H192a8,8,0,0,0,0-16H56A24,24,0,0,0,32,56V184a24,24,0,0,0,24,24H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64Zm0,128H56a8,8,0,0,1-8-8V78.63A23.84,23.84,0,0,0,56,80H216Zm-48-60a12,12,0,1,1,12,12A12,12,0,0,1,168,132Z\"/>\u003c/svg>", "trend-up": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M240,56v64a8,8,0,0,1-16,0V75.31l-82.34,82.35a8,8,0,0,1-11.32,0L96,123.31,29.66,189.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0L136,140.69,212.69,64H168a8,8,0,0,1,0-16h64A8,8,0,0,1,240,56Z\"/>\u003c/svg>", "check-circle": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z\"/>\u003c/svg>", "warning": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z\"/>\u003c/svg>", "handshake": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l55.07-55.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41ZM41.53,64,62,74.22,36.43,125.27,16,115.06Zm116,119.13L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm62-57.87-25.52-51L214.47,64,240,115.06Zm-87.75,92.67a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z\"/>\u003c/svg>", "megaphone": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 256 256\" fill=\"currentColor\">\u003cpath d=\"M248,120a48.05,48.05,0,0,0-48-48H160.2c-2.91-.17-53.62-3.74-101.91-44.24A16,16,0,0,0,32,40V200a16,16,0,0,0,26.29,12.25c37.77-31.68,77-40.76,93.71-43.3v31.72A16,16,0,0,0,159.12,214l11,7.33A16,16,0,0,0,194.5,212l11.77-44.36A48.07,48.07,0,0,0,248,120ZM48,199.93V40h0c42.81,35.91,86.63,45,104,47.24v65.48C134.65,155,90.84,164.07,48,199.93Zm131,8,0,.11-11-7.33V168h21.6ZM200,152H168V88h32a32,32,0,1,1,0,64Z\"/>\u003c/svg>"};
 const CFG = JSON.parse(document.getElementById('config').textContent);
 const $ = (id) => document.getElementById(id);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = String(text); return n; };
@@ -280,10 +286,11 @@ $('demoTag').hidden = !CFG.demo;
 
 // Modules on/off: CONFIG decides what exists; this device can hide any of them.
 const MODULES = [
-  { id: 'leads', name: 'Leads and sales', group: 'Sales', icon: 'users-three' },
-  { id: 'money', name: 'Money', group: 'Business', icon: 'wallet' },
-  { id: 'week', name: 'This week', group: 'Plan', icon: 'calendar-blank' },
-  { id: 'goals', name: 'Goals', group: 'Plan', icon: 'target' },
+  { id: 'money', name: 'Finance', icon: 'wallet' },
+  { id: 'leads', name: 'Sales', icon: 'handshake' },
+  { id: 'marketing', name: 'Marketing', icon: 'megaphone' },
+  { id: 'week', name: 'Operations', icon: 'calendar-blank' },
+  { id: 'goals', name: 'Goals', icon: 'target' },
 ];
 const hidden = new Set(JSON.parse(localStorage.getItem('fd-hidden') || '[]'));
 const active = () => MODULES.filter((m) => CFG.modules?.[m.id] && !hidden.has(m.id));
@@ -292,13 +299,7 @@ const DATA = {}; // merged data per module, for the headline strip
 function buildNav() {
   const nav = $('nav'); nav.replaceChildren();
   const top = el('a', 'on'); top.href = '#overview'; top.append(icon('house'), el('span', null, 'Overview')); nav.append(top);
-  const groups = new Map();
-  for (const m of active()) { if (!groups.has(m.group)) groups.set(m.group, []); groups.get(m.group).push(m); }
-  for (const [g, ms] of groups) {
-    const box = el('div'); box.append(el('span', 'eyebrow', g));
-    for (const m of ms) { const a = el('a'); a.href = `#m-${m.id}`; a.dataset.id = m.id; a.append(icon(m.icon), el('span', null, m.name)); box.append(a); }
-    nav.append(box);
-  }
+  for (const m of active()) { const a = el('a'); a.href = `#m-${m.id}`; a.dataset.id = m.id; a.append(icon(m.icon), el('span', null, m.name)); nav.append(a); }
 }
 function navCount(id, n) {
   const a = document.querySelector(`nav a[data-id="${id}"]`); if (!a) return;
@@ -366,7 +367,7 @@ const DRAW = {
   week(d, body) {
     const evs = (d.events || []).slice().sort((a, b) => when(a.start) - when(b.start));
     setPill('week', `${evs.length} booked`);
-    const grid = el('div', 'split'); const cal = el('div', 'card'); const byDay = new Map();
+    const grid = el('div', 'split'); const cal = el('div', 'card'); cal.append(el('div', 'sub-h', 'This week')); const byDay = new Map();
     for (const e of evs) { const day = when(e.start); const k = ymd(day); if (!byDay.has(k)) byDay.set(k, { day, items: [] }); byDay.get(k).items.push(e); }
     for (const { day, items } of [...byDay.values()].slice(0, 6)) {
       const row = el('div', 'day'); const dt = el('div', ymd(day) === ymd(now) ? 'date today' : 'date');
@@ -374,7 +375,7 @@ const DRAW = {
       const list = el('div', 'evs'); for (const e of items) { const r = el('div', 'ev'); r.append(el('span', 'tm', e.allDay ? 'All day' : time(when(e.start))), el('span', 'tt', e.title)); list.append(r); }
       row.append(dt, list); cal.append(row);
     }
-    if (!cal.children.length) cal.append(el('p', 'meta', 'Nothing on this week.'));
+    if (cal.children.length === 1) cal.append(el('p', 'meta', 'Nothing on this week.'));
     const side = el('div', 'card'); side.append(el('div', 'sub-h', 'Tasks due'));
     for (const t of (d.tasks || []).slice(0, 6)) { const r = el('div', 'task'); r.append(el('span', 'box'), el('span', 'grow', t.title), el('span', 'meta', t.due ? when(t.due).toLocaleDateString('en-AU', { weekday: 'short' }) : '')); r.children[1].style.flex = '1'; side.append(r); }
     if (side.children.length === 1) side.append(el('p', 'meta', 'No tasks due. Connect a task app in Level 2 to see them here.'));
@@ -398,6 +399,24 @@ const DRAW = {
     if ('youOwe' in d) cell('You owe', money(d.youOwe), d.youOwe > 0 ? 'neg' : '');
     if (f.children.length) { f.style.gridTemplateColumns = `repeat(${f.children.length},1fr)`; if (!flow.children.length) { f.style.borderTop = '0'; f.style.marginTop = '0'; f.style.paddingTop = '0'; } card.append(f); }
     body.replaceChildren(card);
+  },
+  marketing(d, body) {
+    const wrap = el('div'); wrap.style.cssText = 'display:grid;gap:14px';
+    const row = el('div', 'row4');
+    for (const s of (d.stats || []).slice(0, 4)) {
+      const c = el('div', 'card stat'); c.append(el('div', 'eyebrow', s.label), el('div', 'v', s.value));
+      const ch = Number(s.change); c.append(el('div', `s ${Number.isFinite(ch) ? (ch >= 0 ? 'pos' : 'neg') : ''}`, Number.isFinite(ch) ? `${ch >= 0 ? '+' : ''}${ch}% on last month` : '\u00a0'));
+      row.append(c);
+    }
+    if (row.children.length) wrap.append(row);
+    const src = (d.sources || []).slice().sort((a, b) => b.leads - a.leads).slice(0, 6);
+    if (src.length) {
+      const c = el('div', 'card'); c.append(el('div', 'sub-h', 'Where leads came from')); const f = el('div', 'flow'); const max = Math.max(...src.map((x) => x.leads), 1);
+      for (const x of src) { const w = el('div'); const l = el('div', 'lbl'); l.append(el('span', null, x.name), el('span', null, x.leads)); w.append(l, bar(x.leads / max * 100)); f.append(w); }
+      c.append(f); wrap.append(c);
+      setPill('marketing', `${src.reduce((s, x) => s + x.leads, 0)} leads`);
+    }
+    body.replaceChildren(wrap.children.length ? wrap : Object.assign(el('div', 'note'), { textContent: 'Nothing to show yet.' }));
   },
   goals(_d, body) {
     const goals = CFG.goals || [];
@@ -457,6 +476,7 @@ function take(id, src, result, err) {
 function render(id) {
   const c = cards[id]; const parts = Object.values(c.parts);
   const merged = Object.assign({}, ...parts);
+  if (id === 'marketing') { merged.stats = parts.flatMap((p) => p.stats || []); merged.sources = parts.flatMap((p) => p.sources || []); }
   if (id === 'week') { merged.events = parts.flatMap((p) => p.events || []); merged.tasks = parts.flatMap((p) => p.tasks || []); }
   DATA[id] = parts.length ? merged : undefined;
   const box = el('div'); box.style.cssText = 'display:grid;gap:12px';
@@ -482,9 +502,10 @@ async function start() {
   if (cards.goals) { DRAW.goals(null, cards.goals.body); cards.goals.fresh.textContent = 'From your brain'; }
   if (CFG.demo) { for (const id of Object.keys(DEMO)) if (cards[id]) { DATA[id] = DEMO[id](); DRAW[id](DATA[id], cards[id].body); cards[id].fresh.textContent = 'Example'; } drawTop(); return; }
   mcp = await window.claude?.use?.('mcp');
-  if (!mcp) { for (const id of ['leads', 'week', 'money']) if (cards[id]) { const n = el('div', 'note', 'Open this dashboard in Claude to see your live numbers.'); cards[id].body.replaceChildren(n); } return; }
-  for (const id of ['leads', 'week', 'money']) {
+  if (!mcp) { for (const id of ['leads', 'week', 'money', 'marketing']) if (cards[id]) { const n = el('div', 'note', 'Open this dashboard in Claude to see your live numbers.'); cards[id].body.replaceChildren(n); } return; }
+  for (const id of ['leads', 'week', 'money', 'marketing']) {
     if (!cards[id]) continue;
+    if (!(CFG.sources?.[id] || []).length) { cards[id].body.replaceChildren(el('div', 'note', `Nothing connected for ${MODULES.find((m) => m.id === id).name.toLowerCase()} yet. Ask Claude: "connect my ${id === 'marketing' ? 'social and website stats' : 'tools'}" (Level 2).`)); continue; }
     for (const src of CFG.sources?.[id] || []) {
       stops.push(mcp.watchTool(src.server, src.tool, fill(src.input), (ev) => ev.type === 'data' ? take(id, src, ev.result) : take(id, src, null, ev.error), { refetchInterval: 10 * 60 * 1000 }));
     }
