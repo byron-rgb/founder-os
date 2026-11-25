@@ -1,0 +1,230 @@
+{
+  "_note": "EXAMPLE content for the health and wellness template (clinics, physio, personal trainers, gyms, pilates and wellness studios). Claude replaces every value from the brain (Offers and Prices, Customers, Brand Voice, Profile, Team). Never ship example reviews, prices or numbers. No medical claims: say what you help with, not what you cure. bookingUrl: link to their booking system (Cliniko, Mindbody, Fresha, Calendly) or null to take bookings with the form. schemaType: Physiotherapy, MedicalClinic, ExerciseGym, HealthClub, DaySpa or LocalBusiness. Photos: the founder's own, in public/images/; null hides or shows a plain block.",
+  "url": "https://example.com.au",
+  "schemaType": "LocalBusiness",
+  "logo": null,
+  "cta": "Book a session",
+  "bookingUrl": null,
+  "nav": [
+    {
+      "label": "Services",
+      "href": "/#services"
+    },
+    {
+      "label": "First visit",
+      "href": "/#first-visit"
+    },
+    {
+      "label": "Team",
+      "href": "/#team"
+    },
+    {
+      "label": "Prices",
+      "href": "/#prices"
+    },
+    {
+      "label": "FAQs",
+      "href": "/#faqs"
+    }
+  ],
+  "business": {
+    "name": "EXAMPLE Studio",
+    "tagline": "Move better, feel better, keep doing what you love.",
+    "phone": "0400 000 000",
+    "email": "hello@example.com.au",
+    "hours": "Mon to Fri 6am to 7pm, Sat 7am to 12pm",
+    "abn": "",
+    "licence": "",
+    "address": null,
+    "serviceAreas": [
+      "Suburb One",
+      "Suburb Two"
+    ]
+  },
+  "hero": {
+    "eyebrow": "Physio and Pilates in your suburb",
+    "title": "Get back to feeling like yourself.",
+    "text": "One-on-one physio, clinical Pilates and strength sessions, planned around your body and your week.",
+    "image": null,
+    "imageAlt": "Describe the hero photo for screen readers",
+    "note": {
+      "title": "Your first visit",
+      "text": "X minutes, a full assessment and a clear plan."
+    }
+  },
+  "helpTitle": "What we help with",
+  "helpText": "Whatever's slowing you down, we start where you are.",
+  "helpWith": [
+    "Back and neck pain",
+    "Sports injuries",
+    "Before and after surgery",
+    "Desk posture",
+    "Pregnancy and postnatal",
+    "Getting stronger",
+    "Running",
+    "Headaches"
+  ],
+  "servicesTitle": "Ways we work with you",
+  "services": [
+    {
+      "name": "Physio consult",
+      "text": "Assessment, hands-on treatment and a plan you can follow at home.",
+      "length": "X min",
+      "price": "$XX",
+      "image": null
+    },
+    {
+      "name": "Clinical Pilates",
+      "text": "Small classes on the reformer, run by a physio.",
+      "length": "X min",
+      "price": "$XX"
+    },
+    {
+      "name": "Strength sessions",
+      "text": "One-on-one training to build you back stronger.",
+      "length": "X min",
+      "price": "$XX"
+    },
+    {
+      "name": "Remedial massage",
+      "text": "Release tight spots and recover faster.",
+      "length": "X min",
+      "price": "$XX"
+    }
+  ],
+  "firstVisit": {
+    "title": "Your first visit",
+    "text": "No referral needed. Wear something comfortable.",
+    "steps": [
+      {
+        "title": "We listen",
+        "text": "Your story, your goals and what's getting in the way."
+      },
+      {
+        "title": "We assess",
+        "text": "How you move, what's tight and what's weak."
+      },
+      {
+        "title": "You leave with a plan",
+        "text": "Clear next steps, and exercises you can do at home."
+      }
+    ]
+  },
+  "teamTitle": "Who you'll see",
+  "team": [
+    {
+      "name": "EXAMPLE Name",
+      "role": "Physiotherapist and owner",
+      "bio": "One line on who they help and why.",
+      "photo": null
+    },
+    {
+      "name": "EXAMPLE Name",
+      "role": "Physiotherapist",
+      "bio": "One line on who they help and why.",
+      "photo": null
+    },
+    {
+      "name": "EXAMPLE Name",
+      "role": "Pilates instructor",
+      "bio": "One line on who they help and why.",
+      "photo": null
+    }
+  ],
+  "pricingTitle": "Prices",
+  "pricingText": "Simple prices. No lock-in contracts.",
+  "pricing": [
+    {
+      "name": "First consult",
+      "price": "$XX",
+      "per": "X min",
+      "text": "Assessment, treatment and your plan.",
+      "includes": [
+        "Full assessment",
+        "Hands-on treatment",
+        "Home program"
+      ]
+    },
+    {
+      "name": "Pilates 10-pack",
+      "price": "$XXX",
+      "per": "10 classes",
+      "text": "Small classes, booked when it suits you.",
+      "includes": [
+        "Up to X people a class",
+        "Book online",
+        "Use within X months"
+      ],
+      "featured": true,
+      "badge": "Most popular"
+    },
+    {
+      "name": "Follow-up consult",
+      "price": "$XX",
+      "per": "X min",
+      "text": "Treatment and progress check.",
+      "includes": [
+        "Hands-on treatment",
+        "Updated program"
+      ]
+    }
+  ],
+  "pricingNote": "Private health fund? Claim on the spot. [CHECK which funds and how they claim]",
+  "reviews": [],
+  "location": {
+    "title": "Find us",
+    "address": "EXAMPLE 1 Street Name, Suburb NSW 2000",
+    "mapUrl": null,
+    "parking": "Free parking out the back.",
+    "image": null,
+    "imageAlt": "",
+    "hours": [
+      {
+        "days": "Monday to Friday",
+        "time": "6am to 7pm"
+      },
+      {
+        "days": "Saturday",
+        "time": "7am to 12pm"
+      },
+      {
+        "days": "Sunday",
+        "time": "Closed"
+      }
+    ]
+  },
+  "faqs": [
+    {
+      "q": "Do I need a referral?",
+      "a": "No. You can book straight in."
+    },
+    {
+      "q": "What should I wear?",
+      "a": "Something comfortable you can move in. For Pilates, grip socks help."
+    },
+    {
+      "q": "Can I claim on my health fund?",
+      "a": "Yes, if your cover includes physio. We can claim on the spot. [CHECK]"
+    },
+    {
+      "q": "How do I cancel or move a booking?",
+      "a": "Give us X hours' notice by phone or through your booking link."
+    }
+  ],
+  "jobTypes": [
+    "Physio consult",
+    "Clinical Pilates",
+    "Strength sessions",
+    "Remedial massage",
+    "Not sure yet"
+  ],
+  "bookTitle": "Book your first session",
+  "bookText": "Tell us a little about you and we'll find a time that suits.",
+  "thanks": "Thanks. We'll be in touch within one business day to lock in a time.",
+  "form": {
+    "typeLabel": "What would you like to book?",
+    "detailsLabel": "Anything we should know?",
+    "placeholder": "What's going on, and times that suit you",
+    "button": "Send my booking request"
+  }
+}

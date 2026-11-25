@@ -4,6 +4,8 @@
 import site from '../content/site.json';
 const { title = 'Get a free quote', text = 'Tell us about the job. We reply within one business day.' } = Astro.props;
 const jobs = site.jobTypes || [];
+// Wording: site.form can change it for non-trade businesses (clinics, salons, firms). Trade wording is the default.
+const f = { typeLabel: 'Type of job', detailsLabel: 'About the job', placeholder: "Size, what you'd like done, timing", button: 'Send my quote request', ...(site.form || {}) };
 ---
 <section id="quote" class="section panel">
   <div class="wrap grid g2" style="align-items:start;gap:clamp(32px,6vw,80px)">
@@ -20,11 +22,11 @@ const jobs = site.jobTypes || [];
       <div class="stack" style="gap:6px"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
       <div class="grid g2" style="gap:var(--s2)">
         <div class="stack" style="gap:6px"><label for="f-suburb">Suburb</label><input id="f-suburb" name="suburb" autocomplete="address-level2" /></div>
-        {jobs.length > 0 && <div class="stack" style="gap:6px"><label for="f-job">Type of job</label><select id="f-job" name="job">{jobs.map((j) => <option>{j}</option>)}</select></div>}
+        {jobs.length > 0 && <div class="stack" style="gap:6px"><label for="f-job">{f.typeLabel}</label><select id="f-job" name="job">{jobs.map((j) => <option>{j}</option>)}</select></div>}
       </div>
-      <div class="stack" style="gap:6px"><label for="f-details">About the job</label><textarea id="f-details" name="details" placeholder="Size, what you'd like done, timing"></textarea></div>
+      <div class="stack" style="gap:6px"><label for="f-details">{f.detailsLabel}</label><textarea id="f-details" name="details" placeholder={f.placeholder}></textarea></div>
       <input class="hp" name="company_website" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <button class="btn" type="submit">Send my quote request</button>
+      <button class="btn" type="submit">{f.button}</button>
       <p id="f-msg" role="status" class="muted" style="font-size:var(--t-small)">We only use your details to reply to you.</p>
     </form>
   </div>

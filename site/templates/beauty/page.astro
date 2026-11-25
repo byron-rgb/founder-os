@@ -1,0 +1,318 @@
+---
+// Beauty template (Founder OS): salons, barbers, skin and nail studios. Editorial and image-led.
+// Content comes from src/content/site.json, colours and fonts from the founder's design system.
+// Sections with no content are hidden. Photos: the founder's own, in public/images/, set in site.json.
+// bookingUrl set = every Book button goes to their booking system and the form is for questions.
+import Site from '../layouts/Site.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import site from '../content/site.json';
+const { hero, facts = [], menu = [], gallery = [], team = [], space, reviews = [], gift, policies = [], visit, hoursTable = [], faqs = [], business: b } = site;
+const tel = b.phone ? `tel:${b.phone.replace(/\s/g, '')}` : null;
+const safe = (u) => (typeof u === 'string' && /^https?:\/\//i.test(u) ? u : null);
+const booking = safe(site.bookingUrl);
+const bookHref = booking || '#quote';
+const ext = booking ? { target: '_blank', rel: 'noopener' } : {};
+const insta = safe(site.instagram);
+const giftUrl = safe(site.giftUrl);
+const mapUrl = safe(visit?.mapUrl);
+const lead = team[0];
+const rest = team.slice(1);
+const firstName = (n = '') => n.split(' ')[0];
+const initial = (b.name || 'S').trim().charAt(0);
+// Lookbook tiles get varied shapes so the wall reads like a lookbook, not a grid.
+const shapes = ['4 / 5', '1 / 1', '3 / 4', '4 / 5', '1 / 1', '3 / 4'];
+const hasMenu = menu.some((c) => c.items?.length);
+---
+<Site>
+  <!-- Hero: editorial split, big type left, tall photo right with a detail photo over its corner -->
+  <section class="hero wrap">
+    <div class="hero-copy">
+      {hero.eyebrow && <span class="eyebrow">{hero.eyebrow}</span>}
+      <h1>{hero.title}</h1>
+      {hero.text && <p class="lead">{hero.text}</p>}
+      <div class="hero-ctas">
+        <a class="btn" href={bookHref} {...ext}>{site.cta || 'Book now'}<Icon name={booking ? 'arrow-up-right' : 'arrow-right'} size={18} /></a>
+        {hasMenu && <a class="btn ghost" href="#services">See the menu</a>}
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-main">
+        {hero.image ? <img src={hero.image} alt={hero.imageAlt || ''} fetchpriority="high" /> : <span class="monogram" aria-hidden="true">{initial}</span>}
+      </div>
+      {hero.detailImage && <div class="hero-detail"><img src={hero.detailImage} alt={hero.detailAlt || ''} /></div>}
+    </div>
+  </section>
+
+  <!-- Where, when, how to book -->
+  {facts.length > 0 && <div class="wrap facts">
+    {facts.map((f) => <div><span>{f.label}</span><strong>{f.value}</strong></div>)}
+  </div>}
+
+  <!-- The menu: grouped price list, never a wall of rows -->
+  {hasMenu && <section class="section" id="services">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>{site.servicesTitle || 'The menu'}</h2>{site.servicesText && <p class="muted">{site.servicesText}</p>}</div>
+      <div class="price-menu reveal">
+        {menu.filter((c) => c.items?.length).map((c) => <article class="menu-cat">
+          {c.image && <div class="menu-img"><img src={c.image} alt="" loading="lazy" /></div>}
+          <h3>{c.category}</h3>
+          <ul>{c.items.map((it) => <li>
+            <div class="row"><span class="nm">{it.name}</span><span class="dots" aria-hidden="true"></span>{it.price && <span class="pr">{it.price}</span>}</div>
+            {it.note && <span class="note">{it.note}</span>}
+          </li>)}</ul>
+        </article>)}
+      </div>
+      <div class="menu-cta reveal"><a class="btn" href={bookHref} {...ext}>{site.cta || 'Book now'}</a>{tel && <a class="link" href={tel}>Not sure what to book? Call {b.phone}</a>}</div>
+    </div>
+  </section>}
+
+  <!-- Lookbook: masonry wall of their work -->
+  {gallery.length > 0 && <section class="section panel" id="work">
+    <div class="wrap">
+      <div class="look-head reveal">
+        <h2>{site.lookbookTitle || 'Recent work'}</h2>
+        {insta && <a class="link" href={insta} target="_blank" rel="noopener"><Icon name="instagram-logo" size={18} />More on Instagram</a>}
+      </div>
+      <div class="look reveal">
+        {gallery.map((g, i) => <figure>
+          <div class="photo" style={`aspect-ratio:${shapes[i % shapes.length]}`}>{g.src ? <img src={g.src} alt={g.label} loading="lazy" /> : <span class="muted">Photo: {g.label}</span>}</div>
+          {g.label && <figcaption>{g.label}</figcaption>}
+        </figure>)}
+      </div>
+    </div>
+  </section>}
+
+  <!-- The team: the lead artist featured, the rest beside them -->
+  {team.length > 0 && <section class="section" id="team">
+    <div class="wrap">
+      <div class="sec-head reveal"><h2>{site.teamTitle || "Who you'll see"}</h2></div>
+      <div class:list={['team', { solo: rest.length === 0 }]}>
+        <article class="lead-artist reveal">
+          <div class="photo portrait">{lead.photo ? <img src={lead.photo} alt={lead.name} loading="lazy" /> : <span class="monogram sm" aria-hidden="true">{firstName(lead.name).charAt(0)}</span>}</div>
+          <div class="who">
+            <h3>{lead.name}</h3>
+            <p class="role">{lead.role}</p>
+            {lead.known && <p class="muted">Known for: {lead.known}</p>}
+            <a class="link" href={safe(lead.bookUrl) || bookHref} {...(safe(lead.bookUrl) || booking ? { target: '_blank', rel: 'noopener' } : {})}>Book with {firstName(lead.name)}<Icon name="arrow-right" size={16} /></a>
+          </div>
+        </article>
+        {rest.length > 0 && <div class="artists">
+          {rest.map((m) => <article class="artist reveal">
+            <div class="photo portrait">{m.photo ? <img src={m.photo} alt={m.name} loading="lazy" /> : <span class="monogram sm" aria-hidden="true">{firstName(m.name).charAt(0)}</span>}</div>
+            <div class="who">
+              <h3>{m.name}</h3>
+              <p class="role">{m.role}</p>
+              {m.known && <p class="muted">Known for: {m.known}</p>}
+              <a class="link" href={safe(m.bookUrl) || bookHref} {...(safe(m.bookUrl) || booking ? { target: '_blank', rel: 'noopener' } : {})}>Book with {firstName(m.name)}<Icon name="arrow-right" size={16} /></a>
+            </div>
+          </article>)}
+        </div>}
+      </div>
+    </div>
+  </section>}
+
+  <!-- The space: one wide photo with a short note over its edge -->
+  {space?.title && <section class:list={['space', { 'has-img': space.image }]}>
+    {space.image && <img class="space-img" src={space.image} alt={space.imageAlt || ''} loading="lazy" />}
+    <div class="wrap space-row">
+      <div class="space-card reveal"><h2>{space.title}</h2>{space.text && <p class="muted">{space.text}</p>}</div>
+    </div>
+  </section>}
+
+  <!-- Reviews: only real ones -->
+  {reviews.length > 0 && <section class="section" id="reviews">
+    <div class="wrap reviews">
+      <blockquote class="review-main reveal"><p>{reviews[0].quote}</p><footer>{reviews[0].name}{reviews[0].suburb && `, ${reviews[0].suburb}`}</footer></blockquote>
+      {reviews.length > 1 && <div class="review-more">{reviews.slice(1, 3).map((r) => <blockquote class="reveal"><p>{r.quote}</p><footer>{r.name}{r.suburb && `, ${r.suburb}`}</footer></blockquote>)}</div>}
+    </div>
+  </section>}
+
+  <!-- Gift cards and the fine print -->
+  {(gift?.title || policies.length > 0) && <section class="section panel" id="gift">
+    <div class="wrap gp">
+      {gift?.title && <div class="gift reveal">
+        <Icon name="gift" size={32} />
+        <h2>{gift.title}</h2>
+        {gift.text && <p>{gift.text}</p>}
+        <a class="btn gift-btn" href={giftUrl || (booking ? booking : '#quote')} {...(giftUrl || booking ? { target: '_blank', rel: 'noopener' } : {})}>{giftUrl ? 'Buy a gift card' : 'Ask about gift cards'}</a>
+      </div>}
+      {policies.length > 0 && <div class="policies reveal">
+        <h2>Good to know before you book</h2>
+        <dl>{policies.map((p) => <div><dt>{p.title}</dt><dd>{p.text}</dd></div>)}</dl>
+      </div>}
+    </div>
+  </section>}
+
+  <!-- Visit: address, hours, map -->
+  {(visit?.address || hoursTable.length > 0) && <section class="section" id="visit">
+    <div class="wrap visit">
+      <div class="visit-info reveal">
+        <h2>Visit</h2>
+        {visit?.address && <p class="addr"><Icon name="map-pin" size={20} />{visit.address}</p>}
+        {visit?.parking && <p class="muted">{visit.parking}</p>}
+        {hoursTable.length > 0 && <dl class="hours">{hoursTable.map((h) => <div><dt>{h.day}</dt><dd>{h.time}</dd></div>)}</dl>}
+        <div class="visit-ctas">
+          <a class="btn" href={bookHref} {...ext}>{site.cta || 'Book now'}</a>
+          {mapUrl && <a class="btn ghost" href={mapUrl} target="_blank" rel="noopener">Get directions</a>}
+        </div>
+        <p class="contact">{tel && <a href={tel}><Icon name="phone" size={16} />{b.phone}</a>}{insta && <a href={insta} target="_blank" rel="noopener"><Icon name="instagram-logo" size={16} />Instagram</a>}</p>
+      </div>
+      {visit?.image && <div class="photo visit-img reveal"><img src={visit.image} alt={visit.imageAlt || ''} loading="lazy" /></div>}
+    </div>
+  </section>}
+
+  <!-- FAQs -->
+  {faqs.length > 0 && <section class="section panel" id="faqs">
+    <div class="wrap faq">
+      <h2 class="reveal">Questions</h2>
+      <div class="faq-list">{faqs.map((f) => <details class="reveal"><summary>{f.q}<span class="plus" aria-hidden="true"></span></summary><p class="muted">{f.a}</p></details>)}</div>
+    </div>
+  </section>}
+
+  <QuoteForm title={site.formTitle || (booking ? 'Questions before you book?' : 'Request an appointment')} text={site.formText || 'Tell us what you are after and when suits. We reply within one business day.'} />
+
+  <!-- Phones: Book stays one tap away -->
+  <div class="book-bar"><a class="btn" href={bookHref} {...ext}>{site.cta || 'Book now'}</a>{tel && <a class="btn ghost" href={tel} aria-label={`Call ${b.phone}`}><Icon name="phone" size={20} /></a>}</div>
+</Site>
+
+<style>
+  /* Photos and panels cap their corners so a pill-button brand doesn't turn photos into ovals. */
+  .hero, .facts, section, .book-bar{--r:min(var(--radius),18px)}
+  .photo{border-radius:var(--r)}
+  :global(#quote .card, #quote input, #quote select, #quote textarea){border-radius:min(var(--radius),12px)}
+  /* Hero */
+  .hero{display:grid;gap:clamp(32px,5vw,72px);align-items:center;padding-block:clamp(28px,5vw,64px) clamp(40px,6vw,80px)}
+  @media(min-width:900px){.hero{grid-template-columns:1.05fr .95fr;min-height:min(calc(100dvh - 72px),820px)}}
+  .hero-copy{display:flex;flex-direction:column;gap:22px}
+  .hero .eyebrow{color:var(--c-accent-text)}
+  .hero h1{font-size:clamp(40px,6.4vw,calc(var(--t-h1) * 1.75));line-height:1.02;letter-spacing:-.035em;max-width:13ch}
+  .hero .lead{opacity:.8;max-width:42ch}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .hero-media{position:relative;padding:0 0 clamp(28px,4vw,56px) clamp(28px,4vw,56px)}
+  .hero-main{position:relative;aspect-ratio:4/5;max-height:min(76dvh,720px);width:100%;border-radius:var(--r);overflow:hidden;background:var(--c-panel);display:grid;place-items:center}
+  .hero-main img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  @media (prefers-reduced-motion:no-preference){.hero-main img{animation:settle 1.4s cubic-bezier(.16,1,.3,1) both}.hero-copy > *{animation:up .9s cubic-bezier(.16,1,.3,1) both}.hero-copy > :nth-child(2){animation-delay:.08s}.hero-copy > :nth-child(3){animation-delay:.16s}.hero-copy > :nth-child(4){animation-delay:.24s}}
+  @keyframes settle{from{transform:scale(1.08)}to{transform:none}}
+  @keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  .hero-detail{position:absolute;left:0;bottom:0;width:42%;aspect-ratio:1;border-radius:var(--r);overflow:hidden;border:8px solid var(--c-bg);background:var(--c-panel)}
+  .hero-detail img{width:100%;height:100%;object-fit:cover}
+  .monogram{font-family:var(--f-head);font-size:clamp(120px,22vw,280px);line-height:1;color:var(--c-accent);opacity:.9}
+  .monogram.sm{font-size:clamp(64px,10vw,120px)}
+  @media(max-width:899px){.hero-main{aspect-ratio:4/4.4}.hero-media{padding-left:clamp(20px,6vw,40px)}}
+
+  /* Facts strip */
+  .facts{display:grid;gap:20px;padding-block:28px;border-top:1px solid color-mix(in srgb,var(--c-text) 14%,transparent);border-bottom:1px solid color-mix(in srgb,var(--c-text) 14%,transparent)}
+  @media(min-width:760px){.facts{grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:40px}}
+  .facts div{display:flex;flex-direction:column;gap:4px}
+  .facts span{font-size:var(--t-small);opacity:.65}
+  .facts strong{font-weight:600}
+
+  /* Menu */
+  .price-menu{columns:1;column-gap:clamp(40px,6vw,96px)}
+  @media(min-width:860px){.price-menu{columns:2}}
+  .menu-cat{break-inside:avoid;margin-bottom:clamp(36px,5vw,56px);display:flex;flex-direction:column;gap:14px}
+  .menu-img{aspect-ratio:16/9;border-radius:var(--r);overflow:hidden}
+  .menu-img img{width:100%;height:100%;object-fit:cover}
+  .menu-cat h3{font-size:clamp(22px,2.4vw,28px);letter-spacing:-.02em}
+  .menu-cat ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px}
+  .menu-cat .row{display:flex;align-items:baseline;gap:10px}
+  .nm{font-weight:500}
+  .dots{flex:1;border-bottom:1.5px dotted color-mix(in srgb,var(--c-text) 35%,transparent);transform:translateY(-4px);min-width:24px}
+  .pr{font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .note{display:block;font-size:var(--t-small);opacity:.65;margin-top:2px}
+  .menu-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px;padding-top:8px}
+  .link{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px;text-decoration-color:var(--c-accent)}
+  .link:hover{text-decoration-thickness:2.5px}
+
+  /* Lookbook */
+  .look-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 24px;margin-bottom:clamp(28px,4vw,48px)}
+  .look{columns:2;column-gap:clamp(12px,2vw,24px)}
+  @media(min-width:900px){.look{columns:3}}
+  .look figure{break-inside:avoid;margin:0 0 clamp(12px,2vw,24px)}
+  .look .photo img{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .look figure:hover .photo img{transform:scale(1.04)}
+  .look figcaption{font-size:var(--t-small);opacity:.7;margin-top:10px}
+
+  /* Team */
+  .team{display:grid;gap:clamp(28px,4vw,56px)}
+  @media(min-width:860px){.team{grid-template-columns:1.1fr 1fr;align-items:start}.team.solo{grid-template-columns:minmax(0,560px)}}
+  .portrait{aspect-ratio:4/5;padding:0}
+  .lead-artist{display:flex;flex-direction:column;gap:20px}
+  .lead-artist h3{font-size:clamp(24px,2.6vw,30px)}
+  .who{display:flex;flex-direction:column;gap:6px}
+  .who .role{font-weight:600;color:var(--c-accent-text)}
+  .who .link{margin-top:8px;align-self:flex-start}
+  .artists{display:grid;gap:clamp(20px,3vw,32px);grid-template-columns:1fr 1fr}
+  .artist{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:860px){.artists{margin-top:clamp(48px,8vw,120px)}}
+  @media(max-width:520px){.artists{grid-template-columns:1fr 1fr;gap:16px}.artist h3{font-size:17px}}
+
+  /* The space */
+  .space{position:relative;background:var(--c-panel)}
+  .space.has-img{min-height:min(88dvh,760px);display:flex;align-items:flex-end}
+  .space-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .space-row{position:relative;z-index:1;width:100%;padding-block:clamp(56px,8vw,96px)}
+  .space-card{background:var(--c-bg);border-radius:var(--r);padding:clamp(28px,4vw,48px);max-width:520px;display:flex;flex-direction:column;gap:12px}
+  .space.has-img .space-card{box-shadow:0 30px 60px -30px rgb(0 0 0/.45)}
+  @media(max-width:760px){.space.has-img{display:block;min-height:0;padding-top:320px}.space-img{height:360px}.space-row{padding-block:0 40px}}
+
+  /* Reviews */
+  .reviews{display:grid;gap:40px}
+  @media(min-width:900px){.reviews{grid-template-columns:1.4fr 1fr;align-items:end}}
+  .reviews blockquote{margin:0}
+  .review-main p{font-family:var(--f-head);font-size:clamp(26px,3.6vw,44px);line-height:1.15;letter-spacing:-.02em}
+  .review-main p::before{content:"\201C";color:var(--c-accent)}
+  .review-main p::after{content:"\201D";color:var(--c-accent)}
+  .reviews footer{margin-top:16px;font-weight:600;font-size:var(--t-small)}
+  .review-more{display:flex;flex-direction:column;gap:28px}
+  .review-more blockquote{border-left:2px solid var(--c-accent);padding-left:20px}
+
+  /* Gift + policies */
+  .gp{display:grid;gap:clamp(24px,4vw,48px)}
+  @media(min-width:860px){.gp{grid-template-columns:1fr 1.25fr;align-items:stretch}}
+  .gift{background:var(--c-accent);color:var(--c-on-accent);border-radius:var(--r);padding:clamp(28px,4vw,48px);display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+  .gift p{opacity:.9;max-width:38ch}
+  .gift-btn{background:var(--c-on-accent);color:var(--c-accent);border-color:var(--c-on-accent);margin-top:auto}
+  .policies{display:flex;flex-direction:column;gap:20px;padding-block:8px}
+  .policies h2{font-size:clamp(22px,2.6vw,30px)}
+  .policies dl{margin:0;display:grid;gap:18px}
+  .policies dt{font-weight:700}
+  .policies dd{margin:4px 0 0;opacity:.75}
+
+  /* Visit */
+  .visit{display:grid;gap:clamp(32px,5vw,64px)}
+  @media(min-width:860px){.visit{grid-template-columns:1fr 1fr;align-items:center}}
+  .visit-info{display:flex;flex-direction:column;gap:18px}
+  .addr{display:flex;gap:10px;align-items:flex-start;font-size:clamp(18px,2vw,21px);font-weight:600}
+  .addr :global(svg){flex:none;margin-top:3px;color:var(--c-accent-text)}
+  .hours{margin:0;display:grid;max-width:420px}
+  .hours div{display:flex;justify-content:space-between;gap:16px;padding-block:9px;border-bottom:1px solid color-mix(in srgb,var(--c-text) 12%,transparent)}
+  .hours dd{margin:0;font-weight:600;text-align:right}
+  .visit-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+  .contact{display:flex;flex-wrap:wrap;gap:8px 24px}
+  .contact a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600}
+  .visit-img{aspect-ratio:4/5}
+
+  /* FAQs */
+  .faq{display:grid;gap:clamp(20px,4vw,48px)}
+  @media(min-width:860px){.faq{grid-template-columns:1fr 2fr}}
+  .faq-list details{border-top:1px solid color-mix(in srgb,var(--c-text) 14%,transparent)}
+  .faq-list details:last-child{border-bottom:1px solid color-mix(in srgb,var(--c-text) 14%,transparent)}
+  .faq-list summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-block:20px;font-weight:600;font-size:18px;cursor:pointer}
+  .faq-list summary::-webkit-details-marker{display:none}
+  .plus{position:relative;width:14px;height:14px;flex:none}
+  .plus::before,.plus::after{content:"";position:absolute;left:0;top:6px;width:14px;height:2px;background:currentColor;transition:transform .25s}
+  .plus::after{transform:rotate(90deg)}
+  .faq-list details[open] .plus::after{transform:rotate(0)}
+  .faq-list details p{padding-bottom:20px;max-width:62ch}
+
+  /* Phone booking bar */
+  .book-bar{display:none}
+  @media(max-width:760px){
+    .book-bar{display:flex;gap:10px;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:15;padding:8px;border-radius:min(calc(var(--radius) + 6px),24px);background:color-mix(in srgb,var(--c-bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 12px 32px -12px rgb(0 0 0/.35)}
+    .book-bar .btn:first-child{flex:1}
+    .book-bar .ghost{width:50px;padding:0}
+    :global(body){padding-bottom:84px}
+  }
+</style>

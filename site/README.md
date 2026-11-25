@@ -8,7 +8,7 @@ The Founder OS site starter: plain Astro (free, open source), live on Cloudflare
 - **add a page for <offer or event>**
 
 ## How it fits together
-- `templates/`: ready-made starting points. So far: `landscaping`. More trades and service businesses coming.
+- `templates/`: ready-made starting points: `landscaping`, `trades` (electricians, plumbers, builders, painters), `wellness` (clinics, physio, PT, studios), `beauty` (salons, barbers, skin, nails), `services` (agencies, consultants, accountants, coaches). Each has a `site.example.json` showing every field. Booking businesses can set `bookingUrl` so every Book button goes to their booking system, and `form` changes the form's wording.
 - `src/content/site.json`: your words (filled from your brain). `npm run template <name>` starts it.
 - `scripts/brand.mjs`: reads `brain/3 Marketing/Brand/design-system.json` and makes your colours, fonts and sizes. Change your brand there, never in the site.
 - `functions/api/lead.js`: the form. Sends leads to GoHighLevel, or any other CRM through a webhook. Its settings live in Cloudflare, never in files.

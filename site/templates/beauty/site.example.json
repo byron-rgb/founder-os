@@ -1,0 +1,283 @@
+{
+  "_note": "EXAMPLE content for the beauty template (salons, barbers, skin and nail studios). Claude replaces every value from the brain (Offers and Prices, Customers, Brand Voice, Profile). Never ship example reviews, prices or numbers. Photos: the founder's own, saved in public/images/ (e.g. /images/hero.jpg). Any photo left null hides that part or shows a plain block. bookingUrl: their online booking page (Fresha, Timely, Square and so on). When it is set, every Book button goes there and the form below becomes 'questions before you book'. When it is null, Book buttons go to the form.",
+  "url": "https://example.com.au",
+  "schemaType": "BeautySalon",
+  "logo": null,
+  "cta": "Book now",
+  "bookingUrl": null,
+  "instagram": null,
+  "giftUrl": null,
+  "nav": [
+    {
+      "label": "Menu",
+      "href": "/#services"
+    },
+    {
+      "label": "Lookbook",
+      "href": "/#work"
+    },
+    {
+      "label": "Team",
+      "href": "/#team"
+    },
+    {
+      "label": "Visit",
+      "href": "/#visit"
+    },
+    {
+      "label": "FAQs",
+      "href": "/#faqs"
+    }
+  ],
+  "business": {
+    "name": "EXAMPLE Studio",
+    "tagline": "Hair, skin and nails, done properly.",
+    "phone": "0400 000 000",
+    "email": "hello@example.com.au",
+    "hours": "Tue to Sat, by appointment",
+    "abn": "",
+    "licence": "",
+    "address": null,
+    "serviceAreas": [
+      "Suburb One"
+    ]
+  },
+  "hero": {
+    "eyebrow": "Hair and skin studio, Suburb One",
+    "title": "Leave looking like the best version of you.",
+    "text": "Cuts, colour and skin treatments from a small team that listens first.",
+    "image": null,
+    "imageAlt": "Describe the hero photo for screen readers",
+    "detailImage": null,
+    "detailAlt": "A close-up detail photo"
+  },
+  "facts": [
+    {
+      "label": "Find us",
+      "value": "Shop X, Example Street, Suburb One"
+    },
+    {
+      "label": "Open",
+      "value": "Tue to Sat, late nights Thu"
+    },
+    {
+      "label": "Book",
+      "value": "Online any time, or call"
+    }
+  ],
+  "servicesTitle": "The menu",
+  "servicesText": "Prices are a guide. Your stylist confirms the price before they start.",
+  "menu": [
+    {
+      "category": "Cut and style",
+      "image": null,
+      "items": [
+        {
+          "name": "Women's cut and blow-dry",
+          "price": "$XX",
+          "note": ""
+        },
+        {
+          "name": "Men's cut",
+          "price": "$XX",
+          "note": ""
+        },
+        {
+          "name": "Blow-dry",
+          "price": "$XX",
+          "note": ""
+        },
+        {
+          "name": "Fringe tidy",
+          "price": "$XX",
+          "note": "Between cuts"
+        }
+      ]
+    },
+    {
+      "category": "Colour",
+      "image": null,
+      "items": [
+        {
+          "name": "Regrowth colour",
+          "price": "from $XXX",
+          "note": ""
+        },
+        {
+          "name": "Half head foils",
+          "price": "from $XXX",
+          "note": ""
+        },
+        {
+          "name": "Balayage",
+          "price": "from $XXX",
+          "note": "Consult first"
+        },
+        {
+          "name": "Toner",
+          "price": "$XX",
+          "note": ""
+        }
+      ]
+    },
+    {
+      "category": "Skin",
+      "image": null,
+      "items": [
+        {
+          "name": "Signature facial",
+          "price": "$XXX",
+          "note": "60 minutes"
+        },
+        {
+          "name": "Express facial",
+          "price": "$XX",
+          "note": "30 minutes"
+        },
+        {
+          "name": "Brow shape and tint",
+          "price": "$XX",
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "lookbookTitle": "Recent work",
+  "gallery": [
+    {
+      "src": null,
+      "label": "Soft blonde balayage"
+    },
+    {
+      "src": null,
+      "label": "Short textured cut"
+    },
+    {
+      "src": null,
+      "label": "Glow facial, before an event"
+    },
+    {
+      "src": null,
+      "label": "Gloss and blow-dry"
+    },
+    {
+      "src": null,
+      "label": "Brow shape and tint"
+    }
+  ],
+  "teamTitle": "Who you'll see",
+  "team": [
+    {
+      "name": "EXAMPLE Name",
+      "role": "Owner and senior stylist",
+      "known": "Colour and lived-in blonde",
+      "photo": null,
+      "bookUrl": null
+    },
+    {
+      "name": "EXAMPLE Name",
+      "role": "Stylist",
+      "known": "Short cuts and texture",
+      "photo": null,
+      "bookUrl": null
+    },
+    {
+      "name": "EXAMPLE Name",
+      "role": "Skin therapist",
+      "known": "Facials and brows",
+      "photo": null,
+      "bookUrl": null
+    }
+  ],
+  "space": {
+    "title": "A calm hour that's just for you.",
+    "text": "Good coffee, no rush, and a stylist who tells you honestly what will suit you.",
+    "image": null,
+    "imageAlt": "Inside the studio"
+  },
+  "reviews": [],
+  "gift": {
+    "title": "Gift cards",
+    "text": "Any amount, any treatment. Sent by email or picked up in the studio."
+  },
+  "policies": [
+    {
+      "title": "Deposits",
+      "text": "EXAMPLE: A deposit of $XX holds colour bookings over 2 hours."
+    },
+    {
+      "title": "Changing your booking",
+      "text": "EXAMPLE: Give us X hours' notice to move or cancel and your deposit carries over."
+    },
+    {
+      "title": "Running late",
+      "text": "EXAMPLE: Over 15 minutes late, we may need to shorten or move your appointment."
+    }
+  ],
+  "visit": {
+    "address": "Shop X, Example Street, Suburb One",
+    "mapUrl": null,
+    "parking": "EXAMPLE: Free 2-hour parking on Example Street.",
+    "image": null,
+    "imageAlt": "The studio from the street"
+  },
+  "hoursTable": [
+    {
+      "day": "Tuesday",
+      "time": "9am to 5pm"
+    },
+    {
+      "day": "Wednesday",
+      "time": "9am to 5pm"
+    },
+    {
+      "day": "Thursday",
+      "time": "9am to 8pm"
+    },
+    {
+      "day": "Friday",
+      "time": "9am to 5pm"
+    },
+    {
+      "day": "Saturday",
+      "time": "8am to 3pm"
+    },
+    {
+      "day": "Sunday and Monday",
+      "time": "Closed"
+    }
+  ],
+  "faqs": [
+    {
+      "q": "Do I need a consultation before colour?",
+      "a": "For big changes, yes. It's free, takes about 15 minutes and includes a patch test."
+    },
+    {
+      "q": "How far ahead should I book?",
+      "a": "Usually X weeks for colour and X days for cuts. Join the waitlist online if you need sooner."
+    },
+    {
+      "q": "Can I bring my kids?",
+      "a": "EXAMPLE: Yes, kids' cuts are on the menu. For longer appointments we suggest coming solo."
+    },
+    {
+      "q": "Which products do you use?",
+      "a": "EXAMPLE: Name the brands you use and stock."
+    }
+  ],
+  "jobTypes": [
+    "Cut and style",
+    "Colour",
+    "Skin",
+    "Something else"
+  ],
+  "formTitle": "Questions before you book?",
+  "formText": "Ask us anything. We reply within one business day.",
+  "thanks": "Thanks. We reply within one business day. To lock in a time now, book online.",
+  "form": {
+    "typeLabel": "What are you thinking of?",
+    "detailsLabel": "Your question",
+    "placeholder": "What you'd like done, and anything we should know",
+    "button": "Send my question"
+  }
+}

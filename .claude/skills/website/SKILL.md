@@ -1,6 +1,6 @@
 ---
 name: website
-description: Founder OS Level 3 website builder. Builds the founder's website in one go from their AI brain and design system using the Founder OS site starter (Astro + Cloudflare), or rebuilds their existing site. Use when the founder says "build my website", "rebuild my website", "make my site", "add a page", "landing page for", or "use the landscaping template".
+description: Founder OS Level 3 website builder. Builds the founder's website in one go from their AI brain and design system using the Founder OS site starter (Astro + Cloudflare), or rebuilds their existing site. Use when the founder says "build my website", "rebuild my website", "make my site", "add a page", "landing page for", or "use the landscaping / trades / wellness / beauty / services template".
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -17,7 +17,7 @@ Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
 - Their own website? Ask: "Do you get a lot of your work from Google search?" If yes: "Talk to someone who knows SEO before we move your site. We can build landing pages here meanwhile." Selling online on Shopify? Leave the shop where it is.
 
 ## Build my website
-1. Pick the template: a matching one in `site/templates/` (landscaping, more coming). No match: start from the closest and change the sections to suit; say so.
+1. Pick the template: a matching one in `site/templates/` (landscaping, trades, wellness, beauty, services). No match: start from the closest and change the sections to suit; say so. If they take bookings online, set `bookingUrl`. If they aren't a trade, set `form` wording to fit (see the template's example).
 2. In `site/`, run `npm install` (first time only), then `npm run template <name>`.
 3. Fill `site/src/content/site.json` from the brain. Every value comes from their notes, in their words. Rules:
    - Prices only from Offers and Prices. No price on file: leave `from` empty.

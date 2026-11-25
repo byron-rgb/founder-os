@@ -1,0 +1,83 @@
+{
+  "_note": "EXAMPLE content for the trades template (electricians, plumbers, builders, painters). Claude replaces every value from the brain (Offers and Prices, Customers, Brand Voice, Profile, licences). Never ship example reviews, ratings, licence numbers or prices. Icons: any Phosphor icon name (lightning, plug, drop, wrench, paint-roller, hammer, fire, house-line, shield-check, clock). Photos: the founder's own, saved in public/images/; any left null is skipped or shown as a plain block.",
+  "url": "https://example.com.au",
+  "schemaType": "Electrician",
+  "logo": null,
+  "cta": "Get a quote",
+  "business": {
+    "name": "EXAMPLE Electrical",
+    "tagline": "Local electricians who turn up when they say.",
+    "phone": "0400 000 000",
+    "email": "jobs@example.com.au",
+    "hours": "Mon to Fri, 7am to 5pm. Emergencies any time.",
+    "abn": "",
+    "licence": "Electrical licence EXAMPLE 000000",
+    "address": null,
+    "serviceAreas": ["Suburb One", "Suburb Two", "Suburb Three", "Suburb Four"]
+  },
+  "hero": {
+    "eyebrow": "Electricians in your area",
+    "title": "Power sorted. Same week.",
+    "text": "Lights, power points, switchboards and fault finding, done by licensed local sparkies.",
+    "image": null,
+    "imageAlt": "An electrician testing a switchboard"
+  },
+  "credentials": [
+    { "value": "Licensed", "label": "Electrical licence EXAMPLE 000000" },
+    { "value": "$X million", "label": "Public liability insurance" },
+    { "value": "Same day", "label": "Emergency callouts" },
+    { "value": "X years", "label": "On the tools locally" }
+  ],
+  "emergency": {
+    "title": "No power or sparking?",
+    "text": "Turn it off at the switchboard if it's safe, then call us. We answer day and night."
+  },
+  "servicesTitle": "What we fix and fit",
+  "servicesText": "One call for everything electrical in your home or shop.",
+  "services": [
+    { "name": "Fault finding and repairs", "text": "Tripping power, dead circuits, flickering lights. Found and fixed.", "from": "From $XXX", "icon": "lightning" },
+    { "name": "Switchboard upgrades", "text": "Old fuses out, safety switches in, ready for what you plug in today.", "from": "From $X,XXX", "icon": "shield-check" },
+    { "name": "Lighting", "text": "Downlights, pendants, outdoor and garden lighting, planned with you.", "from": "Quoted per job", "icon": "lightbulb" },
+    { "name": "Power points and data", "text": "New outlets, USB points, TV and internet cabling.", "from": "From $XXX", "icon": "plug" },
+    { "name": "Renovations and new builds", "text": "Kitchens, bathrooms and extensions, wired to plan and signed off.", "from": "Quoted per job", "icon": "house-line" },
+    { "name": "Safety checks", "text": "Smoke alarms and safety inspections for homes and rentals.", "from": "From $XXX", "icon": "fire" }
+  ],
+  "gallery": [
+    { "src": null, "label": "Kitchen lighting", "suburb": "Suburb One", "text": "Pendants and downlights on dimmers" },
+    { "src": null, "label": "Switchboard upgrade", "suburb": "Suburb Two", "text": "Old fuses out, safety switches in" },
+    { "src": null, "label": "Living room rewire", "suburb": "Suburb Three", "text": "New circuits and power points" },
+    { "src": null, "label": "Outdoor lighting", "suburb": "Suburb Four", "text": "Garden and deck lights" }
+  ],
+  "stepsTitle": "How a job runs",
+  "steps": [
+    { "title": "Call or send the form", "text": "Tell us what's going on. Photos help." },
+    { "title": "Fixed price first", "text": "You know the cost before we start." },
+    { "title": "Done and tested", "text": "We test everything, clean up and give you the paperwork." }
+  ],
+  "whyTitle": "Who turns up",
+  "team": {
+    "image": null,
+    "alt": "The owner on a job",
+    "name": "EXAMPLE Name",
+    "role": "Owner and electrician",
+    "note": "EXAMPLE: one or two lines from the owner, in their words, about how they run jobs."
+  },
+  "why": [
+    { "title": "On time", "text": "We give you a time and we keep it.", "icon": "clock" },
+    { "title": "Fixed prices", "text": "The quote is the price.", "icon": "seal-check" },
+    { "title": "Clean site", "text": "Drop sheets down, mess gone when we leave.", "icon": "broom" },
+    { "title": "Paperwork done", "text": "Certificates of compliance on every job.", "icon": "certificate" }
+  ],
+  "rating": null,
+  "reviews": [],
+  "areasTitle": "Where we work",
+  "faqTitle": "Good to know",
+  "faqs": [
+    { "q": "Do you charge a call-out fee?", "a": "EXAMPLE: say what you charge to come out and whether it comes off the job." },
+    { "q": "Can you come today?", "a": "For emergencies, usually yes. Other jobs are usually booked within X days." },
+    { "q": "Are you licensed and insured?", "a": "Yes. Licence EXAMPLE 000000 and $X million public liability. We're happy to send copies." },
+    { "q": "Do you give fixed quotes?", "a": "Yes. Most jobs get a fixed price before we start. Bigger jobs get a written quote after a site visit." }
+  ],
+  "jobTypes": ["Fault or repair", "Switchboard", "Lighting", "Power points or data", "Renovation or new build", "Safety check", "Something else"],
+  "thanks": "Thanks. We reply to every job request within one business day. If it's urgent, call us."
+}

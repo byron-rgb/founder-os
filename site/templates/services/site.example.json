@@ -1,0 +1,223 @@
+{
+  "_note": "EXAMPLE content for the services template (agency, consultant, accountant, coach). Claude replaces every value from the brain (Profile, Offers and Prices, Customers, Brand Voice). Never ship example results, numbers, logos or reviews: only real ones, with the client's OK. Photos: the founder's own, in public/images/. bookingUrl: their calendar link (Calendly, GHL calendar); leave null to use the enquiry form. nav: list only the sections that have content.",
+  "url": "https://example.com.au",
+  "schemaType": "ProfessionalService",
+  "logo": null,
+  "cta": "Book a call",
+  "bookingUrl": null,
+  "nav": [
+    {
+      "label": "Services",
+      "href": "/#services"
+    },
+    {
+      "label": "Results",
+      "href": "/#results"
+    },
+    {
+      "label": "How we work",
+      "href": "/#process"
+    },
+    {
+      "label": "About",
+      "href": "/#about"
+    },
+    {
+      "label": "FAQs",
+      "href": "/#faqs"
+    }
+  ],
+  "business": {
+    "name": "EXAMPLE Studio",
+    "tagline": "Clear numbers and calm growth for small businesses.",
+    "phone": "0400 000 000",
+    "email": "hello@example.com.au",
+    "hours": "Mon to Fri, 8am to 5pm",
+    "abn": "",
+    "licence": "",
+    "address": null,
+    "serviceAreas": [
+      "Australia-wide, online"
+    ]
+  },
+  "hero": {
+    "eyebrow": "For owners of growing small businesses",
+    "title": "Know your numbers. Grow with less guesswork.",
+    "text": "We set up the systems, reporting and plan that let you make calls with confidence, without hiring a full team.",
+    "image": null,
+    "imageAlt": "The founder at work"
+  },
+  "logosTitle": "Trusted by",
+  "logos": [
+    {
+      "name": "Client name",
+      "src": null
+    },
+    {
+      "name": "Client name",
+      "src": null
+    },
+    {
+      "name": "Client name",
+      "src": null
+    }
+  ],
+  "fitTitle": "Is this for you?",
+  "fitText": "We work best with owners who are busy, growing and ready to stop guessing.",
+  "audience": [
+    "You run a business doing $X to $Y a year",
+    "You're the bottleneck for every big decision",
+    "You want a plan, not another report you don't read"
+  ],
+  "problem": {
+    "beforeTitle": "Where you are now",
+    "before": [
+      "Decisions made on gut feel",
+      "Numbers a month late, if at all",
+      "Too busy to plan the next quarter"
+    ],
+    "afterTitle": "Where you will be",
+    "after": [
+      "A one-page view of the business, every week",
+      "A 90-day plan you actually follow",
+      "Time back to run the business"
+    ]
+  },
+  "servicesTitle": "How we can help",
+  "servicesText": "Three ways to work with us. Not sure which fits? That's what the call is for.",
+  "services": [
+    {
+      "name": "Starter",
+      "for": "For: getting clear",
+      "text": "A deep look at where the business is, and a plan for the next 90 days.",
+      "includes": [
+        "Two working sessions",
+        "Your one-page dashboard",
+        "A 90-day plan"
+      ],
+      "from": "From $X,XXX",
+      "featured": false
+    },
+    {
+      "name": "Partner",
+      "for": "For: growing with support",
+      "text": "Ongoing help each month to hit the plan and adjust as you go.",
+      "includes": [
+        "Everything in Starter",
+        "Monthly strategy session",
+        "Weekly numbers check-in",
+        "Help between sessions"
+      ],
+      "from": "From $X,XXX a month",
+      "featured": true,
+      "flag": "Most chosen"
+    },
+    {
+      "name": "Project",
+      "for": "For: one big change",
+      "text": "A set piece of work with a clear finish line, like a new pricing model or a hire.",
+      "includes": [
+        "Scoped together",
+        "Fixed price",
+        "Handover so your team owns it"
+      ],
+      "from": "Quoted per project",
+      "featured": false
+    }
+  ],
+  "casesTitle": "Results",
+  "cases": [
+    {
+      "client": "EXAMPLE client, industry",
+      "metric": "X%",
+      "result": "What changed, in one line, with the real result.",
+      "story": "Where they started, what you did together, and what it meant for them.",
+      "image": null,
+      "imageAlt": ""
+    },
+    {
+      "client": "EXAMPLE client, industry",
+      "metric": "$XXk",
+      "result": "A second real result in one line.",
+      "story": "One or two sentences on how."
+    },
+    {
+      "client": "EXAMPLE client, industry",
+      "metric": "X hrs",
+      "result": "A third real result in one line.",
+      "story": "One or two sentences on how."
+    }
+  ],
+  "stepsTitle": "How we work",
+  "stepsText": "Simple, and you always know what's next.",
+  "steps": [
+    {
+      "title": "A short call",
+      "text": "We learn about the business and see if we're the right fit.",
+      "time": "20 minutes"
+    },
+    {
+      "title": "A clear plan",
+      "text": "You get a written plan with the price and the outcome we're aiming for.",
+      "time": "Within a week"
+    },
+    {
+      "title": "We get to work",
+      "text": "Regular sessions, simple updates, and numbers you can see.",
+      "time": "Ongoing"
+    },
+    {
+      "title": "You own it",
+      "text": "Everything we build is yours, documented so your team can run it.",
+      "time": ""
+    }
+  ],
+  "founder": {
+    "name": "EXAMPLE Founder",
+    "role": "Founder",
+    "image": null,
+    "imageAlt": "",
+    "quote": "One line on why you do this work, in your own words.",
+    "bio": "Two or three sentences on your background and who you help. Plain, no buzzwords.",
+    "creds": [
+      "Qualification",
+      "Years in the industry",
+      "Memberships"
+    ]
+  },
+  "reviewsTitle": "What clients say",
+  "reviews": [],
+  "faqs": [
+    {
+      "q": "How much does it cost?",
+      "a": "Starter is from $X,XXX and Partner from $X,XXX a month. You get a fixed price before anything starts."
+    },
+    {
+      "q": "How long until I see a difference?",
+      "a": "Most clients have their dashboard and plan within X weeks."
+    },
+    {
+      "q": "Do you work with businesses outside my city?",
+      "a": "Yes. We work online with clients across Australia."
+    },
+    {
+      "q": "Is there a lock-in contract?",
+      "a": "No. Partner is month to month with X days' notice."
+    }
+  ],
+  "bookTitle": "Book a call",
+  "bookText": "A short call to see if we're the right fit. No pitch, no pressure.",
+  "jobTypes": [
+    "Starter",
+    "Partner",
+    "Project",
+    "Not sure yet"
+  ],
+  "thanks": "Thanks. We'll be in touch within one business day to set up a time.",
+  "form": {
+    "typeLabel": "What do you need help with?",
+    "detailsLabel": "About your business",
+    "placeholder": "Where you are now and what you want to change",
+    "button": "Request a call"
+  }
+}
