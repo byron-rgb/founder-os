@@ -47,7 +47,7 @@ Quick wins: job ad page, how-to from a video, client welcome pack.
 - [ ] One landing page live with a working form
 - [ ] Form key stored safely (password manager + Cloudflare secret)
 
-Next: Level 4 · Delegate.
+Next: Level 4 · Streamline.
 
 > Website templates: landscaping, trades, health and wellness, beauty and services are in `site/templates/`. You don't need one; Claude can build from your brain and design system.
 

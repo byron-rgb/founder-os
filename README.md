@@ -17,7 +17,7 @@ This folder is your Founder OS. It holds your AI brain, your skills, your dashbo
 
 Claude takes it from there, one step at a time.
 
-## The five levels
+## The six levels
 
 | Level | Name | What you get |
 | --- | --- | --- |
@@ -25,7 +25,8 @@ Claude takes it from there, one step at a time.
 | 1 | Know | Your AI brain. Claude knows your business |
 | 2 | Connect | Inbox, calendar, CRM and money in one conversation |
 | 3 | Build | Your dashboard, pages and site, live and backed up |
-| 4 | Delegate | Agents doing the weekly jobs, drafts only |
+| 4 | Streamline | Your messy, repeated jobs turned into a system |
+| 5 | Delegate | Agents doing the weekly jobs, drafts only |
 
 Every level has the same four steps: **Why**, **Set up**, **Make your own**, **Check**. The guides are in `levels/`.
 
@@ -41,7 +42,7 @@ Founder OS/
   library/           Before you start, Quick wins, Security, Brand Studio
   dashboard/         your founder dashboard (Level 3)
   site/              your website starter + templates (Level 3)
-  agents/            your agents (Level 4)
+  agents/            your agents (Level 5)
   .claude/skills/    the skills Claude uses to guide you
 ```
 

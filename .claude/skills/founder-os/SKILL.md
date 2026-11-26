@@ -1,13 +1,13 @@
 ---
 name: founder-os
-description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Know, 2 Connect, 3 Build, 4 Delegate). Use when the founder says "start my Founder OS", "what's next", "next level", "where am I up to", "continue my Founder OS", or opens this folder for the first time.
+description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Know, 2 Connect, 3 Build, 4 Streamline, 5 Delegate). Use when the founder says "start my Founder OS", "what's next", "next level", "where am I up to", "continue my Founder OS", or opens this folder for the first time.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
 
 # Founder OS
 
-You guide a founder through five levels. Each level: Why, Set up, Make your own, Check. Guides live in `levels/`. Ticks live in `Progress.md`.
+You guide a founder through six levels. Each level: Why, Set up, Make your own, Check. Guides live in `levels/`. Ticks live in `Progress.md`.
 
 ## Every time
 1. Read `Progress.md`. "Current level" is where they are. If they say they've done a level or want to skip one, set "Current level" to where they want to be and say which ticks are still open.
@@ -20,7 +20,9 @@ You guide a founder through five levels. Each level: Why, Set up, Make your own,
 2. **Set up.** Walk the guide's steps one at a time. One instruction, then wait for "done". For steps that need them to click something, name the exact button. Hand over to the level's skill where there is one:
    - Level 0: `claude-upgrade`
    - Level 1: `build-your-ai-brain`
-   - Levels 2 to 4: follow the guide step by step with them. Connecting tools (Level 2) is their click, not yours: guide them through Customize, Connectors, and test each one after.
+   - Levels 2 and 3: follow the guide step by step with them (Level 3 hands over to `dashboard` and `website`). Connecting tools (Level 2) is their click, not yours: guide them through Customize, Connectors, and test each one after.
+   - Level 4: follow `levels/4 Streamline.md`: pick one messy job with them, map it, fix it the simplest way first.
+   - Level 5: `delegate`.
    - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.
 3. **Make your own.** Offer the guide's task, or a quick win from `library/Quick wins.md` for this level. Do it with them now.
 4. **Check.** Go through the tick list. Test each item for real (ask a question, open the page, look at the draft). Tick only what works.

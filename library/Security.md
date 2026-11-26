@@ -43,7 +43,7 @@ Say **security check**. About 30 minutes the first time. Claude asks what tools 
 You get a score out of 100 on Australia's Essential Eight, a short list in order, and Claude walks you through each fix. Claude only looks; you click every button.
 
 ## Every week after
-In Level 4 the **Security agent** runs a light check each week and a deeper one each month. You get one line: "2 new, 1 fixed."
+In Level 5 the **Security agent** runs a light check each week and a deeper one each month. You get one line: "2 new, 1 fixed."
 
 ## Is this skill, plugin or connector safe?
 Before installing anything new, say: **is this safe: <link>**. Claude reads it and tells you what it can reach, who made it, and whether to install it.

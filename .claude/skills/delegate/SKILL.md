@@ -1,6 +1,6 @@
 ---
 name: delegate
-description: Founder OS Level 4 agents. Sets up, changes, pauses or lists the founder's scheduled agents (EA morning brief, sales follow-up, finance and bookkeeping, security), each customised by a short interview and run in the cloud on a schedule, drafts only; and builds a new agent for any repeated job. Use when the founder says "set up my EA", "set up my sales agent", "set up my finance agent", "set up my security agent", "set up my agents", "change my EA", "pause my agent", "what agents do I have", "make me an agent", "make me an agent for…", or Level 4 starts.
+description: Founder OS Level 5 agents. Sets up, changes, pauses or lists the founder's scheduled agents (EA morning brief, sales follow-up, finance and bookkeeping, security), each customised by a short interview and run in the cloud on a schedule, drafts only; and builds a new agent for any repeated job. Use when the founder says "set up my EA", "set up my sales agent", "set up my finance agent", "set up my security agent", "set up my agents", "change my EA", "pause my agent", "what agents do I have", "make me an agent", "make me an agent for…", or Level 5 starts.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -43,7 +43,7 @@ Each agent is a folder in `agents/`: `AGENT.md` (what it does every run) and `SE
    - One more lock: if the app list lets them turn off single actions, suggest turning off the ones that send, delete or change (for GoHighLevel: send a message, update contact, update opportunity, add or remove tags; for Gmail: send). The agent's rules already forbid them; this makes it impossible.
    - They press **Create**, then **Run now** once. Check the run looks like the test.
    - The cloud option missing, or the agent needs something only on their computer: make the same task as a scheduled task on their computer: in the Code tab, Scheduled, choose to run it on this computer (same fields, "Where it works" = their Founder OS folder) and say it only runs while the computer is on and the app is open.
-7. **Finish.** Tick the Level 4 lines in `Progress.md` that are now true. One line in `brain/AI Log.md`. Tell them where results show, matching their choice:
+7. **Finish.** Tick the Level 5 lines in `Progress.md` that are now true. One line in `brain/AI Log.md`. Tell them where results show, matching their choice:
    - Claude: "Each run shows up in Claude: Code, then scheduled tasks, then <name>. Open it after <time>."
    - Email: "Your report lands in your email drafts each <time>."
    - Task app: "It adds an item to <app> each <time>."

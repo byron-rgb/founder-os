@@ -34,7 +34,12 @@ Current level: 0
 - [ ] One landing page live with a working form
 - [ ] Form key stored safely (password manager + Cloudflare secret)
 
-## Level 4 · Delegate
+## Level 4 · Streamline
+- [ ] One messy or repeated job mapped, step by step
+- [ ] Fixed: set up in your CRM, an automation, or a small tool Claude built
+- [ ] You (or your team) used it for a real customer or job
+
+## Level 5 · Delegate
 - [ ] EA brief arrives each morning
 - [ ] At least two agents on a schedule
 - [ ] Everything they send waits as a draft
