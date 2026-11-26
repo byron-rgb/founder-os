@@ -20,7 +20,8 @@ You guide a founder through six levels. Each level: Why, Set up, Make your own, 
 2. **Set up.** Walk the guide's steps one at a time. One instruction, then wait for "done". For steps that need them to click something, name the exact button. Hand over to the level's skill where there is one:
    - Level 0: `claude-upgrade`
    - Level 1: `build-your-ai-brain`
-   - Levels 2 and 3: follow the guide step by step with them (Level 3 hands over to `dashboard` and `website`). Connecting tools (Level 2) is their click, not yours: guide them through Customize, Connectors, and test each one after.
+   - Level 2: `connections`. Connecting tools is their click, not yours.
+   - Level 3: follow the guide step by step with them; it hands over to `dashboard` and `website`.
    - Level 4: follow `levels/4 Streamline.md`: pick one messy job with them, map it, fix it the simplest way first.
    - Level 5: `delegate`.
    - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.

@@ -5,14 +5,16 @@ Inbox, calendar, files, CRM and money in one conversation.
 ## 1. Why
 Your business lives in five apps. Connected, Claude can tell you who's waiting on a reply, what's overdue and where the money is.
 
-**Is this safe?** You sign in to each tool yourself, on that tool'## 2. Set up
+**Is this safe?** You sign in to each tool yourself, on that tool's own page, so Claude never sees your passwords. Each connection only does what you allow, and you can switch any of them off in Customize, Connectors.
+
+## 2. Set up
 You do this part yourself. It takes a few minutes and Claude can't sign in for you (that's the point: only you hold the keys).
 
 ### Built-in connectors
 1. In the Claude app open **Customize**, then **Connectors**.
 2. Find the tool (Gmail, Google Calendar, Google Drive and many more), press **Connect**, sign in on the tool's own page, press **Allow**.
    Or just say **connect Xero** (or any tool): Claude shows a Connect button right in the chat.
-3. Back in Claude, say: **check my connections**. Claude tries each one and tells you what works.
+3. Back in Claude, say: **check my connections**. Claude tries each of your tools with one small read-only look, tells you what works, helps you fix what doesn't, and saves the list in your brain (`brain/4 Operations/Connections.md`).
 
 ### Tools without a built-in connector
 Many tools publish their own connector link. Some tools only connect through a bridge service.
