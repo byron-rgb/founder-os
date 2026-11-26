@@ -23,3 +23,9 @@ What can I actually use my AI for? Small jobs that take minutes and you use the 
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md
+
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Quick wins and ideas](../levels/images/flow-l.1.png)
+

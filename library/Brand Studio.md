@@ -2,6 +2,13 @@
 
 Your brand, working for you. Say **brand studio**.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Your design system](../levels/images/flow-b.1.png)
+
+![Make anything on brand](../levels/images/flow-b.2.png)
+
 ## What you get
 1. **Your brand in one place.** Logo, colours, fonts and style in `brain/3 Marketing/Brand/` (set up in Level 1).
 2. **A refresh, if you want one.** Two options side by side: a tidy-up, or a step up. Same logo, you pick.

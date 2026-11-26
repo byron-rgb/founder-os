@@ -2,6 +2,17 @@
 
 Agents doing the weekly jobs. Drafts only.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Why agents, and how they run](images/flow-5.1.png)
+
+![Your EA and sales follow-up](images/flow-5.2.png)
+
+![Finance and security agents](images/flow-5.3.png)
+
+![Make me an agent](images/flow-5.4.png)
+
 ## 1. Why
 The jobs that eat your week, like inbox, follow-ups, receipts and checks, get done before you sit down. They run as Claude scheduled tasks in the cloud, so your laptop can be closed.
 

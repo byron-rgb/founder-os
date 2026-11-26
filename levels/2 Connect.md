@@ -2,6 +2,15 @@
 
 Inbox, calendar, files, CRM and money in one conversation.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Why connect your tools](images/flow-2.1.png)
+
+![Connect your tools](images/flow-2.2.png)
+
+![First asks and security](images/flow-2.3.png)
+
 ## 1. Why
 Your business lives in five apps. Connected, Claude can tell you who's waiting on a reply, what's overdue and where the money is.
 

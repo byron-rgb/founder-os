@@ -4,6 +4,13 @@ Your AI, set up properly. One level at a time.
 
 This folder is your Founder OS. It holds your AI brain, your skills, your dashboard and your agents. You own all of it. Claude reads it every time you work.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![How it all talks](levels/images/flow-s.1.png)
+
+![Your monthly update](levels/images/flow-k.1.png)
+
 ## Start here
 
 **Get your copy (once):**

@@ -2,6 +2,15 @@
 
 Your messy, repeated jobs turned into a system.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![What to streamline first](images/flow-4.1.png)
+
+![Map and fix one job](images/flow-4.2.png)
+
+![When your team needs a live app](images/flow-4.3.png)
+
 ## 1. Why
 Every business has jobs that are messy, unclear or done the same way every week: onboarding a new customer, chasing a quote, booking the crew, the end-of-job follow-up. Done by memory, they slip. Built once as a system, they run the same way every time, for you and your team. Claude builds it with you, in the tools you already use.
 

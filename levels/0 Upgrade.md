@@ -2,6 +2,13 @@
 
 Claude, plus the skills that make it sharp.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Install the Claude Upgrade](images/flow-0.1.png)
+
+![Use your new skills](images/flow-0.2.png)
+
 ## 1. Why
 Out of the box Claude is good. With the right skills it plans with you, writes like a person and builds things that look designed. Every level after this uses them. About 20 minutes.
 

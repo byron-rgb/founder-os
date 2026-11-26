@@ -2,6 +2,19 @@
 
 Your dashboard, pages and site. Live and backed up.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Why build in Claude](images/flow-3.1.png)
+
+![Keys without fear](images/flow-3.2.png)
+
+![Your website in one go](images/flow-3.3.png)
+
+![Live, with forms into your CRM](images/flow-3.4.png)
+
+![Your founder dashboard](images/flow-3.5.png)
+
 ## 1. Why
 This is where AI stops being a chat and becomes part of how you run the business. You own every file and can change anything by asking.
 

@@ -4,6 +4,13 @@
 
 About 30 minutes, before your first session. Use your work email, and save every password in your password manager as you go.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![How it all talks](../levels/images/flow-s.1.png)
+
+![Get set up](../levels/images/flow-s.2.png)
+
 ## Accounts
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
 - [ ] GitHub, free (github.com). Send your username to Driven Young so you get your private copy.

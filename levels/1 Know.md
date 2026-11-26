@@ -2,6 +2,17 @@
 
 Your AI brain. Claude knows your business.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Why an AI brain](images/flow-1.1.png)
+
+![Build your brain](images/flow-1.2.png)
+
+![Your brand folder and roadmap](images/flow-1.3.png)
+
+![Keep it fresh](images/flow-1.4.png)
+
 ## 1. Why
 Generic answers come from AI that doesn't know you. Your brain is a folder of plain notes about you and the business: offers, prices, customers, voice, how things run, your goals. Claude reads it every time. In Obsidian you can see it as a graph and watch it grow. It also holds your **Brand** folder: logo, colours, fonts and style in one design file, so everything Claude makes looks like you.
 

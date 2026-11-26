@@ -2,6 +2,11 @@
 
 Plain English. No scare tactics. Here's what's safe, what to watch, and how to check.
 
+## How it flows
+What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+
+![Security deep dive](../levels/images/flow-l.2.png)
+
 ## Is AI safe for my business?
 Yes, set up properly. The Founder OS is built so that:
 - **Claude only sees what you give it.** The folder you pick, the tools you connect. Nothing else.
