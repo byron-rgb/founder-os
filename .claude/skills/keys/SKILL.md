@@ -42,14 +42,14 @@ Never: in the chat, in the brain, in any other file, in an email, in a screensho
 Menus move: if it looks different, describe what you see and I'll find the current steps on GoHighLevel's help site.
 
 ## Put it on the live site (you type it, not me)
-Open **Terminal**, go to your site folder, and run the command below. When it asks "Enter a secret value", paste the token. It stays hidden. Press Enter.
+Open **Terminal** (on Windows: **PowerShell**), go to your site folder, and run the command below. When it asks "Enter a secret value", paste the token. It stays hidden. Press Enter.
 ```
 wrangler pages secret put GHL_API_KEY --project-name <your-project>
 ```
 I'll give you the exact command with your project name filled in. You run it.
 
 ## Testing on your computer
-Open `site/.env` yourself in TextEdit (I'll create it with blank lines), paste the token after `GHL_API_KEY=`, save, close. I'll check the form works without opening the file.
+Open `site/.env` yourself in TextEdit (on Windows: Notepad) (I'll create it with blank lines), paste the token after `GHL_API_KEY=`, save, close. I'll check the form works without opening the file.
 
 ## If a key gets out
 Pasted it in a chat, a file, a screenshot, or saved it to GitHub? No panic, fix it now:

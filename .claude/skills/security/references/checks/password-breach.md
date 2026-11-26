@@ -22,7 +22,7 @@ Say it simply: "The password stays on your computer. Only a tiny scrambled piece
 ## How to run it
 
 1. Explain the privacy bit above in two lines.
-2. Ask the owner to open Terminal themselves (Mac: Spotlight, type Terminal) and run:
+2. Ask the owner to open Terminal themselves (Mac: Spotlight, type Terminal. Windows: Start menu, type PowerShell, and use `python` instead of `python3`) and run:
    ```
    python3 -I "PATH_TO_SKILL/scripts/password_check.py" --many
    ```

@@ -18,6 +18,7 @@ Out of the box Claude is good. With the right skills it plans with you, writes l
      curl -fsSL https://claude.ai/install.sh | bash
      ```
    - Close Terminal, open a new one, type `claude` and press Enter. A browser page opens: sign in with the same Claude account.
+   - **On Windows:** install **Git for Windows** first (free, git-scm.com, accept the defaults). Then open **PowerShell** (Start menu, type PowerShell) and paste `irm https://claude.ai/install.ps1 | iex` instead. The rest is the same.
 
 ### Pick Claude's folder
 Claude can only see the folder you start it in. You choose how much it sees:

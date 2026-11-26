@@ -16,6 +16,9 @@ Install these skills for the founder so every later level is sharper. Each one c
 ## First time on this Mac
 Downloading skills needs Apple's free developer tools. If you run the first download and macOS shows a box asking to install the command line developer tools, tell them: "A box will pop up asking to install developer tools. Press **Install**, wait for it to finish, then tell me done." Then try again.
 
+## First time on Windows
+Downloading skills needs Git. If `git --version` fails, tell them: "Install Git for Windows from git-scm.com, accept the defaults, then close and reopen Claude and tell me done." Then try again.
+
 ## How to install one
 1. Download the source at the pinned version into a new empty temporary folder (`git clone`, then `git checkout <version>`).
 2. Copy only the skill's folder (the folder holding its `SKILL.md`, at the path below) to `~/.claude/skills/<name>/`. Never install plugin hooks, background services or anything that runs on every message.

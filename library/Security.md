@@ -12,7 +12,7 @@ Yes, set up properly. The Founder OS is built so that:
 
 ## Five habits that stop most problems
 1. **Two-step login** on email, Claude, GitHub, Cloudflare, your CRM and your bank.
-2. **A password manager** (1Password or Apple Passwords). One strong, different password per account.
+2. **A password manager** (1Password, or Apple Passwords on a Mac). One strong, different password per account.
 3. **No secrets in chats or files.** Never paste a password, card number or key into Claude. If you do, change it.
 4. **Only install from the source.** Skills, plugins and connectors from the maker's own page. Never a link someone sent you.
 5. **Press No when unsure.** If a permission box doesn't make sense, say No and ask Claude what it's for.

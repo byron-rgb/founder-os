@@ -18,7 +18,7 @@ Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
 
 ## Build my website
 1. Pick the template: a matching one in `site/templates/` (landscaping, trades, wellness, beauty, services). No match: start from the closest and change the sections to suit; say so. If they take bookings online, set `bookingUrl`. If they aren't a trade, set `form` wording to fit (see the template's example).
-2. In `site/`, run `npm install` (first time only), then `npm run template <name>`.
+2. In `site/`, run `npm install` (first time only). If `npm` isn't found, Node.js isn't installed: ask them to install it from nodejs.org (the LTS button), close and reopen Claude, then try again, then `npm run template <name>`.
 3. Fill `site/src/content/site.json` from the brain. Every value comes from their notes, in their words. Rules:
    - Prices only from Offers and Prices. No price on file: leave `from` empty.
    - **Reviews only if real** (from the brain, their Google reviews they paste, or a quote they approve). Otherwise an empty list: the section hides itself. Never invent a review, number, award or year.

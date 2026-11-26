@@ -60,7 +60,7 @@ Sizes for the extras: quote cover and price list A4 portrait, email header 600 x
 No photos in `Brand/Photos/` yet? Use clearly labelled photo boxes ("Your photo here: a finished garden") in brand colours, and ask them to drop real photos in for the final version. Never fill the gap with stock or AI people.
 
 Then show them how to save each:
-- Images: open the file, take a screenshot of the page (Cmd + Shift + 4, then Space, click the window), or ask Claude to save it as a PNG.
+- Images: open the file, take a screenshot of the page (Mac: Cmd + Shift + 4, then Space, click the window. Windows: Windows key + Shift + S), or ask Claude to save it as a PNG.
 - Poster, flyer, deck: open in the browser, **File**, **Print**, **Save as PDF**.
 
 ## Rules
