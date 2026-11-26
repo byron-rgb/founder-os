@@ -11,7 +11,8 @@ The Founder OS site starter: plain Astro (free, open source), live on Cloudflare
 - `templates/`: ready-made starting points: `landscaping`, `trades` (electricians, plumbers, builders, painters), `wellness` (clinics, physio, PT, studios), `beauty` (salons, barbers, skin, nails), `services` (agencies, consultants, accountants, coaches). Each has a `site.example.json` showing every field. Booking businesses can set `bookingUrl` so every Book button goes to their booking system, and `form` changes the form's wording.
 - `src/content/site.json`: your words (filled from your brain). `npm run template <name>` starts it.
 - `scripts/brand.mjs`: reads `brain/3 Marketing/Brand/design-system.json` and makes your colours, fonts and sizes. Change your brand there, never in the site.
-- `functions/api/lead.js`: the form. Sends leads to GoHighLevel, or any other CRM through a webhook. Its settings live in Cloudflare, never in files.
+- `functions/api/lead.js`: the form. Sends leads to GoHighLevel, or any other CRM through a webhook, with a "Came from" line (Google, an ad, Instagram...). Its settings live in Cloudflare, never in files.
+- **Website stats** (`stats/`, `functions/api/hit.js`): your site counts its own visits, where they came from and enquiries, in your own Cloudflare. No cookies, nothing personal. Shows on your dashboard's Website page. See `stats/README.md`.
 
 ## Keys
 The form needs a GoHighLevel key (or a webhook link for another CRM). Say **help me with a key**. You put it in Cloudflare yourself; it never goes in the chat or these files.

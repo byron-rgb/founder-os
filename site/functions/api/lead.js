@@ -9,6 +9,8 @@
 //   LEAD_TAGS        optional, comma-separated tags, e.g. website,quote
 // Protections: same-site only, 10 KB limit, honeypot, field length limits, no secrets in replies.
 
+import { classify, record } from '../_lib/source.js';
+
 const MAX_BYTES = 10_000;
 const clean = (v, n = 200) => String(v ?? '').replace(/[\u0000-\u001f<>]/g, ' ').trim().slice(0, n);
 
@@ -32,10 +34,16 @@ export async function onRequestPost({ request, env }) {
   if (!lead.name || !(lead.email || lead.phone)) return json({ ok: false, error: 'Name and a phone or email are needed' }, 422);
   if (lead.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(lead.email)) return json({ ok: false, error: 'Check the email' }, 422);
 
+  // Where they came from (Google, an ad, Instagram...), for the CRM note and the website stats.
+  const src = classify(body._src && typeof body._src === 'object' ? body._src : {}, new URL(request.url).hostname);
+  lead.came_from = [src.source, src.campaign && `campaign "${clean(src.campaign, 80)}"`].filter(Boolean).join(', ');
+  const page = typeof body._page === 'string' && body._page.startsWith('/') ? clean(body._page, 200) : '/';
+
   const tags = (env.LEAD_TAGS || 'website').split(',').map((t) => t.trim()).filter(Boolean);
   try {
     if ((env.CRM || 'ghl') === 'ghl') await toGhl(lead, tags, env);
     else await toWebhook(lead, tags, env);
+    await record(env, request, 'enquiry', page, src, false).catch((e) => console.error('lead: stats not saved', e.message));
     return json({ ok: true });
   } catch (e) {
     console.error('lead: CRM send failed', e.message); // shows in Cloudflare logs, not to the visitor
@@ -50,7 +58,7 @@ async function toGhl(lead, tags, env) {
   if (!env.GHL_API_KEY || !env.GHL_LOCATION_ID) throw new Error('GHL settings missing');
   const api = 'https://services.leadconnectorhq.com';
   const headers = { Authorization: `Bearer ${env.GHL_API_KEY}`, Version: '2021-07-28', 'Content-Type': 'application/json', Accept: 'application/json' };
-  const details = [lead.job && `Job: ${lead.job}`, lead.suburb && `Suburb: ${lead.suburb}`, lead.details && `Details: ${lead.details}`].filter(Boolean);
+  const details = [lead.job && `Job: ${lead.job}`, lead.suburb && `Suburb: ${lead.suburb}`, lead.details && `Details: ${lead.details}`, lead.came_from && `Came from: ${lead.came_from}`].filter(Boolean);
 
   let id = null;
   if (lead.email) {

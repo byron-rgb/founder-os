@@ -26,8 +26,10 @@ Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
    - Photos: their own, copied into `site/public/images/`. None yet? Leave `src` null: labelled boxes show until they add some.
    - Remove the `_note` line.
 4. Run `npm run build`. Then `npx astro preview` and show them the site. Change anything they ask in `site.json` or the page.
-5. Put it live (Cloudflare Pages): they sign in once with `npx wrangler login` (browser). Create the project, set `CRM`, `GHL_LOCATION_ID`, `ALLOWED_ORIGINS`, `LEAD_TAGS` as variables, and the key as a secret with the `keys` skill. Deploy with `npx wrangler pages deploy dist`. Only when they say go.
-6. Test the form with their own details. Check the lead arrives in their CRM. Then add their domain in Cloudflare.
+5. Put it live (Cloudflare Pages): they sign in once with `npx wrangler login` (browser). Create the project (and put its name in `site/wrangler.toml`, `name = …`), set `CRM`, `GHL_LOCATION_ID`, `ALLOWED_ORIGINS`, `LEAD_TAGS` as variables, and the key as a secret with the `keys` skill. Deploy with `npx wrangler pages deploy dist`. Only when they say go.
+   - **Switch on website stats (always, unless they say no).** Say: "Your site will count its own visits and enquiries in your Cloudflare: no cookies, nothing personal, and it shows on your dashboard." Then `npx wrangler d1 create site-stats`, `npx wrangler d1 execute site-stats --remote --file=stats/schema.sql`, and in `site/wrangler.toml` remove the `#` marks on the `[[d1_databases]]` block and paste the `database_id` it printed (an ID, not a key). Deploy again. How it works and the queries: `site/stats/README.md`.
+6. Test the form with their own details. Check the lead arrives in their CRM, with a "Came from" line. Open the site from your phone, then check a visit and the enquiry were counted: `npx wrangler d1 execute site-stats --remote --command "SELECT kind, source, path FROM events ORDER BY id DESC LIMIT 5"`. Then add their domain in Cloudflare.
+7. Offer: "Want your website numbers on your dashboard?" If yes, say **add my website to my dashboard** (the `dashboard` skill adds a Website page from `site/stats/README.md`).
 
 ## Rebuild my website
 1. Read their current site (every main page). List what's on it: pages, offers, wording that works, photos, contact details.

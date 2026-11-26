@@ -39,7 +39,7 @@ const f = { typeLabel: 'Type of job', detailsLabel: 'About the job', placeholder
     if (!form.reportValidity()) return;
     const btn = form.querySelector('button')!; btn.disabled = true; msg.textContent = 'Sending...';
     try {
-      const res = await fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+      const res = await fetch('/api/lead', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(new FormData(form)), _src: (() => { try { return JSON.parse(sessionStorage.getItem('fos-src') || '{}'); } catch { return {}; } })(), _page: location.pathname }) });
       if (!res.ok) throw new Error();
       location.href = '/thanks';
     } catch {

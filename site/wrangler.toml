@@ -1,0 +1,13 @@
+# Cloudflare settings for your website. Safe to save: no keys or passwords live here.
+# Keys (like the GoHighLevel one) are Cloudflare secrets, added with the `keys` skill.
+name = "my-website"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-11-01"
+
+# Website stats: your own private database of visits and enquiries.
+# Switched off until Claude creates the database (website skill, step 5): it then removes the
+# # marks below and fills in database_id (an ID, not a key).
+# [[d1_databases]]
+# binding = "STATS"
+# database_name = "site-stats"
+# database_id = ""
