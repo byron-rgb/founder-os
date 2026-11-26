@@ -14,6 +14,23 @@ This is where AI stops being a chat and becomes part of how you run the business
 4. **Your website and landing pages** (`site/`): Claude already knows your business (your brain) and your look (your design system), so say **build my website** and it builds the whole site in one go. It uses the Founder OS site starter: plain Astro, ready-made templates for common businesses (landscaping, trades, health and wellness, beauty, services), your design system for the look, and a quote form that sends leads to GoHighLevel or any other CRM. Using GoHighLevel and want even more page designs? Damn Good Funnels is free for your own business; download it yourself (see `site/README.md`).
 5. **Keys for your forms**: the forms need a GoHighLevel key. Say **help me with a key**. You paste it in yourself, it never goes in the chat (see `library/Security.md`).
 
+## Your dashboard: two ways
+**In Claude (included).** A private page in your Claude account, reading your tools through the connections from Level 2. Live every time you open it, no keys, nothing to host. For you.
+
+![Your dashboard in Claude](images/dashboard-in-claude.png)
+
+**A live app for your team (add-on).** Your own app on your own web address, with a login for your team and crew, saving what they update (job stages, who's on site). The numbers come in one of two ways:
+
+- **Hourly, no keys:** a Claude agent copies your Xero, Stripe and calendar numbers in every hour through your connections.
+
+![Live app, updated hourly by a Claude agent](images/dashboard-live-app.png)
+
+- **Fully live, with keys:** the app talks to each tool directly with one key per tool, kept in Cloudflare secrets. Xero also needs a small developer app.
+
+![Live app, fully live with keys](images/dashboard-live-app-keys.png)
+
+The live app is the advanced path: it's on the web, so the login and keys have to be set up carefully. Driven Young sets it up for you ($1,000 setup), or you can work through it with Claude yourself. Most founders start in Claude and move to the live app when their team needs it too.
+
 ## Your website
 - **Rebuild it here.** Say **rebuild my website from <your address>**. Claude reads your current site, keeps what works, and rebuilds it on your brand. It joins the same stack, talks to everything else, and you stop paying a web developer for changes.
 - **Big on SEO?** If search brings in a lot of your work, talk to someone who knows SEO before you move it.

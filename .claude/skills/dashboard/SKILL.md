@@ -18,6 +18,10 @@ Files:
 
 **Say this first (one line):** "Your dashboard is a private page in your own Claude account. It only reads your tools, it can't change or send anything, and you can switch any tool off in the page's permissions."
 
+**Two ways (show `levels/images/dashboard-in-claude.png` if they ask the difference):**
+- **In Claude:** what this skill builds. Included, for the founder.
+- **Live app for their team** (`levels/images/dashboard-live-app.png`, hourly agent, no keys; or `dashboard-live-app-keys.png`, fully live, one key per tool in Cloudflare secrets): an add-on. If they ask for team access, a login, or a dashboard their crew can use on a phone, say in two lines: it's on the web so the login and keys must be done carefully; Driven Young sets it up ($1,000 setup), or they can work through it with you as the advanced path. Build the Claude dashboard first either way: its map and pages carry over.
+
 ## 1. Ask what they want to track
 
 Read `brain/CLAUDE.md` and `brain/4 Operations/Tools.md` first so the questions fit their business. Find out yourself which tools are connected in this session; never ask the founder for a fact you can check.
