@@ -1,6 +1,6 @@
 ---
 name: build-your-ai-brain
-description: Builds a business owner's AI Brain, a folder of plain notes that any AI can read so it knows their business. Reads their website, sorts files they drop in, then runs a long interview across seven areas (You, Sales, Marketing, Operations, Team, Finance, Goals), linked so it shows as a graph in Obsidian, and ends with a personalised "what AI could do next" roadmap. Also runs the monthly brain check-up. Use when the user says "build my AI brain", "set up my brain", "start my brain", "continue my brain", "brain check-up", "update my brain", or "my prices/team/offers changed".
+description: Builds a business owner's AI Brain, a folder of plain notes that any AI can read so it knows their business. Reads their website, sorts files they drop in, then runs a long interview across seven areas (You, Sales, Marketing, Operations, Team, Finance, Goals), linked so it shows as a graph in Obsidian, and ends with a personalised "what AI could do next" roadmap. Also runs the monthly brain check-up. Use when the user says "build my AI brain", "set up my brain", "start my brain", "continue my brain", "brain check-up", "update my brain", or "my prices/team/offers changed". Also "quick brain" or "build my AI brain quick" for a 20-minute quick start.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -34,7 +34,7 @@ There are two modes. Pick one from what they said:
 
 1. Say, in your own words:
    > Let's build your AI Brain. It's a folder of notes about your business that any AI can read, so it stops giving generic answers and starts sounding like you.
-   > It takes about 2 hours. You can do it in one go, or one layer at a time, and stop whenever you like. Type or talk, whichever's faster.
+   > It takes about 2 hours. You can do it in one go, or one layer at a time, and stop whenever you like. Short on time? We can do a 20-minute quick start now and fill in the rest later. Type or talk, whichever's faster.
 2. Ask their first name and the business name. In a Founder OS, take them from `Progress.md` if they're already there.
 3. Check you can write files. **Inside a Founder OS folder** (it has `Progress.md` and a `brain/` folder): the brain is `brain/`. Use it, don't ask. Otherwise you need a folder they chose; recommend one called `AI Brain` inside iCloud Drive or Google Drive, so it's backed up and on every device.
 4. **Obsidian.** Skip if they already opened the brain in Obsidian from the Level 1 guide. Otherwise ask if Obsidian is installed (free, obsidian.md). If not, have them install it now. Then: **Open folder as vault**, choose the brain folder, and open **Graph view** (left sidebar). Say: "Keep that open. You'll watch your brain grow as we go." If they'd rather skip Obsidian, carry on; the brain works without it.
@@ -53,6 +53,24 @@ Do this before any interview questions. The aim: they confirm, instead of typing
 5. Give a 4 to 6 line summary of what you learnt, then: "I'll use this to skip questions. Correct me as we go."
 
 Update `_Setup Progress.md`.
+
+## Quick start (about 20 minutes)
+
+Use this instead of Steps 2 to 4 when they say "quick brain", "build my AI brain quick", or that they're short on time (a workshop, a first try). It gives every later level enough to work with; "continue my brain" deepens it any time.
+
+1. Do Step 0 and Step 1 as normal (folder, Obsidian, website, files). They do most of the work here.
+2. Ask these one at a time, skipping any the website or files already answered (read the answer back to confirm instead):
+   1. What do you sell, and roughly what does each cost?
+   2. Who's your best kind of customer?
+   3. What problem do you solve for them, in their words?
+   4. How does a job run, from first enquiry to getting paid? Just the main steps.
+   5. Who's on the team, and who does what? (Just you is fine.)
+   6. Which apps do you use every week?
+   7. Your top three goals for the next 12 months?
+   8. How do you sound with customers? Paste a message you've sent, or give three words.
+3. Write each answer straight into its brain file (`references/brain-layout.md`) with `status: draft`. Anything not covered stays `[CHECK]`. Write a short `Roadmap.md` too (three to five jobs AI could take off them, from what you now know), marked draft.
+4. In `_Setup Progress.md`, write "Quick start done YYYY-MM-DD. Next: continue my brain, starting at Layer 1."
+5. Say: "That's enough for Claude to know your business. Say **continue my brain** any time to fill in the rest; it'll pick up the gaps, not start again." Then hand back as in Step 5, ticking only what now works.
 
 ## Step 2. Layer 1: You
 
