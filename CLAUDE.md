@@ -11,7 +11,7 @@ If the brain isn't built yet, you know nothing about the business. Don't guess. 
 
 ## The levels
 
-0 Upgrade, 1 Know, 2 Connect, 3 Build, 4 Streamline, 5 Delegate. Guides in `levels/`. Every level runs the same way: Why, Set up, Make your own, Check. The `founder-os` skill runs the order.
+0 Upgrade, 1 Brain, 2 Connect, 3 Build, 4 Streamline, 5 Delegate. Guides in `levels/`. Every level runs the same way: Why, Set up, Make your own, Check. The `founder-os` skill runs the order.
 
 ## How you talk
 

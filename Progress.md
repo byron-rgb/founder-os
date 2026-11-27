@@ -12,7 +12,7 @@ Current level: 0
 - [ ] Official plugins installed
 - [ ] Ran one grill
 
-## Level 1 · Know
+## Level 1 · Brain
 - [ ] Obsidian installed, brain folder open, graph shows
 - [ ] All seven areas have notes
 - [ ] Brand folder done, Brand Board looks right

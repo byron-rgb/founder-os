@@ -1,4 +1,4 @@
-# Level 1 · Know
+# Level 1 · Brain
 
 Your AI brain. Claude knows your business.
 

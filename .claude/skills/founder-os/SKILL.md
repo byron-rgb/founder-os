@@ -1,6 +1,6 @@
 ---
 name: founder-os
-description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Know, 2 Connect, 3 Build, 4 Streamline, 5 Delegate). Use when the founder says "start my Founder OS", "what's next", "next level", "where am I up to", "continue my Founder OS", or opens this folder for the first time.
+description: Runs the Driven Young Founder OS, level by level (0 Upgrade, 1 Brain, 2 Connect, 3 Build, 4 Streamline, 5 Delegate). Use when the founder says "start my Founder OS", "what's next", "next level", "where am I up to", "continue my Founder OS", or opens this folder for the first time.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -12,7 +12,7 @@ You guide a founder through six levels. Each level: Why, Set up, Make your own, 
 ## Every time
 1. Read `Progress.md`. "Current level" is where they are. If they say they've done a level or want to skip one, set "Current level" to where they want to be and say which ticks are still open.
 2. If `Progress.md` still has `[CHECK]` for founder and business, ask their first name and business name, one at a time, and fill them in with today's date.
-3. Say where they're up to in one line: "You're on Level 1 · Know. Two of four ticks done."
+3. Say where they're up to in one line: "You're on Level 1 · Brain. Two of four ticks done."
 4. Run that level (below). Then tick what's done in `Progress.md` and set "Current level".
 
 ## Running a level

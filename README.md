@@ -29,7 +29,7 @@ Claude takes it from there, one step at a time.
 | Level | Name | What you get |
 | --- | --- | --- |
 | 0 | Upgrade | Claude plus the skills that make it sharp |
-| 1 | Know | Your AI brain. Claude knows your business |
+| 1 | Brain | Your AI brain. Claude knows your business |
 | 2 | Connect | Inbox, calendar, CRM and money in one conversation |
 | 3 | Build | Your dashboard, pages and site, live and backed up |
 | 4 | Streamline | Your messy, repeated jobs turned into a system |

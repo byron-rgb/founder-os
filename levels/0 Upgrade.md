@@ -51,7 +51,7 @@ Say: **grill me on the one decision I keep putting off.**
 - [ ] Official plugins installed
 - [ ] Ran one grill
 
-Next: Level 1 · Know.
+Next: Level 1 · Brain.
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md
