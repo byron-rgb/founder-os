@@ -14,8 +14,11 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ## Start here
 
 **Get your copy (once):**
-1. Make a free GitHub account. In the course, lesson S.2, press **Make my copy** (or open the Founder OS template on GitHub and press **Use this template**), then **Create a new repository**. Name it `Founder OS`, choose **Private**, and press **Create**.
-2. On your new copy press the green **Code** button, then **Open with GitHub Desktop**. GitHub Desktop (free, desktop.github.com) asks where to save it: keep **Documents** and press **Clone**. You now have a `Founder OS` folder on your computer, and your private copy on GitHub keeps a backup of every change.
+1. Open the **Claude** desktop app, go to the **Code** tab and choose your **Documents** folder.
+2. Paste: *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*. Claude copies it into `Documents/Founder OS` and links it for the monthly updates.
+3. Your own private backup on GitHub comes later, in Level 3 (say **save a copy**).
+
+Prefer clicking? Press **Make my copy** in lesson S.2 of the course, choose **Private**, then **Code**, **Open with GitHub Desktop**, **Clone** into Documents.
 
 **Then, every time:**
 1. Open the **Claude** desktop app and go to the **Code** tab (or open Terminal and type `claude`).

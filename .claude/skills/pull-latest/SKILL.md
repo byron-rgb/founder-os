@@ -7,7 +7,7 @@ description: Brings new Founder OS templates, skills and agents into the founder
 
 # Pull the latest
 
-1. Check this folder is saved to GitHub and has the Driven Young Founder OS as its source (a remote named `upstream`). If not, say: "Updates start once your Founder OS is saved to GitHub in Level 3."
+1. Check this folder is a git folder with the Driven Young Founder OS as its source (a remote named `upstream`). No `upstream` yet (copies made from the GitHub template don't have one): add it, `git remote add upstream https://github.com/byron-rgb/founder-os`. Not a git folder at all: stop and say "Let's set up your Founder OS properly first", then help them, one step at a time.
 2. Save their current state first (a copy with the note "Before update").
 3. Bring in the latest from `upstream`. Their files win: never overwrite anything in `brain/`, `Progress.md`, `site/` or `dashboard/` content they changed.
 4. If something clashes, keep their version and list what you skipped.

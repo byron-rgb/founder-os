@@ -13,8 +13,8 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 
 ## Accounts
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
-- [ ] GitHub, free (github.com). Your private copy comes from the Make my copy button in the course (lesson S.2).
-- [ ] Your copy on your computer: on the link you're sent press **Use this template** (Private), then **Code**, **Open with GitHub Desktop**, **Clone** into Documents.
+- [ ] GitHub, free (github.com). Your private backup copy goes there in Level 3.
+- [ ] Your copy on your computer: in the Claude app's Code tab, choose Documents and paste *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*.
 - [ ] Cloudflare, free (cloudflare.com). Puts your website live.
 - [ ] A password manager: 1Password (Mac or Windows), or Apple Passwords on a Mac.
 
