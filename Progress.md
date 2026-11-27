@@ -28,6 +28,7 @@ Current level: 0
 - [ ] First security check done
 
 ## Level 3 · Build
+- [ ] GitHub Desktop installed and signed in
 - [ ] Latest changes saved to their private GitHub copy
 - [ ] Dashboard live, at least one module on real data
 - [ ] Website built or rebuilt from brain + design system

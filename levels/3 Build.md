@@ -21,7 +21,7 @@ This is where AI stops being a chat and becomes part of how you run the business
 **Is this safe?** Your GitHub copy is set to private, so only you can see it. Every change is saved, so anything can be undone. Nothing goes live until you say so. The one key your forms need goes into Cloudflare's encrypted secrets, typed by you, never into the chat or your files.
 
 ## 2. Set up
-1. **GitHub**: say **save a copy**. The first time, Claude helps you make your own **private** copy on GitHub with GitHub Desktop (Add existing, then Publish, tick Private). After that, say **save a copy** whenever you want your latest changes backed up; every change is kept and can be undone. Already made your copy from the template? It's there: just save.
+1. **GitHub**: say **save a copy**. The first time, install **GitHub Desktop** (free, desktop.github.com) and sign in with your GitHub account, and Claude helps you make your own **private** copy on GitHub (Add existing, then Publish, tick Private). After that, say **save a copy** whenever you want your latest changes backed up; every change is kept and can be undone. Already made your copy from the template? It's there: just save.
 2. **Cloudflare**: make a free account. It puts your website and pages live.
 3. **Your dashboard**: say **build my dashboard**. Claude asks what you want to track, maps it with you, then builds a private dashboard in your Claude account: one page per section (Finance, Sales, Marketing and the rest), live from the tools you connected in Level 2. It only reads.
 4. **Your website and landing pages** (`site/`): Claude already knows your business (your brain) and your look (your design system), so say **build my website** and it builds the whole site in one go. It uses the Founder OS site starter: plain Astro, ready-made templates for common businesses (landscaping, trades, health and wellness, beauty, services), your design system for the look, and a quote form that sends leads to GoHighLevel or any other CRM. Using GoHighLevel and want even more page designs? Damn Good Funnels is free for your own business; download it yourself (see `site/README.md`).
@@ -54,6 +54,7 @@ Say: **build a landing page for my main offer.**
 Quick wins: job ad page, how-to from a video, client welcome pack.
 
 ## 4. Check
+- [ ] GitHub Desktop installed and signed in
 - [ ] Latest changes saved to your private GitHub copy
 - [ ] Dashboard live, at least one module on real data
 - [ ] Website built or rebuilt from your brain and design system
