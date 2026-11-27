@@ -14,7 +14,7 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ## Start here
 
 **Get your copy (once):**
-1. Driven Young adds your GitHub username to the Founder OS. Open the link you're sent and press **Use this template**, then **Create a new repository**. Name it `Founder OS`, choose **Private**, and press **Create**.
+1. In the course, lesson S.2, press **Connect GitHub** and sign in to GitHub (or make a free account). Accept the invite GitHub sends, open the Founder OS template and press **Use this template**, then **Create a new repository**. Name it `Founder OS`, choose **Private**, and press **Create**.
 2. On your new copy press the green **Code** button, then **Open with GitHub Desktop**. GitHub Desktop (free, desktop.github.com) asks where to save it: keep **Documents** and press **Clone**. You now have a `Founder OS` folder on your computer, and your private copy on GitHub keeps a backup of every change.
 
 **Then, every time:**

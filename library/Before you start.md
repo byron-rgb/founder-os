@@ -13,7 +13,7 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 
 ## Accounts
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
-- [ ] GitHub, free (github.com). Send your username to Driven Young so you get your private copy.
+- [ ] GitHub, free (github.com). Then press Connect GitHub in the course (lesson S.2) and accept GitHub's invite.
 - [ ] Your copy on your computer: on the link you're sent press **Use this template** (Private), then **Code**, **Open with GitHub Desktop**, **Clone** into Documents.
 - [ ] Cloudflare, free (cloudflare.com). Puts your website live.
 - [ ] A password manager: 1Password (Mac or Windows), or Apple Passwords on a Mac.
