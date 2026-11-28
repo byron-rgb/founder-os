@@ -34,7 +34,10 @@ There are two modes. Pick one from what they said:
 
 1. Say, in your own words:
    > Let's build your AI Brain. It's a folder of notes about your business that any AI can read, so it stops giving generic answers and starts sounding like you.
-   > It takes about 2 hours. You can do it in one go, or one layer at a time, and stop whenever you like. Short on time? We can do a 20-minute quick start now and fill in the rest later. Type or talk, whichever's faster.
+   > It takes about 2 hours. You don't have to do it in one go.
+   > **Pause any time.** Just stop. Everything is saved after each answer.
+   > **To carry on later**, say **continue my brain**. I pick up where you left off.
+   > Short on time? Say **quick brain** for a 20-minute version. Type or talk, whichever's faster.
 2. Ask their first name and the business name. In a Founder OS, take them from `Progress.md` if they're already there.
 3. Check you can write files. **Inside a Founder OS folder** (it has `Progress.md` and a `brain/` folder): the brain is `brain/`. Use it, don't ask. Otherwise you need a folder they chose; recommend one called `AI Brain` inside iCloud Drive or Google Drive, so it's backed up and on every device.
 4. **Obsidian: set it all up for them.** Skip if the brain is already open in Obsidian. Otherwise follow `references/obsidian.md`: you check it's installed, install it on their yes, and open the brain in it. They never hunt for a folder. Then: "Click **Graph view** in the left sidebar and keep it open. You'll watch your brain grow as we go."
@@ -85,7 +88,7 @@ Run `references/interview-operations.md`. Five files: `4 Operations/` (Processes
 
 **For every layer:** save as you go. After every answer, add it to the right brain file (format in `references/brain-layout.md`) with `status: in progress`, and update "Last stopped at" in `_Setup Progress.md`. When a section is finished, tidy the file, set `status: done` and tick it off. If they stop mid-question, nothing is lost. Skip any question the website or their files already answered; confirm it in one line instead.
 
-If they need to stop: "No stress. Next time just say 'continue my brain' and we'll pick up right here."
+If they need to stop: "Saved. Next time, say **continue my brain**." At the end of each layer, remind them once: "Good spot to pause. Say **continue my brain** when you're ready."
 
 ## Step 5. The read-back
 

@@ -45,10 +45,16 @@ If a download fails or the path isn't there, skip that skill, say so plainly, an
 | watch (optional) | github.com/bradautomates/claude-video | 03ceb42 | skills/watch | I can watch a video link. Needs extra Mac tools; skip unless they want it |
 
 ## Official plugins (they click, you guide)
-These come from Claude's own plugin store. Walk them through it one at a time. In the Code tab, type `/plugin` and press enter, find each one, choose **Install**. If they can't find it, open Claude **Settings** and look for **Plugins**. Then tick "Official plugins installed" in `Progress.md`.
-- **frontend-design** (from claude-plugins-official): better pages and dashboards
-- **security-guidance** (from claude-plugins-official): warns about risky code
-- **cloudflare** (from cloudflare/skills): needed in Level 3 to put things live. In the Plugins search, pick the one called **Cloudflare** with "Connector & skills · cloudflare/skills" under it (the top result). Not "Cloudflare Developer Platform" (connector only).
+Don't use `/plugin`: it opens their installed plugins, not the store. Say exactly this, then wait for "done":
+
+> Now 3 plugins.
+> 1. In the Claude app, click **Plugins** on the left.
+> 2. Search **frontend design**. Click it. Click **Add**.
+> 3. Search **security guidance**. Click it. Click **Add**.
+> 4. Search **cloudflare**. Pick the one that says **Connector & skills · cloudflare/skills**. Click **Add**.
+> Tell me done.
+
+If a button says Install instead of Add, that's the same thing. Then tick "Official plugins installed" in `Progress.md`.
 
 ## House rules (Byron's working habits)
 Skills are half of it. The other half is small habits that make Claude easier to work with. These are the ones Byron uses every day. Add each line below to `CLAUDE.md` in the Founder OS folder, under "How you talk", skipping any that are already there. Then tell the founder in one line what each does, and that they can say "add a house rule: ..." any time to add their own.
