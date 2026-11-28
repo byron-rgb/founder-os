@@ -48,7 +48,7 @@ If a download fails or the path isn't there, skip that skill, say so plainly, an
 These come from Claude's own plugin store. Walk them through it one at a time. In the Code tab, type `/plugin` and press enter, find each one, choose **Install**. If they can't find it, open Claude **Settings** and look for **Plugins**. Then tick "Official plugins installed" in `Progress.md`.
 - **frontend-design** (from claude-plugins-official): better pages and dashboards
 - **security-guidance** (from claude-plugins-official): warns about risky code
-- **cloudflare** (from cloudflare/skills): needed in Level 3 to put things live
+- **cloudflare** (from cloudflare/skills): needed in Level 3 to put things live. Two Cloudflare plugins show up. Pick the one that says "Build, test, and deploy applications on Cloudflare ... and the Cloudflare MCP server". Not the one that starts "Skills for the Cloudflare developer platform".
 
 ## House rules (Byron's working habits)
 Skills are half of it. The other half is small habits that make Claude easier to work with. These are the ones Byron uses every day. Add each line below to `CLAUDE.md` in the Founder OS folder, under "How you talk", skipping any that are already there. Then tell the founder in one line what each does, and that they can say "add a house rule: ..." any time to add their own.
