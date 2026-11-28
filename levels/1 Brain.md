@@ -19,12 +19,11 @@ Generic answers come from AI that doesn't know you. Your brain is a folder of pl
 **Is this safe?** Your brain is plain notes on your own computer. Nothing is uploaded anywhere unless you choose to back it up (Level 3, to your private GitHub). Never put passwords, bank or card numbers in it; Claude leaves them out if you paste one.
 
 ## 2. Set up
-1. Install **Obsidian** (free, obsidian.md).
-2. Say **open my brain in Obsidian**. Claude sets it up and opens it for you.
-3. Before you start, drop your price list, any brochures or proposals into `brain/Drop files here`.
-4. In Claude, say: **build my AI brain**. Claude reads your website and files, then interviews you across seven areas: You, Sales, Marketing, Operations, Team, Finance, Goals. Type or talk. About 2 hours, and you can stop any time ("continue my brain" picks it up). Short on time? Say **quick brain** for a 20-minute start and fill in the rest later.
-5. **Your brand.** Claude moves your brand in: your logo files, Canva brand kit, designer files and website colours go into `brain/3 Marketing/Brand/`. No brand yet? Claude sets up a simple starter brand with you. Open `Brand Board.html` to see it on one page.
-6. In Obsidian, open **Graph view** to see it connect.
+1. Say **open my brain in Obsidian**. Claude installs Obsidian if you don't have it (free), then opens your brain in it. The brain build does this too.
+2. Before you start, drop your price list, any brochures or proposals into `brain/Drop files here`.
+3. In Claude, say: **build my AI brain**. Claude reads your website and files, then interviews you across seven areas: You, Sales, Marketing, Operations, Team, Finance, Goals. Type or talk. About 2 hours, and you can stop any time ("continue my brain" picks it up). Short on time? Say **quick brain** for a 20-minute start and fill in the rest later.
+4. **Your brand.** Claude moves your brand in: your logo files, Canva brand kit, designer files and website colours go into `brain/3 Marketing/Brand/`. No brand yet? Claude sets up a simple starter brand with you. Open `Brand Board.html` to see it on one page.
+5. In Obsidian, open **Graph view** to see it connect.
 
 ## 3. Make your own
 Big one: say **brand studio** to turn your brand into a design system and make real slides, posts and a poster.

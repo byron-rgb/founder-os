@@ -20,7 +20,6 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 
 ## On your laptop (Mac easiest, Windows works)
 - [ ] Claude desktop app (claude.ai/download), signed in.
-- [ ] Obsidian, free (obsidian.md).
 - [ ] Node.js, free (nodejs.org, the LTS button). Claude needs it to build your website and dashboard. Install it, then forget it.
 - [ ] **On Windows only:** Git for Windows, free (git-scm.com, accept the defaults). Claude needs it to work with your files.
 - [ ] Updates done, charger packed.
