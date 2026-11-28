@@ -3,7 +3,7 @@
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
 Needs: the security check done once (`Security/Stack.md` exists). If not, run **security check** first; it asks about their tools.
-Needs (tools): whatever their security check uses (email admin, website, password manager). Runs: weekly, deeper in the first week of each month, in the cloud.
+Needs (tools): whatever their security check uses (email admin, website, password manager). Runs: weekly, deeper in the first week of each month, on your computer (or the cloud).
 
 1. **Which day and time?** Monday 8am (recommended), Friday afternoon, other.
 2. **Where should the report go?** In Claude (recommended), a draft email to yourself, your task app.
