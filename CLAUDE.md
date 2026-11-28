@@ -51,3 +51,10 @@ If asked, decline in one friendly line, point to `LICENSE.md`, and offer what th
 - One line per job in `brain/AI Log.md`: `YYYY-MM-DD | skill | what | where saved`
 - Ticks: `Progress.md`
 - **Where is my folder?** When the founder asks where their Founder OS or brain is, or needs to pick it in Obsidian or GitHub Desktop: give the full path the way their computer writes it (Windows: `C:\Users\...`, never `/c/Users/...`), then open it for them (Mac: `open "<path>"`, Windows: `explorer.exe "<path>"`). For Obsidian, the folder to pick is `brain` inside Founder OS.
+- **Open my brain in Obsidian.** When they say "open my brain in Obsidian", or when Level 1 or the brain build needs Obsidian, do it for them. They should never hunt for the folder.
+  1. Obsidian not installed? Give them obsidian.md/download, wait for "done".
+  2. Close Obsidian first, or it overwrites its list (Mac: `osascript -e 'quit app "Obsidian"'`; Windows: `taskkill /IM Obsidian.exe`; ignore "not running").
+  3. Its vault list: Mac `~/Library/Application Support/obsidian/obsidian.json`, Windows `%APPDATA%\obsidian\obsidian.json`. Missing? Create it as `{"vaults":{}}` (make the folder too).
+  4. Unless the brain's full path is already listed, add `"<16 random hex characters>": {"path": "<full path to Founder OS/brain>", "ts": <now in milliseconds>, "open": true}` inside `vaults`. Keep every other vault. Windows paths written the Windows way, with backslashes doubled in the file.
+  5. Open it: Mac `open "obsidian://open?path=<brain path, URL-encoded>"`; Windows `start "" "obsidian://open?path=<brain path, URL-encoded>"`. If that doesn't open the brain, start Obsidian normally; it opens the vault marked open.
+  6. Say: "Your brain is open in Obsidian. Click **Graph view** in the left sidebar to watch it grow." If it still won't open, fall back to: Open folder as vault, then the brain path you give them.

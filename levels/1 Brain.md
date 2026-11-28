@@ -20,7 +20,7 @@ Generic answers come from AI that doesn't know you. Your brain is a folder of pl
 
 ## 2. Set up
 1. Install **Obsidian** (free, obsidian.md).
-2. In Obsidian: **Open folder as vault** and choose `Founder OS/brain`.
+2. Say **open my brain in Obsidian**. Claude sets it up and opens it for you.
 3. Before you start, drop your price list, any brochures or proposals into `brain/Drop files here`.
 4. In Claude, say: **build my AI brain**. Claude reads your website and files, then interviews you across seven areas: You, Sales, Marketing, Operations, Team, Finance, Goals. Type or talk. About 2 hours, and you can stop any time ("continue my brain" picks it up). Short on time? Say **quick brain** for a 20-minute start and fill in the rest later.
 5. **Your brand.** Claude moves your brand in: your logo files, Canva brand kit, designer files and website colours go into `brain/3 Marketing/Brand/`. No brand yet? Claude sets up a simple starter brand with you. Open `Brand Board.html` to see it on one page.
