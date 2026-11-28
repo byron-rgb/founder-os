@@ -37,7 +37,7 @@ You own every file. Change anything by asking.
 1. Say **build my website**.
 2. Claude builds the whole site in one go, from your brain and design system.
 3. Happy with it? Say **go live**. Claude puts it live on Cloudflare.
-4. Your domain: add it to Cloudflare, let Claude check your email, then paste Cloudflare's 2 nameservers into your domain company (Namecheap: **Domain List**, **Manage**, **Nameservers**, **Custom DNS**). Claude walks you through it.
+4. Your domain: say **connect my domain**. Claude adds it to Cloudflare and keeps your email working. You paste 2 nameservers into your domain company (Namecheap: **Domain List**, **Manage**, **Nameservers**, **Custom DNS**). Claude finishes the rest.
 
 Claude uses the Founder OS site starter: plain Astro, optional templates in `site/templates/` (landscaping, trades, health and wellness, beauty, services), and a quote form that sends leads to GoHighLevel or any CRM.
 

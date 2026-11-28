@@ -1,6 +1,6 @@
 ---
 name: website
-description: Founder OS Level 3 website builder. Builds the founder's website in one go from their AI brain and design system using the Founder OS site starter (Astro + Cloudflare), or rebuilds their existing site. Use when the founder says "go live", "build my website", "rebuild my website", "make my site", "add a page", "landing page for", or "use the landscaping / trades / wellness / beauty / services template".
+description: Founder OS Level 3 website builder. Builds the founder's website in one go from their AI brain and design system using the Founder OS site starter (Astro + Cloudflare), or rebuilds their existing site. Use when the founder says "go live", "connect my domain", "build my website", "rebuild my website", "make my site", "add a page", "landing page for", or "use the landscaping / trades / wellness / beauty / services template".
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -30,14 +30,14 @@ Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
    - **Switch on website stats (always, unless they say no).** Say: "Your site will count its own visits and enquiries in your Cloudflare: no cookies, nothing personal, and it shows on your dashboard." Then `npx wrangler d1 create site-stats`, `npx wrangler d1 execute site-stats --remote --file=stats/schema.sql`, and in `site/wrangler.toml` remove the `#` marks on the `[[d1_databases]]` block and paste the `database_id` it printed (an ID, not a key). Deploy again. How it works and the queries: `site/stats/README.md`.
 6. Test the form with their own details. Check the lead arrives in their CRM, with a "Came from" line. Open the site from your phone, then check a visit and the enquiry were counted: `npx wrangler d1 execute site-stats --remote --command "SELECT kind, source, path FROM events ORDER BY id DESC LIMIT 5"`. Then add their domain in Cloudflare.
 7. Offer: "Want your website numbers on your dashboard?" If yes, say **add my website to my dashboard** (the `dashboard` skill adds a Website page from `site/stats/README.md`).
-8. **Their own domain.** Walk them through it one step at a time, in these words (same as lesson 3.4 in the portal):
-   1. "In Cloudflare, click **Add a domain**. Type your domain. Pick **Free**. Tell me done."
-   2. **Email check, before they switch** (they may say **check my email before I switch**): look up their current settings yourself: `nslookup -type=MX <domain>` and `nslookup -type=TXT <domain>` (Mac: `dig MX <domain> +short`, `dig TXT <domain> +short`), plus `autodiscover` / `_dmarc` if present. Tell them in one line which email they use (Google, Microsoft, other). Ask them to open **DNS** in Cloudflare (or send a screenshot) and check every MX and TXT row you found is there. Missing? Tell them exactly what to add (Type, Name, Content, priority), one row at a time. Don't go on until email is covered.
-   3. "Cloudflare shows 2 nameservers. Copy them."
-   4. Namecheap: "Click **Domain List**, then **Manage**. Find **Nameservers**. Pick **Custom DNS**. Paste both. Click the green tick." Another company: same idea, find **Nameservers** in their settings; look up the exact clicks for that company if they're stuck.
-   5. "Now we wait. Usually under an hour, up to a day. Cloudflare emails you." Check yourself when they're back: `nslookup -type=NS <domain>` shows Cloudflare.
-   6. "In Cloudflare, open your website. Click **Custom domains**. Add your domain. Then add the www one." Then add both to `ALLOWED_ORIGINS`, publish again, open the domain and send one more test enquiry.
-   7. After the switch, check email again (MX lookup matches what it was). If anything's off, fix it in Cloudflare DNS with them.
+8. **Their own domain. You do it through the Cloudflare connection, so they barely click.** It comes with the Cloudflare plugin from Level 0 (server `cloudflare`, Cloudflare's own). Not signed in yet? "In the Claude app, open **Customize**, then **Connectors**. Find **Cloudflare**. Click **Connect**, sign in, click **Allow**. Tell me done." If it's not there at all, use the manual steps in lesson 3.4 and guide them.
+   When they say **connect my domain**:
+   1. **Email check first.** Look up their current settings yourself (`nslookup -type=MX <domain>`, `nslookup -type=TXT <domain>`; Mac: `dig MX <domain> +short`, `dig TXT <domain> +short`; plus `_dmarc` and `autodiscover` if present). Tell them in one line which email they use.
+   2. **Add the domain** to their Cloudflare account (Free plan) through the connection. Then list its DNS records and compare with step 1. Add any MX or TXT row that's missing, yourself. Don't go on until email is covered.
+   3. **Read the 2 nameservers** Cloudflare gave the domain. Tell them, word for word: "Last bit is yours. In Namecheap, click **Domain List**, then **Manage**. Find **Nameservers**. Pick **Custom DNS**. Paste these two: <ns1> and <ns2>. Click the green tick. Tell me done." Another company: same idea, find **Nameservers**; look up the exact clicks if they're stuck.
+   4. **Wait, then finish it yourself.** Check `nslookup -type=NS <domain>` until it shows Cloudflare (usually under an hour, up to a day; if they come back later, they just say **connect my domain** again). Then add the domain and the www version to their website's **Custom domains** through the connection, add both to `ALLOWED_ORIGINS`, publish again, open the domain, send one test enquiry, and check email again (MX matches step 1).
+   5. Say: "Done. Your website is live at <domain>. Your email still works."
+   Never put their form key through the chat or the connection: they paste keys into Cloudflare themselves (`keys` skill).
 
 ## Rebuild my website
 1. Read their current site (every main page). List what's on it: pages, offers, wording that works, photos, contact details.
