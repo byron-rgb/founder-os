@@ -13,7 +13,7 @@ Yes, set up like this:
 - **Claude asks first** before it runs or changes anything.
 - **Claude never sees your passwords.** You sign in on each tool's own page.
 - **Agents draft, you send.** Nothing is emailed, paid, posted or deleted without you.
-- **You own everything:** accounts, files, private GitHub.
+- **You own everything:** accounts and files.
 
 ## Five habits that stop most problems
 1. **Two-step login** on email, Claude, GitHub, Cloudflare, CRM and bank.

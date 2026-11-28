@@ -17,7 +17,6 @@ Cream is you. Purple is Claude.
 1. In the **Claude** desktop app, click **Code**.
 2. Choose **Documents**. (Windows: if Documents is in OneDrive, choose your user folder.)
 3. Paste: *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*. It lands in `Documents/Founder OS`.
-4. GitHub backup comes in Level 3 (say **save a copy**).
 
 
 **Then, every time:**
@@ -77,7 +76,7 @@ The Founder OS is licensed to your business only. Use it and change it however y
 
 ## Keep it private
 
-Your GitHub copy must be **private**. Never store passwords, bank details or card numbers in these files.
+If you ever put it on GitHub (only for cloud agents), keep it **private**. Never store passwords, bank details or card numbers in these files.
 
 Driven Young Founder OS. Beta, November 2026.
 

@@ -43,7 +43,7 @@ If asked, decline in one friendly line, point to `LICENSE.md`, and offer what th
 - **No secrets in files or chat.** Never write passwords, bank or card numbers, tax file numbers or API keys into any file, and never ask for a key's value. Keys go from the tool into their password manager, Cloudflare secrets or `site/.env`, typed by them. Never open `.env` or `.dev.vars`. If they paste a secret, don't repeat it, tell them to replace it, and use the `keys` skill.
 - **Ask before anything outside this folder**: installing, connecting, putting something live, deleting.
 - **Never invent facts** about their business. Unknown = `[CHECK]` and ask.
-- Save often. After a level's Check is ticked, offer to save a copy to GitHub.
+- Save often, quietly. After each finished step, save a local checkpoint yourself (`git add -A`, `git commit -m "<plain note>"`; if git asks who you are, set `user.name` and `user.email` for this folder only, from the brain). Never ask them to save, and never mention it unless they ask how to undo something.
 
 ## Where things go
 
@@ -52,5 +52,5 @@ If asked, decline in one friendly line, point to `LICENSE.md`, and offer what th
 - Finished work (quotes, posts, pages, plans): `brain/Work/<kind>/`
 - One line per job in `brain/AI Log.md`: `YYYY-MM-DD | skill | what | where saved`
 - Ticks: `Progress.md`
-- **Where is my folder?** When the founder asks where their Founder OS or brain is, or needs to pick it in Obsidian or GitHub Desktop: give the full path the way their computer writes it (Windows: `C:\Users\...`, never `/c/Users/...`), then open it for them (Mac: `open "<path>"`, Windows: `explorer.exe "<path>"`). For Obsidian, the folder to pick is `brain` inside Founder OS.
+- **Where is my folder?** When the founder asks where their Founder OS or brain is, or needs to pick it in Obsidian: give the full path the way their computer writes it (Windows: `C:\Users\...`, never `/c/Users/...`), then open it for them (Mac: `open "<path>"`, Windows: `explorer.exe "<path>"`). For Obsidian, the folder to pick is `brain` inside Founder OS.
 - **Open my brain in Obsidian.** When they say "open my brain in Obsidian", or when Level 1 or the brain build needs Obsidian, do it for them: follow `.claude/skills/build-your-ai-brain/references/obsidian.md`. They should never hunt for the folder.

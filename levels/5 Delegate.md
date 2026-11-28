@@ -23,8 +23,6 @@ Inbox, follow-ups, receipts and checks done before you sit down. Agents are Clau
 - The Security agent checks the rest weekly.
 
 ## 2. Set up
-Do Level 3 first (the cloud reads your private GitHub copy).
-
 Agents are in the `agents` folder. One at a time, each in a new chat in your Founder OS folder.
 
 | Say | What it does | When |
@@ -40,7 +38,9 @@ For each agent:
 3. Answer a few questions (what time, who matters, where the report goes). Saved in `brain/Agents/`.
 4. It runs once so you see a real result.
 5. Claude fills in the schedule. You press **Create**.
-6. It runs in the cloud, laptop shut. Each run shows in Claude.
+6. It runs on your computer while it's on. Each run shows in Claude.
+
+Want agents to run with your laptop shut? Say **run my agents in the cloud**. Claude sets it up with you (needs a free GitHub account).
 
 Change one: say **change my EA**. Got something wrong? Tell Claude. It adds a rule so the agent learns.
 

@@ -19,22 +19,11 @@ Cream = you. Purple = Claude. Numbers = order.
 You own every file. Change anything by asking.
 
 **Is this safe?**
-- Your GitHub copy is private. Only you see it.
-- Every change is saved. Anything can be undone.
+- Everything stays on your computer. Claude saves as it goes, so anything can be undone.
 - Nothing goes live until you say so.
 - Your form key goes in Cloudflare's encrypted secrets, typed by you. Never in the chat or your files.
 
 ## 2. Set up
-**Back up (GitHub)**
-1. Make a free GitHub account at github.com.
-2. Install **GitHub Desktop** (free, desktop.github.com).
-3. Sign in to it with your GitHub account.
-4. Say **save a copy**.
-5. First time only: Claude opens GitHub Desktop. Click **Publish repository**. Leave **Keep this code private** ticked. Click **Publish repository**.
-6. After that, say **save a copy** to back up your latest changes.
-
-Copy already made from the template? Just save.
-
 **Go live (Cloudflare)**
 1. Make a free Cloudflare account. It puts your pages live.
 
@@ -82,8 +71,6 @@ Say **build a landing page for my main offer.**
 Quick wins: job ad page, how-to from a video, client welcome pack.
 
 ## 4. Check
-- [ ] GitHub Desktop installed and signed in
-- [ ] Latest changes saved to your private GitHub copy
 - [ ] Dashboard live, at least one module on real data
 - [ ] Website built or rebuilt from your brain and design system
 - [ ] One landing page live with a working form

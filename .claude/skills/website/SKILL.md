@@ -9,7 +9,7 @@ description: Founder OS Level 3 website builder. Builds the founder's website in
 
 Everything lives in `site/`. Read `site/README.md`. Follow `CLAUDE.md`.
 
-**Is this safe?** The site is built on their computer and saved to their private GitHub. Nothing goes live until they say so. The one key the form needs goes into Cloudflare, typed by them (`keys` skill).
+**Is this safe?** The site is built and kept on their computer. Nothing goes live until they say so. The one key the form needs goes into Cloudflare, typed by them (`keys` skill).
 
 ## Before you start
 - Brain built? Need at least Profile, Customers, Offers and Prices, Brand Voice. If not, say Level 1 comes first.

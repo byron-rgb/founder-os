@@ -16,7 +16,7 @@ Cream is you. Purple is Claude. Numbers show the order.
 ## 1. Why
 Your brain is notes about you and your business. Claude reads it every time. It also holds your **Brand** folder: logo, colours, fonts and style.
 
-**Is this safe?** Your brain stays on your computer. Nothing is uploaded unless you back it up (Level 3, to your private GitHub). Never put passwords, bank or card numbers in it. Claude leaves them out if you paste one.
+**Is this safe?** Your brain stays on your computer. Nothing is uploaded. Never put passwords, bank or card numbers in it. Claude leaves them out if you paste one.
 
 ## 2. Set up
 1. Say **open my brain in Obsidian**. Claude installs Obsidian (free) and opens your brain.

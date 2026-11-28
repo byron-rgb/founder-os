@@ -15,7 +15,7 @@ Cream is you. Purple is Claude.
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
 - [ ] A password manager: 1Password (Mac or Windows), or Apple Passwords on a Mac.
 
-GitHub, Cloudflare and Obsidian come later. Claude sets them up with you.
+Cloudflare and Obsidian come later. Claude sets them up with you.
 
 ## On your laptop (Mac easiest, Windows works)
 - [ ] Claude desktop app (claude.ai/download), signed in.
