@@ -1,6 +1,6 @@
 ---
 name: dashboard
-description: Founder OS dashboard creator (Level 3). Asks the founder what they want to track, one question at a time, maps their dashboard with them, then builds it from the white-label template as a private page in their own Claude account that reads their connected tools live, one page per section (Finance, Sales, Marketing, Operations, Goals and any others their business needs). Use when the founder says "build my dashboard", "make me a dashboard", "dashboard creator", "update my dashboard", "add a page to my dashboard", "add X to my dashboard", "track X on my dashboard", or Level 3 reaches the dashboard step.
+description: Founder OS dashboard creator (Level 3). Asks the founder what they want to track, one question at a time, maps their dashboard with them, then builds it from the white-label template as a private page in their own Claude account that reads their connected tools live (CRM, accounting, Airtable and more) and saves its own data (client details, targets, weekly history), one page per section (Finance, Sales, Marketing, Operations, Goals and any others their business needs). Use when the founder says "build my dashboard", "make me a dashboard", "dashboard creator", "update my dashboard", "add a page to my dashboard", "add X to my dashboard", "track X on my dashboard", or Level 3 reaches the dashboard step.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -16,7 +16,7 @@ Files:
 - Their copy: `dashboard/my-dashboard.html`. Their map: `brain/Work/Dashboard/Dashboard map.md` (always; a Claude Doc is optional on top, see step 2).
 - From the brain: `brain/CLAUDE.md`, `brain/4 Operations/Tools.md` (which tools they use), `brain/6 Finance/Key Numbers.md`, `brain/7 Goals/Goals.md`.
 
-**Say this first (one line):** "Your dashboard is a private page in your own Claude account. It only reads your tools, it can't change or send anything, and you can switch any tool off in the page's permissions."
+**Say this first (one line):** "Your dashboard is a private page in your own Claude account. It only reads your tools, it can't change or send anything, and anything you save in it (like client details) stays private to you."
 
 **Two ways (show `levels/images/dashboard-in-claude.png` if they ask the difference):**
 - **In Claude:** what this skill builds. Included, for the founder.
@@ -33,7 +33,9 @@ Overview and Goals are always in; don't ask about them.
 1. **Which areas?** Multi-select from `PAGES.md`, with the ones that fit their business ticked first (a trade: Finance, Sales, Jobs, Operations; a clinic: Finance, Bookings, Marketing, Team; a shop: Finance, Shop, Marketing).
 2. **Per area, which tool?** One question per area, single choice, skipping any the brain already answers. Put the most likely first:
    - Accounting: Xero (first), QuickBooks, MYOB, something else, none.
-   - Sales and customers: GoHighLevel, HubSpot, Pipedrive, a spreadsheet, none.
+   - Sales and customers: GoHighLevel, HubSpot, Pipedrive, Airtable, a spreadsheet, none.
+   - **Client details** (always ask): "Where do you keep your client details?" Their CRM, Airtable, a spreadsheet, or nowhere yet. Nowhere yet (or scattered): recommend keeping them in the dashboard itself (see **Saved in the dashboard**).
+   - "Anything else you track in Airtable or a spreadsheet?" If yes, find out which base or sheet and what it holds; it can feed any page.
    - Ads: Meta, Google, both, none. Bookings, shop, calendar: same idea, from `PAGES.md`.
 3. **Per area, what matters?** One question per area, multi-select from that page's list in `PAGES.md`, plus "something else". Keep it to what they would act on. For Finance, offer **LTV, CAC and LTV:CAC** (ticked by default, see below). If they keep it and it isn't obvious from the brain, ask one more: **where do you count customers?** (CRM won deals first, accounting invoices, job app.)
 4. **The four numbers on the front page.** Pick from what they chose above.
@@ -61,6 +63,18 @@ Do this right after question 2, before mapping, so the map only shows tools that
 4. No connector in the directory: offer Level 2's custom connector steps, or leave the block in as "Not connected yet". Don't drop it.
 
 If a connector stops working later, the dashboard says so on the block. Show the Connect button again (`suggest_connectors` with the server id from the failed tool name).
+
+### Saved in the dashboard (no database to set up)
+
+The dashboard page has its own private storage inside their Claude account. Use it for anything their tools don't hold. Never set up Supabase, a spreadsheet backend or any outside database for this.
+- **Clients** (when they keep clients nowhere else, or want notes on top): a Clients page with add, edit, search. Fields: name, business, email, phone, status, next step, notes, date added. Ask which extra fields they want.
+- **Targets** they set (for example "$50k a month"). Shown against the live numbers.
+- **Numbers they type in** (for example word-of-mouth leads this week).
+- **Weekly history**: when the page opens and there's no snapshot for this week yet, save the four front-page numbers. Trends show from week two.
+
+How: load the `artifact-capabilities` skill first and follow its `db` rules. Declare `db` with owner-only rules for each collection, plus `user`, alongside `mcp`: `db: {rules: [{path: "clients", read: "owner", write: "owner"}, {path: "targets", read: "owner", write: "owner"}, {path: "manual", read: "owner", write: "owner"}, {path: "history", read: "owner", write: "owner"}]}`. Handle an empty store (first open shows "No clients yet. Add your first."). Never put passwords, bank or card numbers, tax file numbers or health details in it; say so on the add form. They can ask you any time to read, tidy or export their saved data.
+
+Airtable: connect the official **Airtable** connector. Read only: `list_bases`, `list_tables_for_base`, `get_table_schema`, `list_records_for_table`. Ask which base and table, then map its columns to the page.
 
 ## 2. Map it with them
 
@@ -97,7 +111,7 @@ Then: "Anything to add, move or drop?" Change it until they say it's right. Keep
 
 ## 4. Put it in their Claude
 
-Publish `dashboard/my-dashboard.html` with the Artifact tool. Declare only the tools it reads: `capabilities: {mcp: {servers: [{server: "<name>", tools: ["<tool>", ...]}, ...]}}`. Icon: `chart`. Open it for them.
+Publish `dashboard/my-dashboard.html` with the Artifact tool. Declare only the tools it reads: `capabilities: {mcp: {servers: [{server: "<name>", tools: ["<tool>", ...]}, ...]}}`, plus `db` and `user` when it saves data (see **Saved in the dashboard**). Icon: `chart`. Open it for them.
 
 On first open Claude asks them to allow each tool once. Then go through every page with them: numbers look right, nothing says it couldn't load. Fix an adapter if a block is empty or wrong, publish again with the same file.
 
@@ -114,8 +128,8 @@ If the page says "Open this dashboard in Claude" or shows no live numbers inside
 
 ## Rules
 
-- Reads only. Never add a tool that sends, creates, changes or deletes.
-- Never put their real data, keys or passwords into the file or CONFIG; the page fetches live each time.
+- Reads only from their tools. Never add a tool that sends, creates, changes or deletes. The one thing the page writes is its own saved data (clients, targets, typed-in numbers, history).
+- Never put their real data, keys or passwords into the file or CONFIG. Live numbers are fetched each time; saved data lives in the page's own storage, never in the file.
 - Private: a dashboard that reads connectors can't be shared by public link. Don't try.
 - Keep the look: white label, clean and minimal, one accent colour, their brand. No business-specific clutter in the sidebar.
 

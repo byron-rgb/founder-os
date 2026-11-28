@@ -42,6 +42,9 @@ Usually from: Google Business Profile, the CRM.
 **Customers.** Active customers, new this period, repeat rate, top customers by revenue, who has gone quiet.
 Usually from: accounting (top customers), the CRM, the booking system.
 
+**Clients.** Every client in one list: name, business, contact, status, next step, notes. Add, edit and search right on the page. From their CRM or Airtable if that's where clients live; otherwise kept in the dashboard itself (saved data, see the dashboard skill).
+Usually from: the CRM, Airtable, a spreadsheet, or saved in the dashboard.
+
 **Bookings.** Booked this week, gaps, no-shows, cancellations, rebook rate, busiest days.
 Usually from: Fresha, Cliniko, Mindbody, Calendly, the CRM calendar.
 
