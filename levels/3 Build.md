@@ -30,7 +30,7 @@ You own every file. Change anything by asking.
 2. Install **GitHub Desktop** (free, desktop.github.com).
 3. Sign in to it with your GitHub account.
 4. Say **save a copy**.
-5. First time only: click **Add existing**, then **Publish**, tick **Private**. Claude helps.
+5. First time only: Claude opens GitHub Desktop. Click **Publish repository**. Leave **Keep this code private** ticked. Click **Publish repository**.
 6. After that, say **save a copy** to back up your latest changes.
 
 Copy already made from the template? Just save.

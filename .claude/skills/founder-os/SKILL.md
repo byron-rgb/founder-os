@@ -27,7 +27,11 @@ You guide a founder through six levels. Each level: Why, Set up, Make your own, 
    - Level 0 terminal step: optional. Explain it gives Claude more reach on their computer when they allow it, and that it still asks first.
 3. **Make your own.** Offer the guide's task, or a quick win from `library/Quick wins.md` for this level. Do it with them now.
 4. **Check.** Go through the tick list. Test each item for real (ask a question, open the page, look at the draft). Tick only what works.
-5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes, save a copy to their private GitHub with a short plain note of what changed. If this folder isn't linked to their GitHub yet (they downloaded it some other way), help them link it to a new private copy first, one step at a time.
+5. When every box is ticked: "Level <n> works. Want to save a copy now?" If they say yes, save a copy to their private GitHub with a short plain note of what changed. If this folder has no private GitHub copy yet (`git remote` shows no `origin`), set it up first, doing as much as you can yourself:
+   1. Save their work locally: `git add -A` and `git commit -m "<short plain note>"`.
+   2. Open the folder in GitHub Desktop for them. Mac: `open -a "GitHub Desktop" "<folder path>"`. Windows: `start "" "%LOCALAPPDATA%\GitHubDesktop\GitHubDesktop.exe" "<folder path>"`. If it asks to add the folder, they click **Add repository**. If it doesn't open the folder, tell them: **File**, **Add local repository**, choose the **Founder OS** folder.
+   3. Say exactly: "Click **Publish repository** at the top. Leave **Keep this code private** ticked. Click **Publish repository**. Tell me done."
+   4. Check `git remote -v` shows `origin` on github.com. From then on, **save a copy** = commit with a plain note and `git push origin HEAD`.
 
 ## The library (any level)
 - After Level 1's brand step, offer **Brand Studio** (`brand-studio`) as the big Make your own: "Want to see what your brand can do?"
