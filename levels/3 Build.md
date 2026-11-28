@@ -29,8 +29,9 @@ You own every file. Change anything by asking.
 
 **Your dashboard**
 1. Say **build my dashboard**.
-2. Tell Claude what to track.
-3. Claude builds a private dashboard in your Claude account: one page per section (Finance, Sales, Marketing and the rest), live from your Level 2 tools. It only reads.
+2. Answer Claude's questions: what to track, and which tools you use (CRM, Xero, Airtable). Claude connects them.
+3. No CRM for client details? The dashboard keeps them for you, private.
+4. Claude builds a private dashboard in your Claude account: one page per section (Finance, Sales, Marketing and the rest), live from your Level 2 tools. It only reads.
 
 **Your website and landing pages** (`site/`)
 1. Say **build my website**.
