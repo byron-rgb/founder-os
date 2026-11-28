@@ -18,7 +18,6 @@ Use this in Step 1, and any time the owner says "sort my files".
 | Team list, org chart, roles | `5 Team/Team.md` |
 | Reports, dashboards, financial summary | `6 Finance/Key Numbers.md` |
 | About page, bio, pitch deck | `1 You/Profile.md`, `1 You/Stories.md` |
-| AI brain quiz answers (`AI Brain quiz answers.md`, from the quiz on our website) | Each section goes to the brain file it names (Profile, Customers, Offers and Prices, Team, Processes, Tools, Key Numbers, Goals). The owner gave these answers, so skip those questions and confirm them in one line instead. Keep the file in `Sources/`. |
 
 4. Move the original file into `Sources/` (keep its name, add the date in front if there's a clash). Don't delete anything. **Exception:** if the file has any of the private details below, don't move it. Save a cleaned copy in `Sources/` with those lines removed, leave the original where it is, and ask the owner to delete the original or move it out of the brain folder now. Add it to "Still to confirm" until they do.
 5. Note at the bottom of each brain file you added to: `From: [[Sources/<file name>]]`.

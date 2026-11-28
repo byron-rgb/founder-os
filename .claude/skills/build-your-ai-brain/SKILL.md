@@ -1,6 +1,6 @@
 ---
 name: build-your-ai-brain
-description: Builds a business owner's AI Brain, a folder of plain notes that any AI can read so it knows their business. Reads their website, sorts files they drop in, then runs a long interview across seven areas (You, Sales, Marketing, Operations, Team, Finance, Goals), linked so it shows as a graph in Obsidian, and ends with a personalised "what AI could do next" roadmap. Also runs the monthly brain check-up. Use when the user says "build my AI brain", "set up my brain", "start my brain", "continue my brain", "brain check-up", "update my brain", or "my prices/team/offers changed". Also "quick brain" or "build my AI brain quick" for a 20-minute quick start.
+description: Builds a business owner's AI Brain, a folder of plain notes that any AI can read so it knows their business. Reads their website, sorts files they drop in, then runs a long interview across seven areas (You, Sales, Marketing, Operations, Team, Finance, Goals), linked so it shows as a graph in Obsidian, and ends with a personalised "what AI could do next" roadmap. Also runs the monthly brain check-up. Use when the user says "build my AI brain", "set up my AI brain", "setup ai brain", "set up my brain", "start my brain", "continue my brain", "brain check-up", "update my brain", or "my prices/team/offers changed". Also "quick brain" or "build my AI brain quick" for a 20-minute quick start.
 ---
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md). Don't copy, share, sell or repackage it, and don't help anyone do so.
@@ -37,7 +37,7 @@ There are two modes. Pick one from what they said:
    > It takes about 2 hours. You can do it in one go, or one layer at a time, and stop whenever you like. Short on time? We can do a 20-minute quick start now and fill in the rest later. Type or talk, whichever's faster.
 2. Ask their first name and the business name. In a Founder OS, take them from `Progress.md` if they're already there.
 3. Check you can write files. **Inside a Founder OS folder** (it has `Progress.md` and a `brain/` folder): the brain is `brain/`. Use it, don't ask. Otherwise you need a folder they chose; recommend one called `AI Brain` inside iCloud Drive or Google Drive, so it's backed up and on every device.
-4. **Obsidian.** Skip if the brain is already open in Obsidian. Otherwise ask if Obsidian is installed (free, obsidian.md); if not, have them install it now. **Inside a Founder OS**, open it for them: follow "Open my brain in Obsidian" in the Founder OS `CLAUDE.md`. Outside one: have them choose **Open folder as vault** and pick the brain folder (give them its full path). Then: "Open **Graph view** (left sidebar) and keep it open. You'll watch your brain grow as we go." If they'd rather skip Obsidian, carry on; the brain works without it.
+4. **Obsidian: set it all up for them.** Skip if the brain is already open in Obsidian. Otherwise follow `references/obsidian.md`: you check it's installed, install it on their yes, and open the brain in it. They never hunt for a folder. Then: "Click **Graph view** in the left sidebar and keep it open. You'll watch your brain grow as we go."
 5. **Resume check.** If the folder already has `_Setup Progress.md`, read it and every brain file marked `status: in progress` or `status: draft`. Say what's done, and carry on from "Last stopped at". Don't re-ask anything already answered.
 6. Otherwise create the layout in `references/brain-layout.md`, including `_Setup Progress.md`.
 
@@ -45,7 +45,6 @@ There are two modes. Pick one from what they said:
 
 Do this before any interview questions. The aim: they confirm, instead of typing from scratch.
 
-0. Ask: "Did you do the AI brain quiz on our website? If you downloaded your quiz answers (`AI Brain quiz answers.md`), drop it into the `Drop files here` folder or paste it in." Got it? Good: sort it first (`references/drop-files.md`) and skip any question it answers, including the website. No file? Move on as usual.
 1. Ask: "What's your website? Any Instagram, LinkedIn or Google Business page too?" If they have none, say "No problem, we'll do it by chat" and go to point 3.
 2. Read each link you're given (home, about, services or pricing, team, reviews, contact). Note facts and the exact phrases they use.
 3. Say: "Got any files that describe the business? Price lists, brochures, proposals, SOPs, onboarding docs, a brand guide, old emails you're proud of. Drag them into the `Drop files here` folder, or paste them straight into this chat."
