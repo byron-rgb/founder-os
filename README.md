@@ -2,10 +2,10 @@
 
 Your AI, set up properly. One level at a time.
 
-This folder is your Founder OS. It holds your AI brain, your skills, your dashboard and your agents. You own all of it. Claude reads it every time you work.
+This folder is your AI brain, skills, dashboard and agents. You own it.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude.
 
 ![How it all talks](levels/images/flow-s.1.png)
 
@@ -14,31 +14,29 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ## Start here
 
 **Get your copy (once):**
-1. Open the **Claude** desktop app, go to the **Code** tab and choose your **Documents** folder.
-2. Paste: *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*. Claude copies it into `Documents/Founder OS` and links it for the monthly updates.
-3. Your own private backup on GitHub comes later, in Level 3 (say **save a copy**).
+1. In the **Claude** desktop app, click **Code**.
+2. Choose **Documents**. (Windows: if Documents is in OneDrive, choose your user folder.)
+3. Paste: *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*. It lands in `Documents/Founder OS`.
+4. GitHub backup comes in Level 3 (say **save a copy**).
 
-Prefer clicking? Press **Make my copy** in lesson S.2 of the course, choose **Private**, then **Code**, **Open with GitHub Desktop**, **Clone** into Documents.
 
 **Then, every time:**
-1. Open the **Claude** desktop app and go to the **Code** tab (or open Terminal and type `claude`).
+1. In the **Claude** app, click **Code** (or type `claude` in Terminal).
 2. Pick your `Founder OS` folder.
 3. Type: **start my Founder OS**
-
-Claude takes it from there, one step at a time.
 
 ## The six levels
 
 | Level | Name | What you get |
 | --- | --- | --- |
-| 0 | Upgrade | Claude plus the skills that make it sharp |
-| 1 | Brain | Your AI brain. Claude knows your business |
-| 2 | Connect | Inbox, calendar, CRM and money in one conversation |
-| 3 | Build | Your dashboard, pages and site, live and backed up |
-| 4 | Streamline | Your messy, repeated jobs turned into a system |
-| 5 | Delegate | Agents doing the weekly jobs, drafts only |
+| 0 | Upgrade | Claude plus key skills |
+| 1 | Brain | Claude knows your business |
+| 2 | Connect | Inbox, calendar, CRM and money in one chat |
+| 3 | Build | Dashboard, pages and site, live and backed up |
+| 4 | Streamline | Repeated jobs become a system |
+| 5 | Delegate | Agents do weekly jobs, drafts only |
 
-Every level has the same four steps: **Why**, **Set up**, **Make your own**, **Check**. The guides are in `levels/`.
+Each level: **Why**, **Set up**, **Make your own**, **Check**. Guides are in `levels/`.
 
 ## What's in here
 
@@ -58,20 +56,20 @@ Founder OS/
 
 ## Things you can say
 
-- **start my Founder OS** or **what's next**: picks up where you left off
+- **start my Founder OS** or **what's next**: carry on
 - **install my Claude Upgrade**: Level 0
 - **build my AI brain** / **continue my brain** / **brain check-up**: Level 1
-- **give me a quick win**: a small useful job, done now
+- **give me a quick win**: a small job, now
 - **build my website** / **rebuild my website from <address>**: Level 3
 - **build my dashboard** / **add a page to my dashboard**: Level 3
-- **help me with a key**: store an API key safely, without it touching the chat
-- **security check**: your plain-English security check and fix list
-- **brand studio**: your design system, a brand refresh, and real slides, posts, posters and flyers
-- **pull the latest Founder OS**: brings in new templates and agents
+- **help me with a key**: store a key safely
+- **security check**: check and fix list
+- **brand studio**: design system, refresh, on-brand content
+- **pull the latest Founder OS**: new templates and agents
 
 ## Is this safe?
 
-Yes. Claude only sees this folder unless you choose otherwise, asks before it changes anything, never sees your passwords, and only drafts: it never sends, pays or posts. Every level explains exactly what it can and can't do.
+Yes. Claude sees only this folder unless you choose otherwise. It asks before changing anything, never sees your passwords, and only drafts. It never sends, pays or posts.
 
 ## Licence
 
@@ -79,7 +77,7 @@ The Founder OS is licensed to your business only. Use it and change it however y
 
 ## Keep it private
 
-Your copy on GitHub must be **private**. Your brain holds your prices, customers and numbers. Never store passwords, bank details or card numbers in these files.
+Your GitHub copy must be **private**. Never store passwords, bank details or card numbers in these files.
 
 Driven Young Founder OS. Beta, November 2026.
 

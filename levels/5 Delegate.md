@@ -3,7 +3,7 @@
 Agents doing the weekly jobs. Drafts only.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream = you. Purple = Claude. Numbers = order.
 
 ![Why agents, and how they run](images/flow-5.1.png)
 
@@ -14,30 +14,38 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ![Make me an agent](images/flow-5.4.png)
 
 ## 1. Why
-The jobs that eat your week, like inbox, follow-ups, receipts and checks, get done before you sit down. They run as Claude scheduled tasks in the cloud, so your laptop can be closed.
+Inbox, follow-ups, receipts and checks done before you sit down. Agents are Claude scheduled tasks in the cloud, so your laptop can be closed.
 
-**Is this safe?** Agents only use the connectors you turned on. They prepare drafts and wait for you: they never send, pay, post or delete. Each one has its own short rules you can read, and you can pause any agent in one click. The Security agent checks the rest every week.
+**Is this safe?**
+- Agents only use the connectors you turned on.
+- Agents only draft. They never send, pay, post or delete.
+- Each has short rules you can read. Pause any in one click.
+- The Security agent checks the rest weekly.
 
 ## 2. Set up
-Your agents came with your Founder OS, in the `agents` folder. Set them up one at a time, each in a new chat in your Founder OS folder:
+Do Level 3 first (the cloud reads your private GitHub copy).
+
+Agents are in the `agents` folder. One at a time, each in a new chat in your Founder OS folder.
 
 | Say | What it does | When |
 | --- | --- | --- |
-| **set up my EA** | Morning brief of your inbox and calendar, replies drafted | Weekday mornings |
+| **set up my EA** | Morning brief of inbox and calendar, replies drafted | Weekday mornings |
 | **set up my sales agent** | New enquiries and quiet leads, follow-ups drafted | Daily |
 | **set up my finance agent** | Money snapshot, invoices to chase, receipts missing for your bookkeeper | Weekly |
 | **set up my security agent** | Your security check on a schedule | Weekly, deeper monthly |
 
-Each one:
-1. Checks the tools it needs and shows a Connect button for any that are missing.
-2. Asks a few questions to fit it to you (what time, who matters, where the report goes). Your answers are saved in `brain/Agents/`.
-3. Runs once there and then, so you see a real result.
-4. Gets scheduled in the cloud: Claude fills in every field, you press **Create**. It runs with your laptop shut, and each run shows up in Claude.
+For each agent:
+1. Say its phrase.
+2. Press **Connect** for any missing tool.
+3. Answer a few questions (what time, who matters, where the report goes). Saved in `brain/Agents/`.
+4. It runs once so you see a real result.
+5. Claude fills in the schedule. You press **Create**.
+6. It runs in the cloud, laptop shut. Each run shows in Claude.
 
-Change one any time: **change my EA**. When an agent gets something wrong, just tell Claude: it adds a rule to that agent so it learns. Needs Level 3 done first (your Founder OS saved to your private GitHub, which the cloud runs read).
+Change one: say **change my EA**. Got something wrong? Tell Claude. It adds a rule so the agent learns.
 
 ## 3. Make your own
-Say: **make me an agent for the job I do every Monday.** Claude interviews you, writes it, and schedules it with the ground rules built in.
+Say **make me an agent for the job I do every Monday.** Claude interviews you, writes it and schedules it, ground rules built in.
 
 ## 4. Check
 - [ ] EA brief ready each morning (in Claude or your email)

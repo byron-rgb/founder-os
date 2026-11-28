@@ -3,7 +3,7 @@
 Your AI brain. Claude knows your business.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude. Numbers show the order.
 
 ![Why an AI brain](images/flow-1.1.png)
 
@@ -14,20 +14,23 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ![Keep it fresh](images/flow-1.4.png)
 
 ## 1. Why
-Generic answers come from AI that doesn't know you. Your brain is a folder of plain notes about you and the business: offers, prices, customers, voice, how things run, your goals. Claude reads it every time. In Obsidian you can see it as a graph and watch it grow. It also holds your **Brand** folder: logo, colours, fonts and style in one design file, so everything Claude makes looks like you.
+Your brain is notes about you and your business. Claude reads it every time. It also holds your **Brand** folder: logo, colours, fonts and style.
 
-**Is this safe?** Your brain is plain notes on your own computer. Nothing is uploaded anywhere unless you choose to back it up (Level 3, to your private GitHub). Never put passwords, bank or card numbers in it; Claude leaves them out if you paste one.
+**Is this safe?** Your brain stays on your computer. Nothing is uploaded unless you back it up (Level 3, to your private GitHub). Never put passwords, bank or card numbers in it. Claude leaves them out if you paste one.
 
 ## 2. Set up
-1. Say **open my brain in Obsidian**. Claude installs Obsidian if you don't have it (free), then opens your brain in it. The brain build does this too.
-2. Before you start, drop your price list, any brochures or proposals into `brain/Drop files here`.
-3. In Claude, say: **build my AI brain**. Claude reads your website and files, then interviews you across seven areas: You, Sales, Marketing, Operations, Team, Finance, Goals. Type or talk. About 2 hours, and you can stop any time ("continue my brain" picks it up). Short on time? Say **quick brain** for a 20-minute start and fill in the rest later.
-4. **Your brand.** Claude moves your brand in: your logo files, Canva brand kit, designer files and website colours go into `brain/3 Marketing/Brand/`. No brand yet? Claude sets up a simple starter brand with you. Open `Brand Board.html` to see it on one page.
-5. In Obsidian, open **Graph view** to see it connect.
+1. Say **open my brain in Obsidian**. Claude installs Obsidian (free) and opens your brain.
+2. Put your price list, brochures and proposals in `brain/Drop files here`.
+3. Say **build my AI brain**. Claude reads your website and files, then asks about You, Sales, Marketing, Operations, Team, Finance and Goals. Type or talk. About 2 hours.
+4. Need a break? Stop any time. Say **continue my brain** later.
+5. Short on time? Say **quick brain** for a 20-minute start.
+6. Claude moves your logo, Canva brand kit, designer files and website colours into `brain/3 Marketing/Brand/`. No brand yet? Claude makes a simple one with you.
+7. Open `Brand Board.html` to see your brand on one page.
+8. In Obsidian, open **Graph view**.
 
 ## 3. Make your own
-Big one: say **brand studio** to turn your brand into a design system and make real slides, posts and a poster.
-Or pick one quick win (say **give me a quick win**):
+Big one: say **brand studio**. Claude turns your brand into a design system and makes slides, posts and a poster.
+Or say **give me a quick win**:
 - Your email signature, built from your brain
 - Your price list as a clean PDF
 

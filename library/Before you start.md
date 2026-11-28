@@ -2,10 +2,10 @@
 
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
-About 30 minutes, before your first session. Use your work email, and save every password in your password manager as you go.
+About 30 minutes. Use your work email. Save each password in your password manager.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude.
 
 ![How it all talks](../levels/images/flow-s.1.png)
 
@@ -13,19 +13,26 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 
 ## Accounts
 - [ ] Claude, Pro plan or higher (claude.ai). The free plan can't run the setup.
-- [ ] GitHub, free (github.com). Your private backup copy goes there in Level 3.
-- [ ] Your copy on your computer: in the Claude app's Code tab, choose Documents and paste *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*.
-- [ ] Cloudflare, free (cloudflare.com). Puts your website live.
 - [ ] A password manager: 1Password (Mac or Windows), or Apple Passwords on a Mac.
+
+GitHub, Cloudflare and Obsidian come later. Claude sets them up with you.
 
 ## On your laptop (Mac easiest, Windows works)
 - [ ] Claude desktop app (claude.ai/download), signed in.
-- [ ] Node.js, free (nodejs.org, the LTS button). Claude needs it to build your website and dashboard. Install it, then forget it.
+- [ ] Node.js, free (nodejs.org/en/download). Click **macOS Installer (.pkg)** or **Windows Installer (.msi)**. Click Next until done.
 - [ ] **On Windows only:** Git for Windows, free (git-scm.com, accept the defaults). Claude needs it to work with your files.
 - [ ] Updates done, charger packed.
 
+Windows: after Git, close Claude and open it again.
+
+1. In the Claude app, click **Code**. Start a new session.
+2. Choose **Documents**. (Windows: if Documents is in OneDrive, choose your user folder.)
+3. Paste: *Install my Founder OS from https://github.com/byron-rgb/founder-os and follow its INSTALL.md*
+4. When done, start a **new session** in the **Founder OS** folder.
+5. Type **start my Founder OS**.
+
 ## Your business tools
-Check you can log in as owner or admin: email and calendar, accounting (Xero, QuickBooks, MYOB), CRM if you have one, and any app you use every week (bookings, jobs, shop, payroll).
+Check you can log in as owner or admin: email, calendar, accounting (Xero, QuickBooks, MYOB), CRM, and apps you use weekly.
 
 ## Bring
 - [ ] Price list or menu of services
@@ -34,4 +41,4 @@ Check you can log in as owner or admin: email and calendar, accounting (Xero, Qu
 - [ ] Your top three goals for the next 12 months
 - [ ] Your phone, for sign-in codes
 
-Never share passwords, bank or card numbers or your tax file number with anyone, Claude included.
+Never share passwords, bank or card numbers or your tax file number. Not even with Claude.

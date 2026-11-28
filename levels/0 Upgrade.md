@@ -3,45 +3,55 @@
 Claude, plus the skills that make it sharp.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude. Numbers show the order.
 
 ![Install the Claude Upgrade](images/flow-0.1.png)
 
 ![Use your new skills](images/flow-0.2.png)
 
 ## 1. Why
-Out of the box Claude is good. With the right skills it plans with you, writes like a person and builds things that look designed. Every level after this uses them. About 20 minutes.
+Skills make Claude plan, write and design better. Every level uses them. About 20 minutes.
 
-**Is this safe?** Yes. Claude only works inside the folder you give it, and it asks before it changes anything. Every skill here is free, public and checked by us first.
+**Is this safe?** Yes. Claude only works in the folder you give it. It asks before it changes anything. Every skill is free, public and checked by us.
 
 ## 2. Set up
 
 ### Claude, two ways in
-1. **Claude desktop app** (everyone). Install it from claude.ai/download and sign in on the **Pro** plan or higher. This is where you'll do most things.
-2. **Claude in your Terminal** (optional, recommended). Same Claude, but it can also work with the rest of your computer when you let it: tidy files, run tools, set things up for you.
-   - Open **Terminal** (press Cmd + Space, type Terminal, press Enter).
+1. Get the **Claude desktop app** at claude.ai/download.
+2. Sign in on the **Pro** plan or higher.
+3. Optional: add Claude to your Terminal.
+   - Press Cmd + Space, type **Terminal**, press Enter.
    - Paste this and press Enter:
      ```
      curl -fsSL https://claude.ai/install.sh | bash
      ```
-   - Close Terminal, open a new one, type `claude` and press Enter. A browser page opens: sign in with the same Claude account.
-   - **On Windows:** install **Git for Windows** first (free, git-scm.com, accept the defaults). Then open **PowerShell** (Start menu, type PowerShell) and paste `irm https://claude.ai/install.ps1 | iex` instead. The rest is the same.
+   - Close Terminal. Open a new one.
+   - Type `claude` and press Enter.
+   - Sign in with the same Claude account.
+   - **On Windows:** first install **Git for Windows** (free, git-scm.com, keep the defaults). Open **PowerShell** and paste `irm https://claude.ai/install.ps1 | iex` instead.
 
 ### Pick Claude's folder
-Claude can only see the folder you start it in. You choose how much it sees:
-- **Your Founder OS folder** (recommended to start). Claude sees this folder and nothing else on your computer. In the app's **Code** tab, pick `Founder OS`. In Terminal: `cd "Founder OS"` then `claude`.
-- **Your whole user folder** (later, if you want). Claude can help across all your files. It still asks before every change. This is how Byron runs his.
+Claude only sees the folder you start it in.
+- **Start here:** your `Founder OS` folder. In the app's **Code** tab, pick `Founder OS`. In Terminal: `cd "Founder OS"` then `claude`.
+- **Later, if you like:** your whole user folder. Claude still asks before every change.
 
-You can switch any time. Start small.
+You can switch any time.
 
 ### Install the Upgrade
-In your Founder OS folder, say: **install my Claude Upgrade**. Claude installs each skill from its own public source and tells you what each one does.
+1. In your Founder OS folder, say **install my Claude Upgrade**.
+2. Claude installs each skill and says what it does.
 
-### What the permission boxes mean
-Claude stops and asks before it runs a command or edits a file. You'll see the action and **Yes**, **Yes, and don't ask again**, or **No**. Read it, and press **No** whenever you're not sure. Nothing happens without a yes.
+### Add the plugins
+1. In the Claude app, click **Plugins** on the left.
+2. Add **frontend design**.
+3. Add **security guidance**.
+4. Add **cloudflare** (the one that says Connector & skills · cloudflare/skills).
+
+### The permission boxes
+Claude asks before it runs or changes anything. You pick **Yes**, **Yes, and don't ask again**, or **No**. Not sure? Press **No**.
 
 ## 3. Make your own
-Say: **grill me on the one decision I keep putting off.**
+Say **grill me on the one decision I keep putting off.**
 
 ## 4. Check
 - [ ] Claude app on Pro, signed in

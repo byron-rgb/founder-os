@@ -1,60 +1,58 @@
 # Security
 
-Plain English. No scare tactics. Here's what's safe, what to watch, and how to check.
+What's safe, what to watch, how to check.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude.
 
 ![Security deep dive](../levels/images/flow-l.2.png)
 
 ## Is AI safe for my business?
-Yes, set up properly. The Founder OS is built so that:
-- **Claude only sees what you give it.** The folder you pick, the tools you connect. Nothing else.
-- **Claude asks first.** Before it runs or changes anything, you get a box with Yes or No.
-- **Claude never sees your passwords.** You sign in to each tool on its own page.
+Yes, set up like this:
+- **Claude sees only what you give it:** your folder and the tools you connect.
+- **Claude asks first** before it runs or changes anything.
+- **Claude never sees your passwords.** You sign in on each tool's own page.
 - **Agents draft, you send.** Nothing is emailed, paid, posted or deleted without you.
-- **You own everything.** Your accounts, your files, your private GitHub.
+- **You own everything:** accounts, files, private GitHub.
 
 ## Five habits that stop most problems
-1. **Two-step login** on email, Claude, GitHub, Cloudflare, your CRM and your bank.
-2. **A password manager** (1Password, or Apple Passwords on a Mac). One strong, different password per account.
+1. **Two-step login** on email, Claude, GitHub, Cloudflare, CRM and bank.
+2. **A password manager** (1Password, or Apple Passwords on a Mac). A different strong password for each account.
 3. **No secrets in chats or files.** Never paste a password, card number or key into Claude. If you do, change it.
-4. **Only install from the source.** Skills, plugins and connectors from the maker's own page. Never a link someone sent you.
-5. **Press No when unsure.** If a permission box doesn't make sense, say No and ask Claude what it's for.
+4. **Install only from the maker's own page.** Never from a link someone sent you.
+5. **Unsure? Press No** and ask Claude what it's for.
 
-## API keys and secrets
-Most of the Founder OS needs **no keys**: you sign in to Claude connectors, Cloudflare and GitHub in the browser. Keys only come up for a few things, mostly your website's forms sending leads to GoHighLevel.
+## Keys and secrets
+Most things need no key. Keys are mostly for website forms sending leads to GoHighLevel.
+- **Never in the chat.** Copy the key from the tool to your password manager, then to the safe place. Claude says where to click. It never sees the key.
+- **Three safe places:** your password manager (master copy), Cloudflare secrets (live site), `site/.env` on your computer (testing only, never saved to GitHub).
+- **One key per job**, with only the access it needs.
+- **Leaked?** Delete it, make a new one, put it back, run a security check.
 
-When one does:
-- **The key never goes in the chat.** You copy it from the tool into your password manager, then into the safe place. Claude tells you where to click and never sees it.
-- **Three safe places:** your password manager (master copy), Cloudflare secrets (the live site, encrypted), and `site/.env` on your computer (testing only, never saved to GitHub).
-- **Least access.** One key per job, with only the permissions that job needs.
-- **Leaked one?** Delete it in the tool, make a new one, put it back. Then run a security check.
-
-Say **help me with a key** and Claude walks you through it.
+Say **help me with a key**.
 
 ## Your security check
-Say **security check**. About 30 minutes the first time. Claude asks what tools you use, then checks only what fits:
-- Can scammers send email pretending to be you
-- Your website's grade and certificate
-- Whether your email shows up in known password leaks
-- Two-step login on your key accounts
+Say **security check**. About 30 minutes the first time. Claude checks only what fits your tools:
+- Fake email sent as you
+- Website grade and certificate
+- Your email in password leaks
+- Two-step login on key accounts
 - Who your files are shared with
-- The AI skills, plugins and connections you've installed
+- Installed AI skills, plugins and connections
 - Backups and devices
-- Your Google or Microsoft admin settings, if you have them
-- Your site's code, if you built one in Level 3
+- Google or Microsoft admin settings
+- Your site's code (Level 3)
 
-You get a score out of 100 on Australia's Essential Eight, a short list in order, and Claude walks you through each fix. Claude only looks; you click every button.
+You get a score out of 100 on Australia's Essential Eight and a fix list in order. Claude only looks. You click every button.
 
 ## Every week after
-In Level 5 the **Security agent** runs a light check each week and a deeper one each month. You get one line: "2 new, 1 fixed."
+From Level 5 the **Security agent** checks weekly, deeper monthly. You get one line: "2 new, 1 fixed."
 
 ## Is this skill, plugin or connector safe?
-Before installing anything new, say: **is this safe: <link>**. Claude reads it and tells you what it can reach, who made it, and whether to install it.
+Before installing, say **is this safe: <link>**. Claude says what it can reach, who made it, and whether to install.
 
 ## If something goes wrong
-Say **I think I've been hacked**. Claude walks you through the first steps: change the password, sign out other devices, check recent activity, tell your bank if money is involved.
+Say **I think I've been hacked**. Change the password, sign out other devices, check recent activity, call your bank if money is involved.
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md

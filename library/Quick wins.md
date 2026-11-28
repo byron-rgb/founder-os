@@ -1,31 +1,30 @@
 # Quick wins
 
-What can I actually use my AI for? Small jobs that take minutes and you use the same day. Say **give me a quick win** and Claude picks one for your level, or name one.
-
-| Level | Quick win | What you get | How Claude does it |
-| --- | --- | --- | --- |
-| 1 | Email signature | A signature ready to paste into Gmail or Outlook | From Profile + Brand Guidelines (no website yet: leave the link out; no brand colours yet: use black text). Simple HTML table, no hosted images. Save as an `.html` file, open it in the browser, select all, copy, paste into Gmail signature settings |
-| 1 | Price list PDF | Your services and prices, laid out properly | From Offers and Prices. One page, your brand colours |
-| 1 | Proposal template | A proposal you fill from a voice note | From Offers, Customers, Brand Voice. Saved to brain/Work/Proposals |
-| 1 | Your FAQ | The 10 questions customers always ask, answered your way | From Customers + Offers. Practical questions only |
-| 2 | Quote from a voice note | A clean quote from you talking through the job | Voice note or typed notes, prices from the brain, draft only |
-| 2 | Meeting to follow-up | The follow-up email after a call | Meeting notes or transcript, Brand Voice, saved as a draft |
-| 2 | Review replies | Every Google review answered in your voice | Pasted reviews, Brand Voice, drafts to copy |
-| 2 | Plan my week | Calendar and tasks turned into a realistic week | Calendar + tasks connectors, Goals |
-| 3 | Landing page | One offer, one page, one form, live today | Site starter in site/, design system, `website` skill |
-| 3 | Job ad | A hiring page and the ad pointing to it | Team + Brand Voice |
-| 3 | How-to from a video | A written step-by-step from a screen recording | Watch skill or a transcript, saved to brain/4 Operations |
-| 3 | Client welcome pack | The emails and page every new client gets | Processes + Brand Voice, drafts |
-| 4 | Invoice reminders | Overdue invoices chased politely | Accounts connector, drafts only |
-| 4 | Receipts sorted | Every receipt matched for your bookkeeper | Email + accounts connectors |
-| 4 | Captions from photos | Job photos turned into a week of posts | Photos you drop in, Brand Voice |
-| 4 | Contract, explained | Any contract in plain English, with what to ask | The contract file. Not legal advice; flag anything to check with a lawyer |
-
----
-Driven Young Founder OS · licensed to one business · see LICENSE.md
+Small jobs, done in minutes. Say **give me a quick win** and Claude picks one for your level. Or name one.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude.
 
 ![Quick wins and ideas](../levels/images/flow-l.1.png)
 
+| Level | Quick win | How Claude does it |
+| --- | --- | --- |
+| 1 | Email signature | From Profile + Brand Guidelines (no website: leave the link out; no brand colours: black text). Simple HTML table, no hosted images. Save as `.html`, open in the browser, select all, copy, paste into Gmail or Outlook signature settings |
+| 1 | Price list PDF | From Offers and Prices. One page, brand colours |
+| 1 | Proposal template | Filled from a voice note. From Offers, Customers, Brand Voice. Saved to brain/Work/Proposals |
+| 1 | Your FAQ | The 10 questions customers ask. From Customers + Offers. Practical questions only |
+| 2 | Quote from a voice note | Voice note or typed notes, prices from the brain, draft only |
+| 2 | Meeting to follow-up | Meeting notes or transcript, Brand Voice, saved as a draft |
+| 2 | Review replies | Pasted Google reviews, Brand Voice, drafts to copy |
+| 2 | Plan my week | Calendar + tasks connectors, Goals. A realistic week |
+| 3 | Landing page | One offer, one page, one form, live today. Site starter in site/, design system, `website` skill |
+| 3 | Job ad | Hiring page plus the ad. Team + Brand Voice |
+| 3 | How-to from a video | Watch skill or a transcript, saved to brain/4 Operations |
+| 3 | Client welcome pack | Emails and page for new clients. Processes + Brand Voice, drafts |
+| 4 | Invoice reminders | Overdue invoices chased politely. Accounts connector, drafts only |
+| 4 | Receipts sorted | Matched for your bookkeeper. Email + accounts connectors |
+| 4 | Captions from photos | A week of posts. Photos you drop in, Brand Voice |
+| 4 | Contract, explained | Plain English, with what to ask. Not legal advice; flag anything to check with a lawyer |
+
+---
+Driven Young Founder OS · licensed to one business · see LICENSE.md

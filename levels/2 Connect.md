@@ -3,7 +3,7 @@
 Inbox, calendar, files, CRM and money in one conversation.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude. Numbers show the order.
 
 ![Why connect your tools](images/flow-2.1.png)
 
@@ -12,26 +12,27 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ![First asks and security](images/flow-2.3.png)
 
 ## 1. Why
-Your business lives in five apps. Connected, Claude can tell you who's waiting on a reply, what's overdue and where the money is.
+Connect your apps. Then Claude can tell you who needs a reply, what's overdue and where the money is.
 
-**Is this safe?** You sign in to each tool yourself, on that tool's own page, so Claude never sees your passwords. Each connection only does what you allow, and you can switch any of them off in Customize, Connectors.
+**Is this safe?** You sign in on each tool's own page, so Claude never sees your passwords. Each connection only does what you allow. Switch any off in **Customize**, **Connectors**.
 
 ## 2. Set up
-You do this part yourself. It takes a few minutes and Claude can't sign in for you (that's the point: only you hold the keys).
+You do this part. Only you can sign in.
 
 ### Built-in connectors
-1. In the Claude app open **Customize**, then **Connectors**.
-2. Find the tool (Gmail, Google Calendar, Google Drive and many more), press **Connect**, sign in on the tool's own page, press **Allow**.
-   Or just say **connect Xero** (or any tool): Claude shows a Connect button right in the chat.
-3. Back in Claude, say: **check my connections**. Claude tries each of your tools with one small read-only look, tells you what works, helps you fix what doesn't, and saves the list in your brain (`brain/4 Operations/Connections.md`).
+1. In the Claude app, open **Customize**, then **Connectors**.
+2. Find a tool (Gmail, Google Calendar, Google Drive and more).
+3. Press **Connect**. Sign in on the tool's page. Press **Allow**.
+   Or say **connect Xero** (or any tool) and press the button Claude shows.
+4. Say **check my connections**. Claude tests each tool (look only, no changes), helps fix what fails, and saves the list in `brain/4 Operations/Connections.md`.
 
 ### Tools without a built-in connector
-Many tools publish their own connector link. Some tools only connect through a bridge service.
-1. Ask Claude: **is there a connector for <tool>?** It finds the official link for you.
+1. Ask **is there a connector for <tool>?** Claude finds the official link.
 2. In **Customize**, **Connectors**, press **+**, then **Add custom connector**.
-3. Paste the link, give it a name, press **Add**, then sign in on the tool's page.
-4. Only add links from the tool's own website or one Claude found on it. Never paste a link someone sent you.
-5. Some tools have no connector at all. Ask Claude what to do instead: usually exporting a file and dropping it in, or a bridge service like Zapier.
+3. Paste the link, name it, press **Add**.
+4. Sign in on the tool's page.
+5. Only use links from the tool's own website, or one Claude found there. Never paste a link someone sent you.
+6. No connector? Ask Claude. Usually you drop in an exported file, or use a bridge like Zapier.
 
 ### Our picks, if you're choosing
 | Job | Our pick | Also fine |
@@ -43,12 +44,11 @@ Many tools publish their own connector link. Some tools only connect through a b
 | Tasks + notes | Roma | Notion |
 | Selling online | Shopify | |
 
-
 ## 3. Make your own
-Ask: **who haven't I replied to this week, and when am I free to call them?**
+Ask **who haven't I replied to this week, and when am I free to call them?**
 Quick wins: quote from a voice note, meeting notes to follow-up email, review replies, plan my week.
 
-Then run your first **security check** (see `library/Security.md`) now that your tools are connected.
+Then run your first **security check** (see `library/Security.md`).
 
 ## 4. Check
 - [ ] Email, calendar and files connected

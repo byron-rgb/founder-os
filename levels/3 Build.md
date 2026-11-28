@@ -3,7 +3,7 @@
 Your dashboard, pages and site. Live and backed up.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream = you. Purple = Claude. Numbers = order.
 
 ![Why build in Claude](images/flow-3.1.png)
 
@@ -16,41 +16,69 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 ![Your founder dashboard](images/flow-3.5.png)
 
 ## 1. Why
-This is where AI stops being a chat and becomes part of how you run the business. You own every file and can change anything by asking.
+You own every file. Change anything by asking.
 
-**Is this safe?** Your GitHub copy is set to private, so only you can see it. Every change is saved, so anything can be undone. Nothing goes live until you say so. The one key your forms need goes into Cloudflare's encrypted secrets, typed by you, never into the chat or your files.
+**Is this safe?**
+- Your GitHub copy is private. Only you see it.
+- Every change is saved. Anything can be undone.
+- Nothing goes live until you say so.
+- Your form key goes in Cloudflare's encrypted secrets, typed by you. Never in the chat or your files.
 
 ## 2. Set up
-1. **GitHub**: say **save a copy**. The first time, install **GitHub Desktop** (free, desktop.github.com) and sign in with your GitHub account, and Claude helps you make your own **private** copy on GitHub (Add existing, then Publish, tick Private). After that, say **save a copy** whenever you want your latest changes backed up; every change is kept and can be undone. Already made your copy from the template? It's there: just save.
-2. **Cloudflare**: make a free account. It puts your website and pages live.
-3. **Your dashboard**: say **build my dashboard**. Claude asks what you want to track, maps it with you, then builds a private dashboard in your Claude account: one page per section (Finance, Sales, Marketing and the rest), live from the tools you connected in Level 2. It only reads.
-4. **Your website and landing pages** (`site/`): Claude already knows your business (your brain) and your look (your design system), so say **build my website** and it builds the whole site in one go. It uses the Founder OS site starter: plain Astro, ready-made templates for common businesses (landscaping, trades, health and wellness, beauty, services), your design system for the look, and a quote form that sends leads to GoHighLevel or any other CRM. Using GoHighLevel and want even more page designs? Damn Good Funnels is free for your own business; download it yourself (see `site/README.md`).
-5. **Keys for your forms**: the forms need a GoHighLevel key. Say **help me with a key**. You paste it in yourself, it never goes in the chat (see `library/Security.md`).
+**Back up (GitHub)**
+1. Make a free GitHub account at github.com.
+2. Install **GitHub Desktop** (free, desktop.github.com).
+3. Sign in to it with your GitHub account.
+4. Say **save a copy**.
+5. First time only: click **Add existing**, then **Publish**, tick **Private**. Claude helps.
+6. After that, say **save a copy** to back up your latest changes.
+
+Copy already made from the template? Just save.
+
+**Go live (Cloudflare)**
+1. Make a free Cloudflare account. It puts your pages live.
+
+**Your dashboard**
+1. Say **build my dashboard**.
+2. Tell Claude what to track.
+3. Claude builds a private dashboard in your Claude account: one page per section (Finance, Sales, Marketing and the rest), live from your Level 2 tools. It only reads.
+
+**Your website and landing pages** (`site/`)
+1. Say **build my website**.
+2. Claude builds the whole site in one go, from your brain and design system.
+
+Claude uses the Founder OS site starter: plain Astro, optional templates in `site/templates/` (landscaping, trades, health and wellness, beauty, services), and a quote form that sends leads to GoHighLevel or any CRM.
+
+Want more GoHighLevel page designs? Damn Good Funnels is free for your own business. Download it yourself (see `site/README.md`).
+
+**Keys for your forms**
+1. Say **help me with a key** (your forms need a GoHighLevel key).
+2. Paste it in yourself. Never paste a key into the chat (see `library/Security.md`).
 
 ## Your dashboard: two ways
-**In Claude (included).** A private page in your Claude account, reading your tools through the connections from Level 2. Live every time you open it, no keys, nothing to host. For you.
+**In Claude (included).** A private page in your Claude account, reading your Level 2 connections. Live, no keys, nothing to host. For you.
 
 ![Your dashboard in Claude](images/dashboard-in-claude.png)
 
-**A live app for your team (add-on).** Your own app on your own web address, with a login for your team and crew, saving what they update (job stages, who's on site). The numbers come in one of two ways:
+**A live app for your team (add-on).** Your own app on your own web address. Your team and crew log in and update it (job stages, who's on site). Numbers come in two ways:
 
-- **Hourly, no keys:** a Claude agent copies your Xero, Stripe and calendar numbers in every hour through your connections.
+- **Hourly, no keys:** a Claude agent copies in Xero, Stripe and calendar numbers every hour.
 
 ![Live app, updated hourly by a Claude agent](images/dashboard-live-app.png)
 
-- **Fully live, with keys:** the app talks to each tool directly with one key per tool, kept in Cloudflare secrets. Xero also needs a small developer app.
+- **Fully live, with keys:** one key per tool, kept in Cloudflare secrets. Xero also needs a small developer app.
 
 ![Live app, fully live with keys](images/dashboard-live-app-keys.png)
 
-The live app is the advanced path: it's on the web, so the login and keys have to be set up carefully. Driven Young sets it up for you ($1,000 setup), or you can work through it with Claude yourself. Most founders start in Claude and move to the live app when their team needs it too.
+It's on the web, so login and keys need care. Driven Young sets it up ($1,000 setup), or do it with Claude yourself. Most start in Claude and add the app when the team needs it.
 
 ## Your website
-- **Rebuild it here.** Say **rebuild my website from <your address>**. Claude reads your current site, keeps what works, and rebuilds it on your brand. It joins the same stack, talks to everything else, and you stop paying a web developer for changes.
-- **Big on SEO?** If search brings in a lot of your work, talk to someone who knows SEO before you move it.
-- **Selling online on Shopify?** Stay on Shopify. Use the Founder OS around it.
+- **Rebuild it here (most people).** Say **rebuild my website from <your address>**. Claude keeps what works, rebuilds it on your brand and links it to your Founder OS. No more web developer bills.
+- **Google search brings lots of work?** Talk to an SEO expert before you move.
+- **Sell on Shopify?** Stay there. Use the Founder OS around it.
 
 ## 3. Make your own
-Say: **build a landing page for my main offer.**
+Say **build a landing page for my main offer.**
 Quick wins: job ad page, how-to from a video, client welcome pack.
 
 ## 4. Check
@@ -62,8 +90,6 @@ Quick wins: job ad page, how-to from a video, client welcome pack.
 - [ ] Form key stored safely (password manager + Cloudflare secret)
 
 Next: Level 4 · Streamline.
-
-> Website templates: landscaping, trades, health and wellness, beauty and services are in `site/templates/`. You don't need one; Claude can build from your brain and design system.
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md

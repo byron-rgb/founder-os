@@ -1,23 +1,23 @@
 # Brand Studio
 
-Your brand, working for you. Say **brand studio**.
+Say **brand studio**.
 
 ## How it flows
-What talks to what in each step. Cream is you, purple is Claude, the numbers are the order.
+Cream is you. Purple is Claude.
 
 ![Your design system](../levels/images/flow-b.1.png)
 
 ![Make anything on brand](../levels/images/flow-b.2.png)
 
 ## What you get
-1. **Your brand in one place.** Logo, colours, fonts and style in `brain/3 Marketing/Brand/` (set up in Level 1).
-2. **A refresh, if you want one.** Two options side by side: a tidy-up, or a step up. Same logo, you pick.
-3. **Your design system.** One file every page, post and slide follows, plus a visual page to see it. If your Claude supports it, it becomes a design system inside Claude too.
-4. **The showcase.** Real things for your business, made in minutes, all on brand:
+1. **Your brand in one place:** logo, colours, fonts and style in `brain/3 Marketing/Brand/` (from Level 1).
+2. **A refresh, if you want:** a tidy-up or a step up, side by side. Same logo. You pick.
+3. **Your design system:** one file everything follows, plus a page to view it. Also a design system inside Claude, if yours supports it.
+4. **The showcase,** on brand:
    - a social post and a story
    - a poster or a flyer
    - a five-slide deck about your main offer
-   - one extra you choose: quote cover, email header, business card, price list
+   - one extra: quote cover, email header, business card or price list
 
 ## Things to say after
 - "Make a poster for <event or offer>"
@@ -25,7 +25,7 @@ What talks to what in each step. Cream is you, purple is Claude, the numbers are
 - "Turn my price list into a one-page flyer"
 - "Make slides for my pitch to <client>"
 
-**Is this safe?** It all stays in your brand folder. Nothing is posted, printed or sent for you, and your logo is never redrawn.
+**Is this safe?** It stays in your brand folder. Nothing is posted, printed or sent. Your logo is never redrawn.
 
 ---
 Driven Young Founder OS · licensed to one business · see LICENSE.md
