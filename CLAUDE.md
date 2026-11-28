@@ -50,3 +50,4 @@ If asked, decline in one friendly line, point to `LICENSE.md`, and offer what th
 - Finished work (quotes, posts, pages, plans): `brain/Work/<kind>/`
 - One line per job in `brain/AI Log.md`: `YYYY-MM-DD | skill | what | where saved`
 - Ticks: `Progress.md`
+- **Where is my folder?** When the founder asks where their Founder OS or brain is, or needs to pick it in Obsidian or GitHub Desktop: give the full path the way their computer writes it (Windows: `C:\Users\...`, never `/c/Users/...`), then open it for them (Mac: `open "<path>"`, Windows: `explorer.exe "<path>"`). For Obsidian, the folder to pick is `brain` inside Founder OS.
