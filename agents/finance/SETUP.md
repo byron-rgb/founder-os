@@ -3,7 +3,7 @@
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
 Needs: accounting connected (Xero, QuickBooks or MYOB) and email (receipts, scam checks, reminder drafts).
-Runs: weekly, in the cloud.
+Runs: weekly, on your computer (or the cloud).
 
 Ask one question at a time, clickable options, recommendation first. Skip any the brain already answers (the bookkeeper may be in `brain/5 Team/Team.md` or `brain/6 Finance/Key Numbers.md`).
 

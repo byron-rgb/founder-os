@@ -3,7 +3,7 @@
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
 Needs: <tools>.
-Runs: <how often>. Cloud.
+Runs: <how often>. On their computer, or the cloud.
 
 1. <Question> <options, recommendation first>
 2. **Where should the report go?** In Claude (recommended), a draft email to yourself, your task app.

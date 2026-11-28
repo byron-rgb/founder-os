@@ -3,7 +3,7 @@
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
 Needs: their CRM connected (GoHighLevel, HubSpot, Pipedrive, Attio) and their email (drafts go there). Calendar optional (calls). With no CRM: email only.
-Runs: daily, in the cloud.
+Runs: daily, on your computer (or the cloud).
 
 Ask one question at a time, clickable options, recommendation first. Skip any the brain already answers. Look up their time zone and pipelines; don't ask what you can see.
 

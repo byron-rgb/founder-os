@@ -3,7 +3,7 @@
 > Driven Young Founder OS. Licensed to one business (see LICENSE.md).
 
 Needs: email and calendar connected (Gmail and Google Calendar, or Outlook). Task app optional (Roma, Notion, others).
-Runs: every weekday morning, in the cloud.
+Runs: every weekday morning, on your computer (or the cloud).
 
 Ask one question at a time, clickable options, recommendation first. Skip any the brain already answers. Look up their time zone from the brain or calendar; don't ask.
 

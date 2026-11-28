@@ -8,7 +8,7 @@ Runs the `security` skill on a schedule: light checks weekly, deeper checks on t
 Read `brain/Agents/Security.md` (**Your rules** at the bottom win over anything here except the Rules) and `Security/Stack.md` (their tools, from the security skill's interview). A setting that can be read two ways: take the safer reading and say so. If either file is missing, stop and say: "Your security agent isn't set up yet. Say **set up my security agent** in a new chat."
 
 ## The run
-Follow `.claude/skills/security/SKILL.md`: the weekly light checks, or the deeper checks when this run falls in the first 7 days of the month. Each run starts fresh, so compare with the last report saved in `Security/` in their GitHub copy if there is one; otherwise report what is open now.
+Follow `.claude/skills/security/SKILL.md`: the weekly light checks, or the deeper checks when this run falls in the first 7 days of the month. Each run starts fresh, so compare with the last report saved in `Security/` if there is one; otherwise report what is open now.
 
 ## The report
 ```

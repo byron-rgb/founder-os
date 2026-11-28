@@ -7,7 +7,7 @@ description: Founder OS Level 5 agents. Sets up, changes, pauses or lists the fo
 
 # Agents
 
-Each agent is a folder in `agents/`: `AGENT.md` (what it does every run) and `SETUP.md` (the interview). The founder's answers live in `brain/Agents/<Name>.md`, so the agent is theirs. Agents run in the cloud as Claude scheduled tasks, reading their private GitHub copy of this folder and their connected tools. Drafts only, always.
+Each agent is a folder in `agents/`: `AGENT.md` (what it does every run) and `SETUP.md` (the interview). The founder's answers live in `brain/Agents/<Name>.md`, so the agent is theirs. Agents run as Claude scheduled tasks on their computer (or in the cloud from a private GitHub copy, if they ask), reading this folder and their connected tools. Drafts only, always.
 
 | Say | Agent folder | Settings file |
 |---|---|---|
